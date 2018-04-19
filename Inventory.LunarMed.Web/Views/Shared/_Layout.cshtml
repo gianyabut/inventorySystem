@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @{ Html.RenderPartial("_Nav"); }
+    @{
+        string CurrentURL = Request.Url.AbsoluteUri;
+    }
+
+    <div class="wrapper">
+        <div class="container">
+            @{ 
+                if (!@CurrentURL.Contains("Login") && !@CurrentURL.Contains("Register"))
+                {
+                    Html.RenderPartial("_Sidebar");
+                }
+            }
+            @RenderBody()
+        </div>
+    </div>
+    @*@if (Request.IsAuthenticated)
+        {
+            @:<div class="wrapper">
+                @:<div class="container">
+            Html.RenderPartial("_Sidebar");
+        }*@
+    <!--/.body-->
+    @*@RenderBody()*@
+
+    @*@if (Request.IsAuthenticated)
+        {
+                @:</div>
+            @:</div>
+        }*@
+    <!--/.wrapper-->
+    @{ Html.RenderPartial("_Footer"); }
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/common")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

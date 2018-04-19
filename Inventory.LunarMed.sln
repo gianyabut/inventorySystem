@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.LunarMed.Web", "Inventory.LunarMed.Web\Inventory.LunarMed.Web.csproj", "{55EDA8C7-A82D-41DD-AED7-FB63BCBD317D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.LunarMed.Data", "Inventory.LunarMed.Data\Inventory.LunarMed.Data.csproj", "{90A3F0EB-6C55-4A20-B100-F0A868EA6336}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55EDA8C7-A82D-41DD-AED7-FB63BCBD317D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EDA8C7-A82D-41DD-AED7-FB63BCBD317D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EDA8C7-A82D-41DD-AED7-FB63BCBD317D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EDA8C7-A82D-41DD-AED7-FB63BCBD317D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A3F0EB-6C55-4A20-B100-F0A868EA6336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A3F0EB-6C55-4A20-B100-F0A868EA6336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A3F0EB-6C55-4A20-B100-F0A868EA6336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A3F0EB-6C55-4A20-B100-F0A868EA6336}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8879BB32-FCFC-4D8F-A18F-4D83419F03A9}
+	EndGlobalSection
+EndGlobal

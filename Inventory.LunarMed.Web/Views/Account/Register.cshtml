@@ -1,0 +1,59 @@
+﻿@model Inventory.LunarMed.Web.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="wrapper">
+    <div class="container">
+        @if (!Html.ViewData.ModelState.IsValid)
+        {
+            <div class="row">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    @Html.ValidationSummary("", new { @class = "" })
+                </div>
+            </div>
+        }
+        @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="module module-login span4 offset4">
+                    <form class="form-vertical">
+                        <div class="module-head">
+                            <h3>Register</h3>
+                        </div>
+                        <div class="module-body">
+                            <div class="control-group">
+                                <div class="controls row-fluid">
+                                    @Html.TextBoxFor(m => m.Email, new { placeholder = "Username", @class = "span12" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls row-fluid">
+                                    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "span12" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls row-fluid">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", @class = "span12" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-foot">
+                            <div class="control-group">
+                                <div class="controls clearfix">
+                                    <button type="submit" class="btn btn-primary pull-right">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div><!--/.wrapper-->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
