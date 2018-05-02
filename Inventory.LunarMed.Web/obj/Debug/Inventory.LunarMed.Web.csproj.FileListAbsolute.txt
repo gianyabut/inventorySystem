@@ -261,3 +261,5 @@ C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\bin\WebAct
 C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\bin\Ninject.xml
 C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\bin\Ninject.Web.Common.xml
 C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\bin\Ninject.Web.Mvc.xml
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\bin\AutoMapper.dll
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\bin\AutoMapper.xml

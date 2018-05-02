@@ -71,12 +71,12 @@ namespace Inventory.LunarMed.Web.Controllers
                 return View(model);
             }
 
-            _clientRepository.Add(new Client()
-            {
-                Name = "Test",
-                Address = "Marikina",
-                ContactNumber = "09778050374"
-            });
+            //_clientRepository.Add(new Client()
+            //{
+            //    Name = "Test",
+            //    Address = "Marikina",
+            //    ContactNumber = "09778050374"
+            //});
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true

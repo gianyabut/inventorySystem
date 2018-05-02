@@ -4,14 +4,14 @@
         <div class="sidebar">
             <ul class="widget widget-menu unstyled">
                 <li class="active">
-                    <a href="index.html">
+                    <a href="@Url.Action("Index", "Home")">
                         <i class="menu-icon icon-dashboard"></i>Dashboard
                     </a>
                 </li>
                 @if (Request.IsAuthenticated)
                 {
                     <li>
-                        <a href="activity.html"><i class="menu-icon icon-bullhorn"></i>News Feed </a>
+                        <a href="@Url.Action("Index", "Client")"><i class="menu-icon icon-bullhorn"></i>Clients </a>
                     </li>
                     <li>
                         <a href="message.html">

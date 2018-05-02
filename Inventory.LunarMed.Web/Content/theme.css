@@ -1194,7 +1194,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
     .module-head h3 {
         font-size: 14px;
-        line-height: 20px;
+        line-height: 24px;
         height: 20px;
         margin: 0
     }
@@ -1999,4 +1999,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     list-style: none;
     display: inline;
     padding: 0;
+}
+
+.overflow-hidden {
+    overflow: hidden;
 }
