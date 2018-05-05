@@ -21,7 +21,8 @@ namespace Inventory.LunarMed.Web
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
-                        "~/Scripts/common.js"));
+                        "~/Scripts/common.js",
+                        "~/Scripts/handlebars.min.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -30,7 +31,8 @@ namespace Inventory.LunarMed.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       //"~/Scripts/respond.js",
-                      "~/Content/bootstrap/js/bootstrap.min.js"
+                      "~/Content/bootstrap/js/bootstrap.min.js",
+                      "~/Scripts/bootstrap-dialog.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -38,7 +40,8 @@ namespace Inventory.LunarMed.Web
                       "~/Content/bootstrap/css/bootstrap-responsive.min.css",
                       "~/Content/opensans.css",
                       "~/Content/font-awesome/css/font-awesome.css",
-                      "~/Content/theme.css"));
+                      "~/Content/theme.css",
+                      "~/Content/bootstrap-dialog.css"));
         }
     }
 }

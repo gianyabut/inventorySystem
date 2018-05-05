@@ -1,0 +1,48 @@
+﻿
+<div id="add-new-client" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Client</h4>
+            </div>
+           <form class="form-horizontal row-fluid">
+                <div class="modal-body">
+
+                    <div class="control-group">
+                        <label class="control-label" for="basicinput">Name</label>
+                        <div class="controls">
+                            <input type="text" id="name" class="span8" minlength="5" required>
+                          
+                            <span class="help-inline">Minimum 5 Characters</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="basicinput">Address</label>
+                        <div class="controls">
+                            <textarea id="address" class="span8" rows="5" required></textarea>
+                           
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="basicinput">Contact Number</label>
+                        <div class="controls">
+                            <input type="text" id="contactNumber" class="span8" required>
+                         
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="button" id="btnSaveClient" class="btn btn-info">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -10,3 +10,15 @@ C:\Users\PREDATOR\source\repos\Inventory.LunarMed\Inventory.LunarMed.Data\bin\De
 C:\Users\PREDATOR\source\repos\Inventory.LunarMed\Inventory.LunarMed.Data\bin\Debug\EntityFramework.xml
 C:\Users\PREDATOR\source\repos\Inventory.LunarMed\Inventory.LunarMed.Data\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\PREDATOR\source\repos\Inventory.LunarMed\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.csproj.CopyComplete
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\bin\Debug\Inventory.LunarMed.Data.dll.config
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\bin\Debug\Inventory.LunarMed.Data.dll
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\bin\Debug\Inventory.LunarMed.Data.pdb
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\bin\Debug\EntityFramework.dll
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\bin\Debug\EntityFramework.xml
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.csprojResolveAssemblyReference.cache
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.csproj.CoreCompileInputs.cache
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.csproj.CopyComplete
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.dll
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.pdb

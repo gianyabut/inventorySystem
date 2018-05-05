@@ -2004,3 +2004,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .overflow-hidden {
     overflow: hidden;
 }
+
+.modal-header h4.modal-title {
+    margin: 5px 0;
+}

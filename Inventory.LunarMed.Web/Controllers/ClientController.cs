@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Inventory.LunarMed.Data.Entities;
 using Inventory.LunarMed.Web.Business.Interfaces;
+using Inventory.LunarMed.Web.Enum;
 using Inventory.LunarMed.Web.Models;
+using Inventory.LunarMed.Web.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,25 +36,42 @@ namespace Inventory.LunarMed.Web.Controllers
             return View();
         }
 
-        // GET: Client/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Client/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public JsonResult Create(ClientViewModel model)
         {
+            var response = new ResponseViewModel();
+
             try
             {
-                // TODO: Add insert logic here
+                var client = Mapper.Map<ClientViewModel, Client>(model);
+                _clientRepository.Add(client);
 
-                return RedirectToAction("Index");
+                response.IsSuccessful = true;
+                var messages = new List<ViewMessage>
+                {
+                    new ViewMessage()
+                    {
+                        Type = MessageType.Success,
+                        Message = "Client successfully saved."
+                    }
+                };
+
+                return Json(response);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                response.IsSuccessful = false;
+                var messages = new List<ViewMessage>
+                {
+                    new ViewMessage()
+                    {
+                        Type = MessageType.Error,
+                        Message = ex.Message.ToString()
+                    }
+                };
+
+                return Json(response);
             }
         }
 
