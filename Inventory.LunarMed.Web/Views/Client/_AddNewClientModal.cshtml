@@ -1,48 +1,76 @@
-﻿
-<div id="add-new-client" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add New Client</h4>
-            </div>
-           <form class="form-horizontal row-fluid">
-                <div class="modal-body">
+﻿@model Inventory.LunarMed.Web.Models.ClientViewModel
 
-                    <div class="control-group">
-                        <label class="control-label" for="basicinput">Name</label>
-                        <div class="controls">
-                            <input type="text" id="name" class="span8" minlength="5" required>
-                          
-                            <span class="help-inline">Minimum 5 Characters</span>
-                        </div>
-                    </div>
+@if (Model.ClientId == 0)
+{
+    <h2>Add New Client</h2>
+}
+else
+{
+    <h2>Edit Client</h2>
+}
 
-                    <div class="control-group">
-                        <label class="control-label" for="basicinput">Address</label>
-                        <div class="controls">
-                            <textarea id="address" class="span8" rows="5" required></textarea>
-                           
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="basicinput">Contact Number</label>
-                        <div class="controls">
-                            <input type="text" id="contactNumber" class="span8" required>
-                         
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <div class="control-group">
-                        <div class="controls">
-                            <button type="button" id="btnSaveClient" class="btn btn-info">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+@using (Html.BeginForm("Create", "Client", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
+{
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Name</label>
+        <div class="controls">
+            @*<input type="text" id="name" class="span8" minlength="5" required>*@
+            @Html.TextBoxFor(model => model.Name, new { @class = "span8", required = "required", minlength = "5" })
+            <span class="help-inline">Minimum 5 Characters</span>
         </div>
     </div>
-</div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Address</label>
+        <div class="controls">
+            @*<textarea id="address" class="span8" rows="5" required></textarea>*@
+            @Html.TextAreaFor(model => model.Address, new { @class = "span8", rows = "5", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Contact Number</label>
+        <div class="controls">
+            @*<input type="text" id="contactNumber" class="span8" required>*@
+            @Html.TextBoxFor(model => model.ContactNumber, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.ClientId);
+    <div class="control-group">
+        <button type="submit" class="btn btn-info center-block">Submit Form</button>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var url;
+        if ($('#ClientId').val() == "0")
+            url = this.action;
+        else
+            url = "Client/Edit";
+
+        var clientObj = {
+            ClientId: $('#ClientId').val(),
+            Name: $('#Name').val(),
+            Address: $('#Address').val(),
+            ContactNumber: $('#ContactNumber').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(clientObj),
+            success: function (result) {
+                $('#divMessages').html(result);
+                loadData();
+                $('#modalContainer').modal('hide');
+            }
+        });
+    })
+</script>
+
+

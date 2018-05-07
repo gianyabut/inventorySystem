@@ -21,8 +21,7 @@ namespace Inventory.LunarMed.Web
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
-                        "~/Scripts/common.js",
-                        "~/Scripts/handlebars.min.js"));
+                        "~/Scripts/common.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.

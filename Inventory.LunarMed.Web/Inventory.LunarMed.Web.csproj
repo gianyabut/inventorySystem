@@ -237,6 +237,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ListClientsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Shared\ViewMessage.cs" />
     <Compile Include="Models\Shared\ResponseViewModel.cs" />
@@ -270,18 +271,8 @@
     <Content Include="Content\font-awesome\font\fontawesome-webfont3294.woff" />
     <Content Include="Content\font-awesome\font\fontawesome-webfontd41d.eot" />
     <Content Include="Content\bootstrap-dialog.less" />
-    <Content Include="App_Readme\Handlebarsjs_README.md" />
-    <Content Include="App_Readme\Handlebarsjs_LICENSE" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\common.js" />
-    <Content Include="Scripts\handlebars.amd.js" />
-    <Content Include="Scripts\handlebars.amd.min.js" />
-    <Content Include="Scripts\handlebars.js" />
-    <Content Include="Scripts\handlebars.min.js" />
-    <Content Include="Scripts\handlebars.runtime.amd.js" />
-    <Content Include="Scripts\handlebars.runtime.amd.min.js" />
-    <Content Include="Scripts\handlebars.runtime.js" />
-    <Content Include="Scripts\handlebars.runtime.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -344,6 +335,7 @@
     <Content Include="Views\Client\_Success.cshtml" />
     <Content Include="Views\Shared\_SuccessModal.cshtml" />
     <Content Include="Views\Shared\_ViewMessageList.cshtml" />
+    <Content Include="Views\Client\_ListClients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

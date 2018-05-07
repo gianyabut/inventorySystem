@@ -24,10 +24,15 @@ namespace Inventory.LunarMed.Web.Controllers
         // GET: Client
         public ActionResult Index()
         {
-            var clients = _clientRepository.GetAll();
-            var clientList = Mapper.Map<List<Client>, List<ClientViewModel>>(clients.ToList());
+            return View(GetListClientsModel());
+        }
 
-            return View(clientList);
+        [HttpGet]
+        public ActionResult List()
+        {
+            var model = new ClientViewModel();
+
+            return this.PartialView("_ListClients", GetListClientsModel().Clients);
         }
 
         // GET: Client/Details/5
@@ -36,33 +41,37 @@ namespace Inventory.LunarMed.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var model = new ClientViewModel();
+            model.ClientId = 0;
+
+            return this.PartialView("_AddNewClientModal", model);
+        }
+
         // POST: Client/Create
         [HttpPost]
-        public JsonResult Create(ClientViewModel model)
+        public ActionResult Create(ClientViewModel model)
         {
-            var response = new ResponseViewModel();
-
+            var messages = new List<ViewMessage>();
             try
             {
                 var client = Mapper.Map<ClientViewModel, Client>(model);
                 _clientRepository.Add(client);
 
-                response.IsSuccessful = true;
-                var messages = new List<ViewMessage>
+                messages = new List<ViewMessage>
                 {
                     new ViewMessage()
                     {
                         Type = MessageType.Success,
-                        Message = "Client successfully saved."
+                        Message = "New client successfully saved."
                     }
                 };
-
-                return Json(response);
             }
             catch (Exception ex)
             {
-                response.IsSuccessful = false;
-                var messages = new List<ViewMessage>
+                messages = new List<ViewMessage>
                 {
                     new ViewMessage()
                     {
@@ -70,31 +79,71 @@ namespace Inventory.LunarMed.Web.Controllers
                         Message = ex.Message.ToString()
                     }
                 };
-
-                return Json(response);
             }
+
+            return this.PartialView("_ViewMessageList", messages);
         }
 
         // GET: Client/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var client = _clientRepository.Get(id);
+            var model = Mapper.Map<Client, ClientViewModel>(client);
+
+            return PartialView("_AddNewClientModal", model);
         }
 
         // POST: Client/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ClientViewModel model)
         {
+            var messages = new List<ViewMessage>();
             try
             {
-                // TODO: Add update logic here
+                var client = _clientRepository.Get(model.ClientId);
+                if(client != null)
+                {
+                    client.Name = model.Name;
+                    client.Address = model.Address;
+                    client.ContactNumber = model.ContactNumber;
+                    _clientRepository.Update(client);
+                }
+                else
+                {
+                    messages = new List<ViewMessage>
+                    {
+                        new ViewMessage()
+                        {
+                            Type = MessageType.Error,
+                            Message = "Client cannot be found."
+                        }
+                    };
+                    return this.PartialView("_ViewMessageList", messages);
+                }
 
-                return RedirectToAction("Index");
+
+                messages = new List<ViewMessage>
+                {
+                    new ViewMessage()
+                    {
+                        Type = MessageType.Success,
+                        Message = "Client successfully updated."
+                    }
+                };
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                messages = new List<ViewMessage>
+                {
+                    new ViewMessage()
+                    {
+                        Type = MessageType.Error,
+                        Message = ex.Message.ToString()
+                    }
+                };
             }
+
+            return this.PartialView("_ViewMessageList", messages);
         }
 
         // GET: Client/Delete/5
@@ -118,5 +167,22 @@ namespace Inventory.LunarMed.Web.Controllers
                 return View();
             }
         }
+
+        #region Private Methods
+
+        private ListClientsViewModel GetListClientsModel()
+        {
+            var clients = _clientRepository.GetAll();
+            var model = new ListClientsViewModel();
+
+            var clientList = Mapper.Map<List<Client>, List<ClientViewModel>>(clients.ToList());
+            model.Clients = clientList;
+            model.Messages = new List<ViewMessage>();
+
+            return model;
+        }
+
+        #endregion Private Methods
+
     }
 }

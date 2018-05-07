@@ -1,4 +1,5 @@
-﻿@model List<Inventory.LunarMed.Web.Models.ClientViewModel>
+﻿@using Inventory.LunarMed.Web.Models;
+@model ListClientsViewModel
 @{
     ViewBag.Title = "Clients";
 }
@@ -6,13 +7,14 @@
 
 <div class="span9">
     <div class="content">
+        @Html.Partial("_ViewMessageList", Model.Messages)
         <div class="module">
             <div class="module-head overflow-hidden">
                 <h3 class="pull-left">
                     Clients
                 </h3>
                 <div class="pull-right">
-                    <a class="btn btn-small btn-info" data-toggle="modal" data-target="#add-new-client">Add New</a>
+                    <a class="btn btn-small btn-info" id="addNewClient">Add New</a>
                 </div>
             </div>
             <div class="module-body table">
@@ -37,16 +39,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr class="@((item.ClientId % 2) == 1 ? "odd" : "even")">
-                                <td>@Html.DisplayFor(modelItem => item.ClientId)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                                <td>@Html.DisplayFor(modelItem => item.ContactNumber)</td>
-                                <td><a href="#" class="dt-link" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
-                            </tr>
-                        }
+                        @foreach (var client in Model.Clients)
+                    {
+                        <tr class="@((client.ClientId % 2) == 1 ? "odd" : "even")">
+                            <td>@Html.DisplayFor(modelItem => client.ClientId)</td>
+                            <td>@Html.DisplayFor(modelItem => client.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => client.Address)</td>
+                            <td>@Html.DisplayFor(modelItem => client.ContactNumber)</td>
+                            <td><a href="#" class="dt-link edit-client" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
+                        </tr>
+                }
                     </tbody>
                     <tfoot>
                         <tr>
@@ -76,9 +78,159 @@
 </div>
 <!--/.span9-->
 
+<div id="modalContainer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <div class="control-group">
+                    <div class="controls">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-@{ Html.RenderPartial("_AddNewClientModal"); }
 @section Scripts
 {
-    <script src="@Url.Content("~/Scripts/pages/client.js")"></script>
+    <script type="text/javascript">
+
+        initDataTable();
+
+        $('body').on('click', 'a#addNewClient', function (e) {
+
+            var url = "Client/Create"; // Full URL
+
+            /* Modal CSS */
+            //$('.modal-dialog').css('width', '940px').css('padding', '10px 0 20px 0');
+            //$('.modal-body').css('padding', '0').css('margin', '16px 30px 30px 30px');
+            //$('.modal').css('z-index', '1040');
+
+            /* Cleanup */
+            $('#modalContainer .modal-body').html('');
+            $('.modal-header h4').html(' ');
+
+            /* Close popups on click elsewhere */
+            /* Source: http://stackoverflow.com/a/14857326/364 */
+            $('body').on('click', function (e) {
+                var popovers = [$('#btn-modal-share')];
+                $.each(popovers, function () {
+                    //the 'is' for buttons that trigger popups
+                    //the 'has' for icons within a button that triggers a popup
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover('hide');
+                    }
+                });
+            });
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (result) {
+                    result = '<div>' + result + '</div>';
+                    $('.modal-title').html($(result).find('h2').html());
+                    $('.modal-body').html(result);
+                    $('.modal-body').find('h2').remove();
+
+                    //$('button').detach().appendTo('.modal-footer .controls');
+                    $('#modalContainer').modal();
+
+                    //$('<div id="modal-container" class="modal fade">' +
+                    //    '<div class="modal-content" id= "modalbody" >' +
+                    //    result + '</div></div>').modal();
+                }
+            });
+
+            /* Load Geographical Area modal */
+            //$('#modalContainer .modal-body').ajaxReplace(
+            //    url,
+            //    {
+            //        startAnimation: function (target) {
+            //            // Override animation to show a 'Downloading Document' status
+            //            $(target).progressBar({ description: 'Loading tabs', width: '250px' });
+            //        },
+            //        stopAnimation: function (target) {
+            //            // Override animation to show a 'Downloading Document' status
+            //            $(target).progressBar(false);
+            //            $('.modal-title').html($(target).find('h2').html()); // Copy h2 contents from loaded doc to h4
+            //            $('input#Name').val($(target).find('h2').html());
+            //            $('.modal-title .pull-right').remove();
+            //            $('#btn-modal-share').after($('#btn-print'));
+            //            if (!document.URL.match(/Embedded/)) {
+            //                $('#btn-modal-share').show();
+            //            }
+            //            //$('#btn-print').addClass('btn-sm').css('margin-left', '5px');
+            //            //$(target).children('h2').remove();
+            //            //$(target).children('.breadcrumb').remove();
+            //        }
+            //    });
+
+
+            e.preventDefault();
+        });
+
+        // Edit Client Link Click Event
+        $('.module-body').on('click', '.edit-client', function (e) {
+            var clientId = $(this).parent().parent().children('td:first').text();
+
+            var url = "Client/Edit/" + clientId; // Full URL
+
+            /* Cleanup */
+            $('#modalContainer .modal-body').html('');
+            $('.modal-header h4').html(' ');
+
+            /* Close popups on click elsewhere */
+            /* Source: http://stackoverflow.com/a/14857326/364 */
+            $('body').on('click', function (e) {
+                var popovers = [$('#btn-modal-share')];
+                $.each(popovers, function () {
+                    //the 'is' for buttons that trigger popups
+                    //the 'has' for icons within a button that triggers a popup
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover('hide');
+                    }
+                });
+            });
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (result) {
+                    result = '<div>' + result + '</div>';
+                    $('.modal-title').html($(result).find('h2').html());
+                    $('.modal-body').html(result);
+                    $('.modal-body').find('h2').remove();
+
+                    $('#modalContainer').modal();
+                }
+            });
+
+            e.preventDefault();
+        });
+
+        function loadData() {
+            $.ajax({
+                url: "/Client/List",
+                type: "GET",
+                success: function (result) {
+                    $('.module-body').html('').html(result);
+                    initDataTable();
+                }
+            });
+        }  
+
+        function initDataTable() {
+            $('.datatable-1').dataTable();
+            $('.dataTables_paginate').addClass('btn-group datatable-pagination');
+            $('.dataTables_paginate > a').wrapInner('<span />');
+            $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+            $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+        }
+    </script>
 }
