@@ -331,7 +331,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
-    <Content Include="Views\Client\_AddNewClientModal.cshtml" />
+    <Content Include="Views\Client\_AddOrEditClientModal.cshtml" />
     <Content Include="Views\Client\_Success.cshtml" />
     <Content Include="Views\Shared\_SuccessModal.cshtml" />
     <Content Include="Views\Shared\_ViewMessageList.cshtml" />

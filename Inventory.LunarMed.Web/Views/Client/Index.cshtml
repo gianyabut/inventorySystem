@@ -46,7 +46,7 @@
                             <td>@Html.DisplayFor(modelItem => client.Name)</td>
                             <td>@Html.DisplayFor(modelItem => client.Address)</td>
                             <td>@Html.DisplayFor(modelItem => client.ContactNumber)</td>
-                            <td><a href="#" class="dt-link edit-client" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
+                            <td><a href="#" class="dt-link edit-client" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-client-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
                         </tr>
                 }
                     </tbody>
@@ -103,18 +103,13 @@
 
         initDataTable();
 
+        // Add new Client click event
         $('body').on('click', 'a#addNewClient', function (e) {
 
             var url = "Client/Create"; // Full URL
 
-            /* Modal CSS */
-            //$('.modal-dialog').css('width', '940px').css('padding', '10px 0 20px 0');
-            //$('.modal-body').css('padding', '0').css('margin', '16px 30px 30px 30px');
-            //$('.modal').css('z-index', '1040');
-
             /* Cleanup */
-            $('#modalContainer .modal-body').html('');
-            $('.modal-header h4').html(' ');
+            cleanModal();
 
             /* Close popups on click elsewhere */
             /* Source: http://stackoverflow.com/a/14857326/364 */
@@ -138,39 +133,9 @@
                     $('.modal-body').html(result);
                     $('.modal-body').find('h2').remove();
 
-                    //$('button').detach().appendTo('.modal-footer .controls');
                     $('#modalContainer').modal();
-
-                    //$('<div id="modal-container" class="modal fade">' +
-                    //    '<div class="modal-content" id= "modalbody" >' +
-                    //    result + '</div></div>').modal();
                 }
             });
-
-            /* Load Geographical Area modal */
-            //$('#modalContainer .modal-body').ajaxReplace(
-            //    url,
-            //    {
-            //        startAnimation: function (target) {
-            //            // Override animation to show a 'Downloading Document' status
-            //            $(target).progressBar({ description: 'Loading tabs', width: '250px' });
-            //        },
-            //        stopAnimation: function (target) {
-            //            // Override animation to show a 'Downloading Document' status
-            //            $(target).progressBar(false);
-            //            $('.modal-title').html($(target).find('h2').html()); // Copy h2 contents from loaded doc to h4
-            //            $('input#Name').val($(target).find('h2').html());
-            //            $('.modal-title .pull-right').remove();
-            //            $('#btn-modal-share').after($('#btn-print'));
-            //            if (!document.URL.match(/Embedded/)) {
-            //                $('#btn-modal-share').show();
-            //            }
-            //            //$('#btn-print').addClass('btn-sm').css('margin-left', '5px');
-            //            //$(target).children('h2').remove();
-            //            //$(target).children('.breadcrumb').remove();
-            //        }
-            //    });
-
 
             e.preventDefault();
         });
@@ -182,8 +147,7 @@
             var url = "Client/Edit/" + clientId; // Full URL
 
             /* Cleanup */
-            $('#modalContainer .modal-body').html('');
-            $('.modal-header h4').html(' ');
+            cleanModal();
 
             /* Close popups on click elsewhere */
             /* Source: http://stackoverflow.com/a/14857326/364 */
@@ -206,12 +170,45 @@
                     $('.modal-title').html($(result).find('h2').html());
                     $('.modal-body').html(result);
                     $('.modal-body').find('h2').remove();
-
                     $('#modalContainer').modal();
                 }
             });
 
             e.preventDefault();
+        });
+
+        // This event acts like the Confirmation message for the Delete Operation
+        $('body').on('click', '.delete-client-conf', function (e) {
+            // Cleanup
+            cleanModal();
+
+            // Display the Confirmation Message with its contents
+            $('.modal-title').html('<h4>Delete Client Confirmation</h4>');
+
+            var clientId = $(this).parent().parent().children('td:first').text();
+            var clientName = $(this).parent().parent().children('td:nth-child(2)').text();
+            $('.modal-body').append('<h5>Are you sure you want to delete this client?</h5><br /><b>Name</b>: ' + clientName);
+            $('.modal-body').append('<input type="hidden" id="hfClientId" value="' + clientId + '" />');
+            $('.modal-footer').append('<button type="button" class="btn btn-info delete-client">Delete</button>');
+            $('#modalContainer').modal();
+        });
+
+        // This is the delete client click event and calls the ajax service to delete the client
+        $('body').on('click', '.delete-client', function (e) {
+            var url = "Client/Delete"; // Full URL
+            var data = JSON.stringify({ id: $('#hfClientId').val() });
+
+            $.ajax({
+                url: url,
+                data: data,
+                contentType: "application/json;charset=utf-8",
+                type: "POST",
+                success: function (result) {
+                    $('#divMessages').html(result);
+                    loadData();
+                    $('#modalContainer').modal('hide');
+                }
+            });
         });
 
         function loadData() {
@@ -225,12 +222,6 @@
             });
         }  
 
-        function initDataTable() {
-            $('.datatable-1').dataTable();
-            $('.dataTables_paginate').addClass('btn-group datatable-pagination');
-            $('.dataTables_paginate > a').wrapInner('<span />');
-            $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-            $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
-        }
+
     </script>
 }

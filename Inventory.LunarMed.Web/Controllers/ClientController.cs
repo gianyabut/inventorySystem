@@ -47,7 +47,7 @@ namespace Inventory.LunarMed.Web.Controllers
             var model = new ClientViewModel();
             model.ClientId = 0;
 
-            return this.PartialView("_AddNewClientModal", model);
+            return this.PartialView("_AddOrEditClientModal", model);
         }
 
         // POST: Client/Create
@@ -90,7 +90,7 @@ namespace Inventory.LunarMed.Web.Controllers
             var client = _clientRepository.Get(id);
             var model = Mapper.Map<Client, ClientViewModel>(client);
 
-            return PartialView("_AddNewClientModal", model);
+            return PartialView("_AddOrEditClientModal", model);
         }
 
         // POST: Client/Edit/5
@@ -146,26 +146,41 @@ namespace Inventory.LunarMed.Web.Controllers
             return this.PartialView("_ViewMessageList", messages);
         }
 
-        // GET: Client/Delete/5
+        // POST: Client/Delete
+        [HttpPost]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Client/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+            var messages = new List<ViewMessage>();
             try
             {
-                // TODO: Add delete logic here
+                var client = _clientRepository.Get(id);
+                if (client == null)
+                {
+                    messages.Add(new ViewMessage()
+                    {
+                        Type = MessageType.Error,
+                        Message = "Client cannot be found."
+                    });
+                    return this.PartialView("_ViewMessageList", messages);
+                }
 
-                return RedirectToAction("Index");
+                _clientRepository.Delete(client);
+                messages.Add(new ViewMessage()
+                {
+                    Type = MessageType.Success,
+                    Message = "Client successfully deleted."
+                });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                messages.Add(new ViewMessage()
+                {
+                    Type = MessageType.Error,
+                    Message = ex.Message.ToString()
+                });
             }
+
+            return this.PartialView("_ViewMessageList", messages);
         }
 
         #region Private Methods
