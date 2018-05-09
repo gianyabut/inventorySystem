@@ -2008,3 +2008,26 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .modal-header h4.modal-title {
     margin: 5px 0;
 }
+
+.control-submit {
+    margin-top: 30px;
+}
+
+.left-header-container {
+    float: left;
+    width: 70%
+}
+
+.right-header-container {
+    float: right;
+}
+
+.dropdown-label {
+    float: left;
+    line-height: 30px;
+    margin-right: 5px;
+}
+
+.control-input {
+    float: left;
+}

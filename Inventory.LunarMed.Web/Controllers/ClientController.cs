@@ -35,12 +35,6 @@ namespace Inventory.LunarMed.Web.Controllers
             return this.PartialView("_ListClients", GetListClientsModel().Clients);
         }
 
-        // GET: Client/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Create()
         {
