@@ -212,6 +212,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductGroupController.cs" />
     <Compile Include="Controllers\UnitSizeController.cs" />
     <Compile Include="Enum\MessageType.cs" />
@@ -219,25 +220,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IUserManager.cs" />
-    <Compile Include="Migrations\201804161307037_InitialCreate.cs" />
-    <Compile Include="Migrations\201804161307037_InitialCreate.Designer.cs">
-      <DependentUpon>201804161307037_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804171148176_AddedClientTable.cs" />
-    <Compile Include="Migrations\201804171148176_AddedClientTable.Designer.cs">
-      <DependentUpon>201804171148176_AddedClientTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804181212066_CompletedTables.cs" />
-    <Compile Include="Migrations\201804181212066_CompletedTables.Designer.cs">
-      <DependentUpon>201804181212066_CompletedTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804181219428_TheRestOfTheTables.cs" />
-    <Compile Include="Migrations\201804181219428_TheRestOfTheTables.Designer.cs">
-      <DependentUpon>201804181219428_TheRestOfTheTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805120612184_RenamedStockToProduct.cs" />
-    <Compile Include="Migrations\201805120612184_RenamedStockToProduct.Designer.cs">
-      <DependentUpon>201805120612184_RenamedStockToProduct.cs</DependentUpon>
+    <Compile Include="Migrations\201805120745106_Intial.cs" />
+    <Compile Include="Migrations\201805120745106_Intial.Designer.cs">
+      <DependentUpon>201805120745106_Intial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -351,6 +336,7 @@
     <Content Include="Views\ProductGroup\Index.cshtml" />
     <Content Include="Views\ProductGroup\_ListProductGroups.cshtml" />
     <Content Include="Views\ProductGroup\_AddOrEditProductGroupModal.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -377,20 +363,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804161307037_InitialCreate.resx">
-      <DependentUpon>201804161307037_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804171148176_AddedClientTable.resx">
-      <DependentUpon>201804171148176_AddedClientTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804181212066_CompletedTables.resx">
-      <DependentUpon>201804181212066_CompletedTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804181219428_TheRestOfTheTables.resx">
-      <DependentUpon>201804181219428_TheRestOfTheTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805120612184_RenamedStockToProduct.resx">
-      <DependentUpon>201805120612184_RenamedStockToProduct.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805120745106_Intial.resx">
+      <DependentUpon>201805120745106_Intial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

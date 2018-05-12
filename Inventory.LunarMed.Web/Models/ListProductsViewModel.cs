@@ -8,7 +8,7 @@ namespace Inventory.LunarMed.Web.Models
 {
     public class ListProductsViewModel
     {
-        public List<ProductViewModel> Stocks { get; set; }
+        public List<ProductViewModel> Products { get; set; }
         public List<ViewMessage> Messages { get; set; }
     }
 }

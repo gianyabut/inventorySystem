@@ -13,21 +13,20 @@ namespace Inventory.LunarMed.Data.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int SalesId { get; set; }
-
-
-        [ForeignKey("Product"), DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProductId { get; set; }
-        [ForeignKey("ProductGroup"), DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProductGroupId { get; set; }
-
+        public int SaleId { get; set; }
         public int Terms { get; set; }
         public DateTime DueDate { get; set; }
         public string Remarks { get; set; }
         public int Quantity { get; set; }
         public string CustomerPONumber { get; set; }
 
-        public virtual Product Product { get; set; }
+        public int ProductId { get; set; }
+        public int ProductGroupId { get; set; }
+
+        [ForeignKey("ProductGroupId")]
         public virtual ProductGroup ProductGroup { get; set; }
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
+
     }
 }

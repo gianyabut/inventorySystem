@@ -19,9 +19,9 @@ namespace Inventory.LunarMed.Data.Entities
         public decimal Amount { get; set; }
         public decimal Balance { get; set; }
 
-        [ForeignKey("Sale"), DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int SalesId { get; set; }
+        public int SaleId { get; set; }
 
+        [ForeignKey("SaleId")]
         public virtual Sale Sale { get; set; }
     }
 }

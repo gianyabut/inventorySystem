@@ -13,7 +13,7 @@ namespace Inventory.LunarMed.Data.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProductkId { get; set; }
+        public int ProductId { get; set; }
 
         public string Name { get; set; }
         public string BatchNumber { get; set; }
@@ -23,12 +23,12 @@ namespace Inventory.LunarMed.Data.Entities
         public int StockQuantity { get; set; }
         public DateTime ExpirationDate { get; set; }
 
-        [ForeignKey("UnitSize"), DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UnitSizeId { get; set; }
 
         public string Supplier { get; set; }
         public DateTime PurchaseDate { get; set; }
 
+        [ForeignKey("UnitSizeId")]
         public virtual UnitSize UnitSize { get; set; }
 
     }

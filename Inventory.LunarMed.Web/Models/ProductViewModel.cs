@@ -7,9 +7,9 @@ namespace Inventory.LunarMed.Web.Models
 {
     public class ProductViewModel
     {
-        public int StockId { get; set; }
+        public int ProductId { get; set; }
 
-        public string StockName { get; set; }
+        public string Name { get; set; }
         public string BatchNumber { get; set; }
         public decimal Cost { get; set; }
         public decimal SellingPrice { get; set; }

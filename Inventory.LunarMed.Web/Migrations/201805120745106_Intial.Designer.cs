@@ -7,13 +7,13 @@ namespace Inventory.LunarMed.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RenamedStockToProduct : IMigrationMetadata
+    public sealed partial class Intial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RenamedStockToProduct));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Intial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805120612184_RenamedStockToProduct"; }
+            get { return "201805120745106_Intial"; }
         }
         
         string IMigrationMetadata.Source
