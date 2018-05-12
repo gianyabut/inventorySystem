@@ -16,6 +16,8 @@ namespace Inventory.LunarMed.Web
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Client, ClientViewModel>();
                 cfg.CreateMap<ClientViewModel, Client>();
+                cfg.CreateMap<UnitSize, UnitSizeViewModel>();
+                cfg.CreateMap<UnitSizeViewModel, UnitSize>();
             });
         }
     }

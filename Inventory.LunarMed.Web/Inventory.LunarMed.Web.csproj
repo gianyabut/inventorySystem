@@ -212,6 +212,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UnitSizeController.cs" />
     <Compile Include="Enum\MessageType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -238,9 +239,10 @@
     <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListClientsViewModel.cs" />
+    <Compile Include="Models\ListUnitSizeViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Shared\ViewMessage.cs" />
-    <Compile Include="Models\Shared\ResponseViewModel.cs" />
+    <Compile Include="Models\UnitSizeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -333,6 +335,9 @@
     <Content Include="Views\Client\_AddOrEditClientModal.cshtml" />
     <Content Include="Views\Shared\_ViewMessageList.cshtml" />
     <Content Include="Views\Client\_ListClients.cshtml" />
+    <Content Include="Views\UnitSize\Index.cshtml" />
+    <Content Include="Views\UnitSize\_AddOrEditUnitSizeModal.cshtml" />
+    <Content Include="Views\UnitSize\_ListUnitSizes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
