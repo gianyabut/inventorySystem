@@ -16,10 +16,10 @@ namespace Inventory.LunarMed.Data.Entities
         public int SalesId { get; set; }
 
 
-        [ForeignKey("Stock"), DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int StockId { get; set; }
-        [ForeignKey("StockGroup"), DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int StockGroupId { get; set; }
+        [ForeignKey("Product"), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ProductId { get; set; }
+        [ForeignKey("ProductGroup"), DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ProductGroupId { get; set; }
 
         public int Terms { get; set; }
         public DateTime DueDate { get; set; }
@@ -27,7 +27,7 @@ namespace Inventory.LunarMed.Data.Entities
         public int Quantity { get; set; }
         public string CustomerPONumber { get; set; }
 
-        public virtual Stock Stock { get; set; }
-        public virtual StockGroup StockGroup { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual ProductGroup ProductGroup { get; set; }
     }
 }

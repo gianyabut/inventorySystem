@@ -1,18 +1,12 @@
-﻿using Inventory.LunarMed.Data.Entities.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Inventory.LunarMed.Data.Entities
+namespace Inventory.LunarMed.Web.Models
 {
-    public class Stock : BaseModel
+    public class ProductViewModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StockId { get; set; }
 
         public string StockName { get; set; }
@@ -22,14 +16,8 @@ namespace Inventory.LunarMed.Data.Entities
         public decimal MarkUp { get; set; }
         public int StockQuantity { get; set; }
         public DateTime ExpirationDate { get; set; }
-
-        [ForeignKey("UnitSize"), DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UnitSizeId { get; set; }
-
         public string Supplier { get; set; }
         public DateTime PurchaseDate { get; set; }
-
-        public virtual UnitSize UnitSize { get; set; }
-
     }
 }

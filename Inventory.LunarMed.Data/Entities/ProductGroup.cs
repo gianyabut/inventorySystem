@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Inventory.LunarMed.Data.Entities
 {
-    public class StockGroup : BaseModel
+    public class ProductGroup : BaseModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int StockGroupId { get; set; }
+        public int ProductGroupId { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }

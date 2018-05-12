@@ -1,0 +1,14 @@
+﻿Under "Package Manager Console"
+
+Add New Migration
+>> add-migration "[Migration Name]"
+	
+Update Database based on the last migration
+	>> update-database
+	
+	Optional Parameters:
+	>> -verbose
+	This will display the SQL Statements being applied to the target database.
+
+To know more about commands:
+	get-help [Command Name]

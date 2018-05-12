@@ -51,8 +51,8 @@
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\Collection.cs" />
     <Compile Include="Entities\Sale.cs" />
-    <Compile Include="Entities\Stock.cs" />
-    <Compile Include="Entities\StockGroup.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductGroup.cs" />
     <Compile Include="Entities\UnitSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

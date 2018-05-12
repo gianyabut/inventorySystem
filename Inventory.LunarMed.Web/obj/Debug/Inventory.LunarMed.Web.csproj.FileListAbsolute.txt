@@ -263,3 +263,4 @@ C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\bin\Ninjec
 C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\bin\Ninject.Web.Mvc.xml
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\bin\AutoMapper.dll
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\bin\AutoMapper.xml
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.Migrations.RenamedStockToProduct.resources
