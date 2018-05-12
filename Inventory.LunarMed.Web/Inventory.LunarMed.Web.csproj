@@ -286,7 +286,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\pages\client.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config">
@@ -332,14 +331,13 @@
     <Content Include="Views\Shared\_Nav.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Client\_AddOrEditClientModal.cshtml" />
-    <Content Include="Views\Client\_Success.cshtml" />
-    <Content Include="Views\Shared\_SuccessModal.cshtml" />
     <Content Include="Views\Shared\_ViewMessageList.cshtml" />
     <Content Include="Views\Client\_ListClients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Scripts\pages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

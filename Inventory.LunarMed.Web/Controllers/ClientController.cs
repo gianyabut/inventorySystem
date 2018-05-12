@@ -22,11 +22,20 @@ namespace Inventory.LunarMed.Web.Controllers
         }
 
         // GET: Client
+        /// <summary>
+        /// Gets all the clients and pass it on the view
+        /// </summary>
+        /// <returns>Returns a view containing all the clients</returns>
         public ActionResult Index()
         {
             return View(GetListClientsModel());
         }
-
+        
+        // GET: Client/List
+        /// <summary>
+        /// Gets the list of clients and pass it in our modal
+        /// </summary>
+        /// <returns>Returns a partial view that contains the list of all clients</returns>
         [HttpGet]
         public ActionResult List()
         {
@@ -35,6 +44,11 @@ namespace Inventory.LunarMed.Web.Controllers
             return this.PartialView("_ListClients", GetListClientsModel().Clients);
         }
 
+        // GET: Client/Create
+        /// <summary>
+        /// Displays a partial view used for creating a client
+        /// </summary>
+        /// <returns>Returns a partial view used for creating a client</returns>
         [HttpGet]
         public ActionResult Create()
         {
@@ -45,6 +59,11 @@ namespace Inventory.LunarMed.Web.Controllers
         }
 
         // POST: Client/Create
+        /// <summary>
+        /// This saves a new client using the passed client model
+        /// </summary>
+        /// <param name="model">The ClientViewModel object.</param>
+        /// <returns>A partial view containing the result of the process.</returns>
         [HttpPost]
         public ActionResult Create(ClientViewModel model)
         {
@@ -79,6 +98,11 @@ namespace Inventory.LunarMed.Web.Controllers
         }
 
         // GET: Client/Edit/5
+        /// <summary>
+        /// This displays the details of the selected client that is about to be edited
+        /// </summary>
+        /// <param name="id">The Client ID</param>
+        /// <returns>Returns a partial view containing the details of the client.</returns>
         public ActionResult Edit(int id)
         {
             var client = _clientRepository.Get(id);
@@ -88,6 +112,11 @@ namespace Inventory.LunarMed.Web.Controllers
         }
 
         // POST: Client/Edit/5
+        /// <summary>
+        /// This updates the client based on the passed Client model
+        /// </summary>
+        /// <param name="model">The ClientViewModel object.</param>
+        /// <returns>A partial view containing the result of the process.</returns>
         [HttpPost]
         public ActionResult Edit(ClientViewModel model)
         {
@@ -141,6 +170,11 @@ namespace Inventory.LunarMed.Web.Controllers
         }
 
         // POST: Client/Delete
+        /// <summary>
+        /// This deletes passed client id
+        /// </summary>
+        /// <param name="id">The ID of the client.</param>
+        /// <returns>A partial view containing the result of the process.</returns>
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -179,6 +213,10 @@ namespace Inventory.LunarMed.Web.Controllers
 
         #region Private Methods
 
+        /// <summary>
+        /// This gets all the clients and assign maps it to ListClientsViewModel
+        /// </summary>
+        /// <returns>Returns a ListClientsViewModel object</returns>
         private ListClientsViewModel GetListClientsModel()
         {
             var clients = _clientRepository.GetAll();

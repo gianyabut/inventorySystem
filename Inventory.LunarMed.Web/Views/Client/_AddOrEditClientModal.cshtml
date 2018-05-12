@@ -14,7 +14,6 @@ else
     <div class="control-group">
         <label class="control-label" for="basicinput">Name</label>
         <div class="controls">
-            @*<input type="text" id="name" class="span8" minlength="5" required>*@
             @Html.TextBoxFor(model => model.Name, new { @class = "span8", required = "required", minlength = "5" })
             <span class="help-inline">Minimum 5 Characters</span>
         </div>
@@ -23,7 +22,6 @@ else
     <div class="control-group">
         <label class="control-label" for="basicinput">Address</label>
         <div class="controls">
-            @*<textarea id="address" class="span8" rows="5" required></textarea>*@
             @Html.TextAreaFor(model => model.Address, new { @class = "span8", rows = "5", required = "required" })
         </div>
     </div>
@@ -31,7 +29,6 @@ else
     <div class="control-group">
         <label class="control-label" for="basicinput">Contact Number</label>
         <div class="controls">
-            @*<input type="text" id="contactNumber" class="span8" required>*@
             @Html.TextBoxFor(model => model.ContactNumber, new { @class = "span8", required = "required" })
         </div>
     </div>
@@ -46,6 +43,8 @@ else
 
 
 <script type="text/javascript">
+
+    // The form submit event
     $('form').submit(function (e) {
         e.preventDefault();
 
