@@ -67,7 +67,7 @@ namespace Inventory.LunarMed.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>();
+            kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().WithConstructorArgument("context", kernel.Get<ApplicationDbContext>());
             kernel.Bind<UserManager<ApplicationUser>>().ToSelf();
 
             kernel.Bind<HttpContextBase>().ToMethod(ctx => new HttpContextWrapper(HttpContext.Current)).InTransientScope();
