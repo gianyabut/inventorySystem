@@ -28,7 +28,16 @@
                                 Name
                             </th>
                             <th>
-                                Description
+                                Batch Number
+                            </th>
+                            <th>
+                                Selling Price
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Expiration Date
                             </th>
                             <th>
                                 Action
@@ -36,26 +45,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.UnitSizes)
+                        @foreach (var item in Model.Products)
                         {
-                            <tr class="@((item.UnitSizeId % 2) == 1 ? "odd" : "even")">
-                                <td>@Html.DisplayFor(modelItem => item.UnitSizeId)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                                <td><a href="#" class="dt-link edit-unitSize" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-unitSize-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
-                            </tr>
+                        <tr class="@((item.ProductId % 2) == 1 ? "odd" : "even")">
+                            <td>@Html.DisplayFor(modelItem => item.ProductId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.BatchNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.SellingPrice)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StockQuantity)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ExpirationDate)</td>
+                            <td><a href="#" class="dt-link edit-product" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-product-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
+                        </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
                             <th>
-                                Unit Size ID
+                                Product ID
                             </th>
                             <th>
                                 Name
                             </th>
                             <th>
-                                Description
+                                Batch Number
+                            </th>
+                            <th>
+                                Selling Price
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Expiration Date
                             </th>
                             <th>
                                 Action
