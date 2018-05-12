@@ -1,15 +1,15 @@
-﻿@model Inventory.LunarMed.Web.Models.UnitSizeViewModel
+﻿@model Inventory.LunarMed.Web.Models.ProductGroupViewModel
 
-@if (Model.UnitSizeId == 0)
+@if (Model.ProductGroupId == 0)
 {
-    <h2>Add New Unit Size</h2>
+    <h2>Add New Product Group</h2>
 }
 else
 {
-    <h2>Edit Unit Size</h2>
+    <h2>Edit Product Group</h2>
 }
 
-@using (Html.BeginForm("Create", "UnitSize", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
+@using (Html.BeginForm("Create", "ProductGroup", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
 {
     <div class="control-group">
         <label class="control-label" for="basicinput">Name</label>
@@ -24,7 +24,7 @@ else
             @Html.TextBoxFor(model => model.Description, new { @class = "span8", required = "required" })
         </div>
     </div>
-    @Html.HiddenFor(model => model.UnitSizeId);
+    @Html.HiddenFor(model => model.ProductGroupId);
     <div class="control-group">
         <div class="controls control-submit">
             <button type="submit" class="btn btn-primary">Save</button>
@@ -41,13 +41,13 @@ else
         e.preventDefault();
 
         var url;
-        if ($('#UnitSizeId').val() == "0")
+        if ($('#ProductGroupId').val() == "0")
             url = this.action;
         else
-            url = "UnitSize/Edit";
+            url = "ProductGroup/Edit";
 
         var obj = {
-            UnitSizeId: $('#UnitSizeId').val(),
+            ProductGroupId: $('#ProductGroupId').val(),
             Name: $('#Name').val(),
             Description: $('#Description').val()
         };
@@ -66,5 +66,6 @@ else
     });
 
 </script>
+
 
 

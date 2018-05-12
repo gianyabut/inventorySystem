@@ -212,6 +212,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductGroupController.cs" />
     <Compile Include="Controllers\UnitSizeController.cs" />
     <Compile Include="Enum\MessageType.cs" />
     <Compile Include="Global.asax.cs">
@@ -244,8 +245,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListClientsViewModel.cs" />
     <Compile Include="Models\ListProductsViewModel.cs" />
+    <Compile Include="Models\ListProductGroupsViewModel.cs" />
     <Compile Include="Models\ListUnitSizeViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProductGroupViewModel.cs" />
     <Compile Include="Models\Shared\ViewMessage.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\UnitSizeViewModel.cs" />
@@ -345,6 +348,9 @@
     <Content Include="Views\UnitSize\Index.cshtml" />
     <Content Include="Views\UnitSize\_AddOrEditUnitSizeModal.cshtml" />
     <Content Include="Views\UnitSize\_ListUnitSizes.cshtml" />
+    <Content Include="Views\ProductGroup\Index.cshtml" />
+    <Content Include="Views\ProductGroup\_ListProductGroups.cshtml" />
+    <Content Include="Views\ProductGroup\_AddOrEditProductGroupModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

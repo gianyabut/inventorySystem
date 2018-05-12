@@ -12,73 +12,73 @@ using System.Web.Mvc;
 
 namespace Inventory.LunarMed.Web.Controllers
 {
-    public class UnitSizeController : Controller
+    public class ProductGroupController : Controller
     {
-        private readonly IGenericRepository<UnitSize> _unitSizeRepository;
+        private readonly IGenericRepository<ProductGroup> _productGroupRepository;
 
-        public UnitSizeController(IGenericRepository<UnitSize> unitSizeRepository)
+        public ProductGroupController(IGenericRepository<ProductGroup> productGroupRepository)
         {
-            _unitSizeRepository = unitSizeRepository;
+            _productGroupRepository = productGroupRepository;
         }
 
-        // GET: UnitSize
+        // GET: ProductGroup
         /// <summary>
-        /// Gets all the unit sizes and pass it on the view
+        /// Gets all the product groups and pass it on the view
         /// </summary>
-        /// <returns>Returns a view containing all the unit sizes</returns>
+        /// <returns>Returns a view containing all the clients</returns>
         public ActionResult Index()
         {
-            return View(GetListUnitSizesModel());
+            return View(GetListProductGroupsViewModel());
         }
 
-        // GET: UnitSize/List
+        // GET: ProductGroup/List
         /// <summary>
-        /// Gets the list of unit sizes and pass it in our modal
+        /// Gets the list of product group and pass it in our modal
         /// </summary>
-        /// <returns>Returns a partial view that contains the list of all unit sizes</returns>
+        /// <returns>Returns a partial view that contains the list of all product groups</returns>
         [HttpGet]
         public ActionResult List()
         {
-            return this.PartialView("_ListUnitSizes", GetListUnitSizesModel().UnitSizes);
+            return this.PartialView("_ListProductGroups", GetListProductGroupsViewModel().ProductGroups);
         }
 
-        // GET: UnitSize/Create
+        // GET: ProductGroup/Create
         /// <summary>
-        /// Displays a partial view used for creating a unit size
+        /// Displays a partial view used for creating a product group
         /// </summary>
-        /// <returns>Returns a partial view used for creating a unit size</returns>
+        /// <returns>Returns a partial view used for creating a product group</returns>
         [HttpGet]
         public ActionResult Create()
         {
-            var model = new UnitSizeViewModel
+            var model = new ProductGroupViewModel
             {
-                UnitSizeId = 0
+                ProductGroupId = 0
             };
 
-            return this.PartialView("_AddOrEditUnitSizeModal", model);
+            return this.PartialView("_AddOrEditProductGroupModal", model);
         }
 
-        // POST: UnitSize/Create
+        // POST: ProductGroup/Create
         /// <summary>
-        /// This saves a new unit size using the parameter unit size model
+        /// This saves a new product group
         /// </summary>
-        /// <param name="model">The UnitSizeViewModel object.</param>
+        /// <param name="model">The ProductGroupViewModel object.</param>
         /// <returns>A partial view containing the result of the process.</returns>
         [HttpPost]
-        public ActionResult Create(UnitSizeViewModel model)
+        public ActionResult Create(ProductGroupViewModel model)
         {
             var messages = new List<ViewMessage>();
             try
             {
-                var client = Mapper.Map<UnitSizeViewModel, UnitSize>(model);
-                _unitSizeRepository.Add(client);
+                var productGroup = Mapper.Map<ProductGroupViewModel, ProductGroup>(model);
+                _productGroupRepository.Add(productGroup);
 
                 messages = new List<ViewMessage>
                 {
                     new ViewMessage()
                     {
                         Type = MessageType.Success,
-                        Message = "New unit size successfully saved."
+                        Message = "New product group successfully saved."
                     }
                 };
             }
@@ -97,38 +97,38 @@ namespace Inventory.LunarMed.Web.Controllers
             return this.PartialView("_ViewMessageList", messages);
         }
 
-        // GET: UnitSize/Edit/5
+        // GET: ProductGroup/Edit/5
         /// <summary>
-        /// This displays the details of the selected unit size that is about to be edited
+        /// This displays the details of the selected product group that is about to be edited
         /// </summary>
-        /// <param name="id">The Unit Size ID</param>
-        /// <returns>Returns a partial view containing the details of the unit size.</returns>
+        /// <param name="id">The Product Group ID</param>
+        /// <returns>Returns a partial view containing the details of the product group.</returns>
         public ActionResult Edit(int id)
         {
-            var unitSize = _unitSizeRepository.Get(id);
-            var model = Mapper.Map<UnitSize, UnitSizeViewModel>(unitSize);
+            var productGroup = _productGroupRepository.Get(id);
+            var model = Mapper.Map<ProductGroup, ProductGroupViewModel>(productGroup);
 
-            return PartialView("_AddOrEditUnitSizeModal", model);
+            return PartialView("_AddOrEditProductGroupModal", model);
         }
 
-        // POST: UnitSize/Edit/5
+        // POST: ProductGroup/Edit/5
         /// <summary>
-        /// This updates the client based on the passed unit size model
+        /// This updates the product group
         /// </summary>
-        /// <param name="model">The UnitSizeViewModel object.</param>
+        /// <param name="model">The ProductGroupViewModel object.</param>
         /// <returns>A partial view containing the result of the process.</returns>
         [HttpPost]
-        public ActionResult Edit(UnitSizeViewModel model)
+        public ActionResult Edit(ProductGroupViewModel model)
         {
             var messages = new List<ViewMessage>();
             try
             {
-                var client = _unitSizeRepository.Get(model.UnitSizeId);
-                if (client != null)
+                var productGroup = _productGroupRepository.Get(model.ProductGroupId);
+                if (productGroup != null)
                 {
-                    client.Name = model.Name;
-                    client.Description = model.Description;
-                    _unitSizeRepository.Update(client);
+                    productGroup.Name = model.Name;
+                    productGroup.Description = model.Description;
+                    _productGroupRepository.Update(productGroup);
                 }
                 else
                 {
@@ -137,7 +137,7 @@ namespace Inventory.LunarMed.Web.Controllers
                         new ViewMessage()
                         {
                             Type = MessageType.Error,
-                            Message = "Unit Size cannot be found."
+                            Message = "Product Group cannot be found."
                         }
                     };
                     return this.PartialView("_ViewMessageList", messages);
@@ -149,7 +149,7 @@ namespace Inventory.LunarMed.Web.Controllers
                     new ViewMessage()
                     {
                         Type = MessageType.Success,
-                        Message = "Unit Size successfully updated."
+                        Message = "Product Group successfully updated."
                     }
                 };
             }
@@ -168,11 +168,11 @@ namespace Inventory.LunarMed.Web.Controllers
             return this.PartialView("_ViewMessageList", messages);
         }
 
-        // POST: UnitSize/Delete
+        // POST: ProductGroup/Delete
         /// <summary>
-        /// This deletes passed unit size id
+        /// This deletes passed product group id
         /// </summary>
-        /// <param name="id">The ID of the unit size.</param>
+        /// <param name="id">The ID of the product group.</param>
         /// <returns>A partial view containing the result of the process.</returns>
         [HttpPost]
         public ActionResult Delete(int id)
@@ -180,22 +180,22 @@ namespace Inventory.LunarMed.Web.Controllers
             var messages = new List<ViewMessage>();
             try
             {
-                var client = _unitSizeRepository.Get(id);
+                var client = _productGroupRepository.Get(id);
                 if (client == null)
                 {
                     messages.Add(new ViewMessage()
                     {
                         Type = MessageType.Error,
-                        Message = "Unit Size cannot be found."
+                        Message = "Product group cannot be found."
                     });
                     return this.PartialView("_ViewMessageList", messages);
                 }
 
-                _unitSizeRepository.Delete(client);
+                _productGroupRepository.Delete(client);
                 messages.Add(new ViewMessage()
                 {
                     Type = MessageType.Success,
-                    Message = "Unit Size successfully deleted."
+                    Message = "Product Group successfully deleted."
                 });
             }
             catch (Exception ex)
@@ -213,16 +213,16 @@ namespace Inventory.LunarMed.Web.Controllers
         #region Private Methods
 
         /// <summary>
-        /// This gets all the unit sizes and assign maps it to ListUnitSizeViewModel
+        /// This gets all the product groups and assign maps it to ListProductGroupsViewModel
         /// </summary>
-        /// <returns>Returns a ListUnitSizeViewModel object</returns>
-        private ListUnitSizeViewModel GetListUnitSizesModel()
+        /// <returns>Returns a ListProductGroupsViewModel object</returns>
+        private ListProductGroupsViewModel GetListProductGroupsViewModel()
         {
-            var unitSizes = _unitSizeRepository.GetAll();
-            var model = new ListUnitSizeViewModel();
+            var productGroups = _productGroupRepository.GetAll();
+            var model = new ListProductGroupsViewModel();
 
-            var unitSizesList = Mapper.Map<List<UnitSize>, List<UnitSizeViewModel>>(unitSizes.ToList());
-            model.UnitSizes = unitSizesList;
+            var productGroupsList = Mapper.Map<List<ProductGroup>, List<ProductGroupViewModel>>(productGroups.ToList());
+            model.ProductGroups = productGroupsList;
             model.Messages = new List<ViewMessage>();
 
             return model;
