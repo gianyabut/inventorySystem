@@ -337,6 +337,8 @@
     <Content Include="Views\ProductGroup\_ListProductGroups.cshtml" />
     <Content Include="Views\ProductGroup\_AddOrEditProductGroupModal.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\_ListProducts.cshtml" />
+    <Content Include="Views\Product\_AddOrEditProductModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

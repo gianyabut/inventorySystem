@@ -123,12 +123,12 @@ namespace Inventory.LunarMed.Web.Controllers
             var messages = new List<ViewMessage>();
             try
             {
-                var client = _unitSizeRepository.Get(model.UnitSizeId);
-                if (client != null)
+                var unitSize = _unitSizeRepository.Get(model.UnitSizeId);
+                if (unitSize != null)
                 {
-                    client.Name = model.Name;
-                    client.Description = model.Description;
-                    _unitSizeRepository.Update(client);
+                    unitSize.Name = model.Name;
+                    unitSize.Description = model.Description;
+                    _unitSizeRepository.Update(unitSize);
                 }
                 else
                 {

@@ -20,6 +20,8 @@ namespace Inventory.LunarMed.Web
                 cfg.CreateMap<UnitSizeViewModel, UnitSize>();
                 cfg.CreateMap<ProductGroup, ProductGroupViewModel>();
                 cfg.CreateMap<ProductGroupViewModel, ProductGroup>();
+                cfg.CreateMap<Product, ProductViewModel>();
+                cfg.CreateMap<ProductViewModel, Product>();
             });
         }
     }

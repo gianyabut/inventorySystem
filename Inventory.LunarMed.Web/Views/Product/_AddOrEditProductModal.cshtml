@@ -1,0 +1,106 @@
+﻿@model Inventory.LunarMed.Web.Models.ProductViewModel
+@if (Model.ProductId == 0)
+{
+    <h2>Add New Product</h2>
+}
+else
+{
+    <h2>Edit Product</h2>
+}
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
+{
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Name</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Name, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Batch Number</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.BatchNumber, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Cost</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Cost, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Selling Price</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.SellingPrice, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Mark Up</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.MarkUp, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Stock Quantity</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.StockQuantity, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Expiration Date</label>
+        <div class="controls">
+            @Html.EditorFor(model => model.ExpirationDate, new { @class = "span8", @id = "datepicker" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.ProductId);
+    <div class="control-group">
+        <div class="controls control-submit">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    // The form submit event
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var url;
+        if ($('#ProductGroupId').val() == "0")
+            url = this.action;
+        else
+            url = "ProductGroup/Edit";
+
+        var obj = {
+            ProductGroupId: $('#ProductGroupId').val(),
+            Name: $('#Name').val(),
+            Description: $('#Description').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(obj),
+            success: function (result) {
+                $('#divMessages').html(result);
+                loadData();
+                $('#modalContainer').modal('hide');
+            }
+        });
+    });
+
+</script>
+
+
+
+
