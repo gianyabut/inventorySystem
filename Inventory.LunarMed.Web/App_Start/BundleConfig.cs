@@ -11,10 +11,10 @@ namespace Inventory.LunarMed.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                          //"~/Scripts/jquery-{version}.js",
                          "~/Scripts/jquery-1.9.1.min.js",
-                         "~/Scripts/jquery-ui-1.10.1.custom.min.js",
                          "~/Scripts/jquery.flot.js",
                          "~/Scripts/jquery.flot.resize.js",
-                         "~/Scripts/jquery.dataTables.js"
+                         "~/Scripts/jquery.dataTables.js",
+                         "~/Scripts/jquery-ui-1.12.1.min.js"
                          ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -40,6 +40,7 @@ namespace Inventory.LunarMed.Web
                       "~/Content/opensans.css",
                       "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/theme.css",
+                      "~/Content/themes/base/jquery-ui.min.css",
                       "~/Content/bootstrap-dialog.css"));
         }
     }

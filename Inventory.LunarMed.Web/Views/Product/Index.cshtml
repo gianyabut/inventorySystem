@@ -125,8 +125,8 @@
         /* Cleanup */
         cleanModal();
 
-        $('.modal-dialog').css('height', '610px');
-        $('.modal-body').css('height', '500px');
+        $('.modal-dialog').css('height', '580px');
+        $('.modal-body').css('height', '470px');
 
         /* Close popups on click elsewhere */
         /* Source: http://stackoverflow.com/a/14857326/364 */
@@ -151,17 +151,12 @@
                 $('.modal-body').find('h2').remove();
 
                 $('#modalContainer').modal();
+
+                $("#expirateDate").datepicker();
+                $("#purchaseDate").datepicker();
             }
         });
 
-        $('#ExpirationDate').datepicker({
-            dateFormat: "dd/M/yy",
-            changeMonth: true,
-            changeYear: true,
-            yearRange: "-60:+0"
-        });
-
-        e.preventDefault();
     });
 
     // Edit Product Link Click Event

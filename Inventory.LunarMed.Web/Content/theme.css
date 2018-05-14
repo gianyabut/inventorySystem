@@ -213,9 +213,9 @@ body [class^="icon-"], body [class*=" icon-"] {
 }
 
     .form-horizontal .control-group + .control-group, .form-vertical .control-group + .control-group {
-        margin-top: 13px;
-        padding-top: 13px;
-        border-top: 1px solid #f5f5f5
+        margin-top: 5px;
+        padding-top: 5px;
+        /*border-top: 1px solid #f5f5f5*/
     }
 
 .module-login {
@@ -2030,4 +2030,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .control-input {
     float: left;
+}
+
+.clsDatePicker {
+    z-index: 100000;
 }

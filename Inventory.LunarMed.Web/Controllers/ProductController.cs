@@ -15,10 +15,12 @@ namespace Inventory.LunarMed.Web.Controllers
     public class ProductController : Controller
     {
         private readonly IGenericRepository<Product> _productRepository;
+        private readonly IGenericRepository<UnitSize> _unitSizeRepository;
 
-        public ProductController(IGenericRepository<Product> productRepository)
+        public ProductController(IGenericRepository<Product> productRepository, IGenericRepository<UnitSize> unitSizeRepository)
         {
             _productRepository = productRepository;
+            _unitSizeRepository = unitSizeRepository;
         }
 
         // GET: Product
@@ -53,7 +55,8 @@ namespace Inventory.LunarMed.Web.Controllers
             var model = new ProductViewModel
             {
                 ProductId = 0,
-                ExpirationDate = DateTime.Now.ToString("MM/dd/yyyy")
+                ExpirationDate = DateTime.Now.ToString("MM/dd/yyyy"),
+                UnitSizeList = GetUnitSizeList()
             };
 
             return this.PartialView("_AddOrEditProductModal", model);
@@ -227,6 +230,25 @@ namespace Inventory.LunarMed.Web.Controllers
             model.Messages = new List<ViewMessage>();
 
             return model;
+        }
+
+        /// <summary>
+        /// Get all unit size and assign to SelectListItem variable
+        /// </summary>
+        /// <returns>The SelectListItem variable of all UnitSize</returns>
+        private List<SelectListItem> GetUnitSizeList()
+        {
+            var unitSizeListItem = new List<SelectListItem>();
+            foreach (var unitSize in _unitSizeRepository.GetAll())
+            {
+                unitSizeListItem.Add(new SelectListItem()
+                {
+                    Text = unitSize.Name,
+                    Value = unitSize.UnitSizeId.ToString()
+                });
+            }
+
+            return unitSizeListItem;
         }
 
         #endregion Private Methods

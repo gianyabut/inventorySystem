@@ -15,7 +15,7 @@
 
     <div class="wrapper">
         <div class="container">
-            @{ 
+            @{
                 if (!@CurrentURL.Contains("Login") && !@CurrentURL.Contains("Register"))
                 {
                     Html.RenderPartial("_Sidebar");
