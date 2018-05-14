@@ -212,6 +212,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductGroupController.cs" />
     <Compile Include="Controllers\UnitSizeController.cs" />
@@ -223,6 +224,10 @@
     <Compile Include="Migrations\201805120745106_Intial.cs" />
     <Compile Include="Migrations\201805120745106_Intial.Designer.cs">
       <DependentUpon>201805120745106_Intial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805141437340_AddedSaleDetails.cs" />
+    <Compile Include="Migrations\201805141437340_AddedSaleDetails.Designer.cs">
+      <DependentUpon>201805141437340_AddedSaleDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -383,6 +388,7 @@
     <Content Include="Views\Product\_ListProducts.cshtml" />
     <Content Include="Views\Product\_AddOrEditProductModal.cshtml" />
     <Content Include="Views\Home\_ListProductsDisplayOnly.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -410,6 +416,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805120745106_Intial.resx">
       <DependentUpon>201805120745106_Intial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141437340_AddedSaleDetails.resx">
+      <DependentUpon>201805141437340_AddedSaleDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

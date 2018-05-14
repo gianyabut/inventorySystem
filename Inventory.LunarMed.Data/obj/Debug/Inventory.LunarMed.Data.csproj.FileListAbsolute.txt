@@ -21,3 +21,4 @@ C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.csproj.CopyComplete
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.dll
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.pdb
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Data\obj\Debug\Inventory.LunarMed.Data.csprojResolveAssemblyReference.cache

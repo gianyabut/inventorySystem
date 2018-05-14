@@ -53,6 +53,7 @@
     <Compile Include="Entities\Sale.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductGroup.cs" />
+    <Compile Include="Entities\SaleDetails.cs" />
     <Compile Include="Entities\UnitSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
