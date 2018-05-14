@@ -23,6 +23,7 @@ namespace Inventory.LunarMed.Web.Models
         public int StockQuantity { get; set; }
         public string ExpirationDate { get; set; }
         public int UnitSizeId { get; set; }
+        public string UnitSizeName { get; set; }
         public string Supplier { get; set; }
         public string PurchaseDate { get; set; }
 

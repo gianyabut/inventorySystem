@@ -20,6 +20,9 @@
                 Quantity Left
             </th>
             <th>
+                Unit Size
+            </th>
+            <th>
                 Expiration Date
             </th>
             <th>
@@ -36,6 +39,7 @@
                 <td>@Html.DisplayFor(modelItem => item.BatchNumber)</td>
                 <td>@Html.DisplayFor(modelItem => item.SellingPrice)</td>
                 <td>@Html.DisplayFor(modelItem => item.StockQuantity)</td>
+                <td>@Html.DisplayFor(modelItem => item.UnitSizeName)</td>
                 <td>@Html.DisplayFor(modelItem => item.ExpirationDate)</td>
                 <td><a href="#" class="dt-link edit-product" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-product-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
             </tr>
@@ -56,7 +60,10 @@
                 Selling Price
             </th>
             <th>
-                Quantity
+                Quantity Left
+            </th>
+            <th>
+                Unit Size
             </th>
             <th>
                 Expiration Date

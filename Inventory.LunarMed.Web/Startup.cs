@@ -24,7 +24,8 @@ namespace Inventory.LunarMed.Web
                 cfg.CreateMap<ProductGroupViewModel, ProductGroup>();
                 cfg.CreateMap<Product, ProductViewModel>()
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => src.ExpirationDate.ToString("MM/dd/yyyy")))
-                    .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate.ToString("MM/dd/yyyy")));
+                    .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate.ToString("MM/dd/yyyy")))
+                    .ForMember(dest => dest.UnitSizeName, opt => opt.MapFrom(src => src.UnitSize.Name));
                 cfg.CreateMap<ProductViewModel, Product>()
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)))
                     .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.PurchaseDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)));
