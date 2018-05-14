@@ -125,6 +125,9 @@
                 $('.modal-body').html(result);
                 $('.modal-body').find('h2').remove();
                 $('#modalContainer').modal();
+
+                $("#expirateDate").datepicker();
+                $("#purchaseDate").datepicker();
             }
         });
 
@@ -135,6 +138,9 @@
     $('body').on('click', '.delete-product-conf', function (e) {
         // Cleanup
         cleanModal();
+
+        $('.modal-dialog').css('max-height', '400px');
+        $('.modal-body').css('max-height', '400px');
 
         // Display the Confirmation Message with its contents
         $('.modal-title').html('<h4>Delete Product Confirmation</h4>');

@@ -25,16 +25,16 @@ else
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="basicinput">Cost</label>
+        <label class="control-label" for="basicinput">Selling Price</label>
         <div class="controls">
-            @Html.TextBoxFor(model => model.Cost, new { @class = "span8", required = "required" })
+            @Html.TextBoxFor(model => model.SellingPrice, "{0:n2}", new { @class = "span8", required = "required" })
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="basicinput">Selling Price</label>
+        <label class="control-label" for="basicinput">Cost</label>
         <div class="controls">
-            @Html.TextBoxFor(model => model.SellingPrice, new { @class = "span8", required = "required" })
+            @Html.TextBoxFor(model => model.Cost, "{0:n2}", new { @class = "span8", required = "required" })
         </div>
     </div>
 
@@ -115,8 +115,6 @@ else
             Supplier: $('#Supplier').val(),
             PurchaseDate: $('#purchaseDate').val()
         };
-
-        console.log(obj);
 
         $.ajax({
             url: url,

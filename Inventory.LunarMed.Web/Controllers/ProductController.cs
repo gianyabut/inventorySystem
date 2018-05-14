@@ -6,6 +6,7 @@ using Inventory.LunarMed.Web.Models;
 using Inventory.LunarMed.Web.Models.Shared;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -56,6 +57,8 @@ namespace Inventory.LunarMed.Web.Controllers
             {
                 ProductId = 0,
                 ExpirationDate = DateTime.Now.ToString("MM/dd/yyyy"),
+                PurchaseDate = DateTime.Now.ToString("MM/dd/yyyy"),
+                StockQuantity = 1,
                 UnitSizeList = GetUnitSizeList()
             };
 
@@ -111,6 +114,7 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             var product = _productRepository.Get(id);
             var model = Mapper.Map<Product, ProductViewModel>(product);
+            model.UnitSizeList = GetUnitSizeList();
 
             return PartialView("_AddOrEditProductModal", model);
         }
@@ -132,6 +136,14 @@ namespace Inventory.LunarMed.Web.Controllers
                 {
                     product.Name = model.Name;
                     product.BatchNumber = model.BatchNumber;
+                    product.Cost = model.Cost;
+                    product.SellingPrice = model.SellingPrice;
+                    product.MarkUp = model.MarkUp;
+                    product.StockQuantity = model.StockQuantity;
+                    product.ExpirationDate = DateTime.ParseExact(model.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                    product.UnitSizeId = model.UnitSizeId;
+                    product.Supplier = model.Supplier;
+                    product.PurchaseDate = DateTime.ParseExact(model.PurchaseDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
                     _productRepository.Update(product);
                 }
                 else
