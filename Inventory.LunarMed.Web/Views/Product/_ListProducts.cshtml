@@ -17,7 +17,7 @@
                 Selling Price
             </th>
             <th>
-                Quantity
+                Quantity Left
             </th>
             <th>
                 Expiration Date
@@ -28,7 +28,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Products)
+        @foreach (var item in Model)
         {
             <tr class="@((item.ProductId % 2) == 1 ? "odd" : "even")">
                 <td>@Html.DisplayFor(modelItem => item.ProductId)</td>

@@ -3,6 +3,8 @@ using Inventory.LunarMed.Data.Entities;
 using Inventory.LunarMed.Web.Models;
 using Microsoft.Owin;
 using Owin;
+using System;
+using System.Globalization;
 
 [assembly: OwinStartupAttribute(typeof(Inventory.LunarMed.Web.Startup))]
 namespace Inventory.LunarMed.Web
@@ -21,7 +23,9 @@ namespace Inventory.LunarMed.Web
                 cfg.CreateMap<ProductGroup, ProductGroupViewModel>();
                 cfg.CreateMap<ProductGroupViewModel, ProductGroup>();
                 cfg.CreateMap<Product, ProductViewModel>();
-                cfg.CreateMap<ProductViewModel, Product>();
+                cfg.CreateMap<ProductViewModel, Product>()
+                    .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)))
+                    .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.PurchaseDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)));
             });
         }
     }

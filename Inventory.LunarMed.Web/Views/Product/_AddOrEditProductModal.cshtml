@@ -60,7 +60,7 @@ else
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="basicinput">Expiration Date</label>
+        <label class="control-label" for="basicinput">Unit Size</label>
         <div class="controls">
             @Html.DropDownListFor(model => model.UnitSizeId, Model.UnitSizeList, new { @class = "span8" })
         </div>
@@ -97,16 +97,26 @@ else
         e.preventDefault();
 
         var url;
-        if ($('#ProductGroupId').val() == "0")
+        if ($('#ProductId').val() == "0")
             url = this.action;
         else
-            url = "ProductGroup/Edit";
+            url = "Product/Edit";
 
         var obj = {
-            ProductGroupId: $('#ProductGroupId').val(),
+            ProductId: $('#ProductId').val(),
             Name: $('#Name').val(),
-            Description: $('#Description').val()
+            BatchNumber: $('#BatchNumber').val(),
+            Cost: $('#Cost').val(),
+            SellingPrice: $('#SellingPrice').val(),
+            MarkUp: $('#MarkUp').val(),
+            StockQuantity: $('#StockQuantity').val(),
+            ExpirationDate: $('#expirateDate').val(),
+            UnitSizeId: $('#UnitSizeId').val(),
+            Supplier: $('#Supplier').val(),
+            PurchaseDate: $('#purchaseDate').val()
         };
+
+        console.log(obj);
 
         $.ajax({
             url: url,
