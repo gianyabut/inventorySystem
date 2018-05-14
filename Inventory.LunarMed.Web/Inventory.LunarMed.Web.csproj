@@ -227,6 +227,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
+    <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListClientsViewModel.cs" />
     <Compile Include="Models\ListProductsViewModel.cs" />
@@ -383,6 +384,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\_ListProducts.cshtml" />
     <Content Include="Views\Product\_AddOrEditProductModal.cshtml" />
+    <Content Include="Views\Home\_ListProductsDisplayOnly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
