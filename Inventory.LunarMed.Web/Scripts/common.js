@@ -262,3 +262,17 @@ function initDataTableHideFirstColumn() {
     $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
     $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 }
+
+
+// Displays a message thru modal
+function displayModalMessage(message) {
+    cleanModal();
+
+    $('.modal-dialog').css('height', '');
+    $('.modal-body').css('height', '');
+
+    // Display the Message with its contents
+    $('.modal-title').html('<h4>System Message</h4>');
+    $('.modal-body').append('<h5>' + message + '</h5>');
+    $('#modalContainer').modal();
+}

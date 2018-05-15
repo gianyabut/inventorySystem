@@ -50,7 +50,8 @@
 {
 <script type="text/javascript">
 
-    initDataTableHideFirstColumn();
+    initDataTable();
+    hideFirstColumn();
 
     // Add new Product click event
     $('body').on('click', 'a#addNewProduct', function (e) {
@@ -103,6 +104,9 @@
         /* Cleanup */
         cleanModal();
 
+        $('.modal-dialog').css('height', '580px');
+        $('.modal-body').css('height', '470px');
+
         /* Close popups on click elsewhere */
         /* Source: http://stackoverflow.com/a/14857326/364 */
         $('body').on('click', function (e) {
@@ -139,8 +143,8 @@
         // Cleanup
         cleanModal();
 
-        $('.modal-dialog').css('max-height', '400px');
-        $('.modal-body').css('max-height', '400px');
+        $('.modal-dialog').css('height', '');
+        $('.modal-body').css('height', '');
 
         // Display the Confirmation Message with its contents
         $('.modal-title').html('<h4>Delete Product Confirmation</h4>');
@@ -178,7 +182,16 @@
             success: function (result) {
                 $('.module-body').html('').html(result);
                 initDataTable();
+                hideFirstColumn();
             }
+        });
+    }
+
+    function hideFirstColumn() {
+        $('table thead tr th:first').hide();
+        $('table tfoot tr th:first').hide();
+        $('table tbody tr').each(function () {
+            $(this).children('td:first').hide();
         });
     }
 

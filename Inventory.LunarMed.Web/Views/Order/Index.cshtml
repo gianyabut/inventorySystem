@@ -1,54 +1,60 @@
-﻿<div class="span9">
-    <div class="content">
+﻿@using Inventory.LunarMed.Web.Models;
+@model OrderViewModel
+@{
+    ViewBag.Title = "Orders";
+}
 
+<div class="span9">
+    <div class="content">
+        @* @Html.Partial("_ViewMessageList", Model.Messages)*@
         <div class="module message">
             <div class="module-head">
                 <h3>Order Information</h3>
             </div>
             <div class="module-option clearfix">
-                <div class="pull-left">
-                    Filter : &nbsp;
-                    <div class="btn-group">
-                        <button class="btn">All</button>
-                        <button class="btn dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">In Progress</a></li>
-                            <li><a href="#">Done</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">New task</a></li>
-                            <li><a href="#">Overdue Task</a></li>
-                        </ul>
+                <div class="form-row">
+                    <div class="col-half">
+                        <select tabindex="1" data-placeholder="Select client.." class="span4">
+                            <option value="">Select client..</option>
+                            @foreach(var client in Model.ClientsList)
+                            {
+                                <option value="@client.Value">@client.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-half">
                     </div>
                 </div>
-            </div>
-            <div class="module-body table">
-                <table class="table table-message">
-                    <tbody>
-                        <tr class="heading">
-                            <td class="cell-icon"></td>
-                            <td class="cell-title">Task</td>
-                            <td class="cell-status hidden-phone hidden-tablet">Status</td>
-                            <td class="cell-time align-right">Due Date</td>
-                        </tr>
-                        <tr class="task">
-                            <td class="cell-icon"><i class="icon-checker high"></i></td>
-                            <td class="cell-title"><div>Lorem ipsum dolor sit et, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></td>
-                            <td class="cell-status hidden-phone hidden-tablet"><b class="due">Missed</b></td>
-                            <td class="cell-time align-right">Just Now</td>
-                        </tr>
-                        <tr class="task">
-                            <td class="cell-icon"><i class="icon-checker"></i></td>
-                            <td class="cell-title"><div>Lorem ipsum dolor sit et, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></td>
-                            <td class="cell-status hidden-phone hidden-tablet"><b class="due">Missed</b></td>
-                            <td class="cell-time align-right">Just Now</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
+                <div class="form-row">
+                    <div class="col-half">
+                        <label for="basicinput">Customer PO Number</label>
+                        <div class="controls">
+                            <input type="text" id="txtCustomerPONumber" class="span4" value="@Model.CustomerPONumber">
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <label for="basicinput">Due Date</label>
+                        <div class="controls">
+                            <input type="text" id="txtDueDate" class="span3"  value="@Model.DueDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-half">
+                        <label for="basicinput">Remarks</label>
+                        <div class="controls">
+                            <textarea id="txtRemarks" class="span4" rows="5">@Model.Remarks</textarea>
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <label for="basicinput">Terms</label>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on">#</span><input id="txtTerms" class="span1" type="text" value="@Model.Terms">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="module-foot">
             </div>
@@ -56,58 +62,168 @@
 
         <div class="module message">
             <div class="module-head">
-                <h3>Order Details</h3>
+                <h3>
+                    Order Details
+                </h3>
             </div>
             <div class="module-option clearfix">
                 <div class="pull-left">
-                    Filter : &nbsp;
-                    <div class="btn-group">
-                        <button class="btn">All</button>
-                        <button class="btn dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">In Progress</a></li>
-                            <li><a href="#">Done</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">New task</a></li>
-                            <li><a href="#">Overdue Task</a></li>
-                        </ul>
+                    <input type="text" id="txtSearchProduct" class="span4" placeholder="Search Product.." />
+                    <div class="input-prepend pull-right margin-left-15">
+                        <span class="add-on">Quantity</span><input id="txtQuantity" class="span1" type="text" value="1" />
                     </div>
+                    <input type="hidden" id="hfProductId" />
+                    <input type="hidden" id="hfStockLeft" />
+                    <input type="hidden" id="hfUnitSize" />
+                    <input type="hidden" id="hfSellingPrice" />
                 </div>
                 <div class="pull-right">
-                    <a href="#" class="btn btn-primary">Create Task</a>
+                    <a href="#" class="btn btn-primary btn-addProduct">Add Product</a>
                 </div>
             </div>
             <div class="module-body table">
                 <table class="table table-message">
                     <tbody>
                         <tr class="heading">
-                            <td class="cell-icon"></td>
-                            <td class="cell-title">Task</td>
-                            <td class="cell-status hidden-phone hidden-tablet">Status</td>
-                            <td class="cell-time align-right">Due Date</td>
-                        </tr>
-                        <tr class="task">
-                            <td class="cell-icon"><i class="icon-checker high"></i></td>
-                            <td class="cell-title"><div>Lorem ipsum dolor sit et, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></td>
-                            <td class="cell-status hidden-phone hidden-tablet"><b class="due">Missed</b></td>
-                            <td class="cell-time align-right">Just Now</td>
-                        </tr>
-                        <tr class="task">
-                            <td class="cell-icon"><i class="icon-checker"></i></td>
-                            <td class="cell-title"><div>Lorem ipsum dolor sit et, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></td>
-                            <td class="cell-status hidden-phone hidden-tablet"><b class="due">Missed</b></td>
-                            <td class="cell-time align-right">Just Now</td>
+                            <td class="cell-check"></td>
+                            <td class="cell-title">
+                                Product Name
+                            </td>
+                            <td class="cell-title">
+                                Unit Size
+                            </td>
+                            <td class="cell-author align-center">
+                                Quantity
+                            </td>
+                            <td class="cell-time">
+                                Cost
+                            </td>
+                            <td class="cell-time align-right">
+                                Total
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-
-
             </div>
             <div class="module-foot">
+                <div class="pull-right table-summary">
+                    <span class="total">0.00</span>
+                </div>
             </div>
         </div>
     </div><!--/.content-->
 </div><!--/.span9-->
+
+<div id="modalContainer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <div class="control-group">
+                    <div class="controls">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $("#txtDueDate").datepicker();
+
+        $("#txtSearchProduct").autocomplete({
+            source: function (request, response) {
+                var products = new Array();
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    url: "@(Url.Action("GetProducts", "Order"))",
+                    type: 'GET',
+                    data: { "wildcard": $("#txtSearchProduct").val() },      
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var i = 0; i < data.length ; i++) {
+                            products[i] = { label: data[i].Value, Id: data[i].Key };
+                        }
+                     }
+                });
+                response(products);
+            },
+            minLength: 1,
+            select: function (event, ui) {
+                $.ajax({
+                    cache: false,
+                    async: false,
+                    type: 'GET',
+                    dataType: 'json',
+                    url: "@(Url.Action("GetProductDetails", "Order"))",
+                    data: { "id": ui.item.Id },                    
+                    success: function (data) {     
+                        $("#hfProductId").val(data.ProductId);
+                        $("#hfStockLeft").val(data.StockQuantity);
+                        $("#hfUnitSize").val(data.UnitSizeName);
+                        $("#hfSellingPrice").val(data.SellingPrice);
+
+                        if (data.StockQuantity == "0") {
+                            displayModalMessage("Selected product is currently out of stock.");
+                        }
+                    }
+                });
+            }
+        }).autocomplete('enable'); 
+
+        $('.btn-addProduct').on('click', function () {
+            if ($("#hfProductId").val() == "") {
+                displayModalMessage("Please search for a product.");
+                return;
+            }
+
+            if (parseInt($("#hfStockLeft").val()) < parseInt($('#txtQuantity').val())) {
+                $('#txtQuantity').val($("#hfStockLeft").val());
+                displayModalMessage("Quantity is greater than the current stock.");
+                return;
+            }
+
+            var name = $("#txtSearchProduct").val().split("(");
+            var totalCost = Number((parseInt($("#hfSellingPrice").val()) * parseInt($("#txtQuantity").val()))).toFixed(2);
+            $('table.table-message tbody').append(
+                '<tr class="unread">'
+                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a></td>'
+                + '<td class="cell-title">' + $.trim(name[0]) + '</td>'
+                + '<td class="cell-author">' + $("#hfUnitSize").val() + '</td>'
+                + '<td class="cell-time align-center">' + $("#txtQuantity").val() + '</td>'
+                + '<td class="cell-time">' + Number($("#hfSellingPrice").val()).toFixed(2) + '</td>'
+                + '<td class="cell-time align-right"">' + totalCost + '</td>'
+                + '</tr>'
+            );
+
+            $("#hfProductId").val('');
+            $("#txtSearchProduct").val('');
+            $("#txtQuantity").val('1');
+
+            computeTotal(parseFloat(totalCost));
+        });
+
+        $('body').on('click', '.remove-product', function (e) {
+            var cost = $(this).parent().parent().children('td:last').text();
+            $(this).parent().parent().remove();
+
+            computeTotal(parseFloat(-cost));
+        });
+
+        function computeTotal(cost) {
+            var sum = Number(parseFloat($('.total').text()) + cost).toFixed(2);
+            $('.total').text(sum);
+        }
+
+    </script>
+
+}

@@ -2036,3 +2036,26 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .clsDatePicker {
     z-index: 100000;
 }
+
+.table-summary {
+    margin-top: -10px;
+}
+
+.form-row {
+    width: inherit;
+    overflow: hidden;
+}
+
+.total {
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+.col-half {
+    width: 50%;
+    float: left;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}

@@ -17,8 +17,12 @@ namespace Inventory.LunarMed.Data.Entities
         public int Terms { get; set; }
         public DateTime DueDate { get; set; }
         public string Remarks { get; set; }
-        public int Quantity { get; set; }
         public string CustomerPONumber { get; set; }
+        public int ClientId { get; set; }
+
+
+        [ForeignKey("ClientId")]
+        public virtual Client Client { get; set; }
 
         public ICollection<SaleDetails> OrderDetails { get; set; }
     }

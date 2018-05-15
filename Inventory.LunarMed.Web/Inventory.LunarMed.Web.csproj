@@ -229,6 +229,14 @@
     <Compile Include="Migrations\201805141437340_AddedSaleDetails.Designer.cs">
       <DependentUpon>201805141437340_AddedSaleDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805151007245_TransferSaleQuantity.cs" />
+    <Compile Include="Migrations\201805151007245_TransferSaleQuantity.Designer.cs">
+      <DependentUpon>201805151007245_TransferSaleQuantity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805151035135_AddedClientIdInSaleTable.cs" />
+    <Compile Include="Migrations\201805151035135_AddedClientIdInSaleTable.Designer.cs">
+      <DependentUpon>201805151035135_AddedClientIdInSaleTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
@@ -239,6 +247,8 @@
     <Compile Include="Models\ListProductGroupsViewModel.cs" />
     <Compile Include="Models\ListUnitSizeViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderDetailViewModel.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ProductGroupViewModel.cs" />
     <Compile Include="Models\Shared\ViewMessage.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
@@ -419,6 +429,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805141437340_AddedSaleDetails.resx">
       <DependentUpon>201805141437340_AddedSaleDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151007245_TransferSaleQuantity.resx">
+      <DependentUpon>201805151007245_TransferSaleQuantity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151035135_AddedClientIdInSaleTable.resx">
+      <DependentUpon>201805151035135_AddedClientIdInSaleTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

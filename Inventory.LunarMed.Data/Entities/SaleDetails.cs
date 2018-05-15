@@ -18,6 +18,7 @@ namespace Inventory.LunarMed.Data.Entities
 
         public int ProductId { get; set; }
         public int ProductGroupId { get; set; }
+        public int Quantity { get; set; }
 
         [ForeignKey("ProductGroupId")]
         public virtual ProductGroup ProductGroup { get; set; }
