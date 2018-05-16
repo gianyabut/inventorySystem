@@ -14,7 +14,7 @@
             <div class="module-option clearfix">
                 <div class="form-row">
                     <div class="col-half">
-                        <select tabindex="1" data-placeholder="Select client.." class="span4">
+                        <select tabindex="1" data-placeholder="Select client.." class="span4" id="ddlClientId">
                             <option value="">Select client..</option>
                             @foreach(var client in Model.ClientsList)
                             {
@@ -56,7 +56,10 @@
                     </div>
                 </div>
             </div>
-            <div class="module-foot">
+            <div class="module-foot overflow-hidden padding-10">
+                <div class="pull-right">
+                    <a href="#" class="btn btn-primary btn-submit-order">Purchase</a>
+                </div>
             </div>
         </div>
 
@@ -139,6 +142,7 @@
 
         $("#txtDueDate").datepicker();
 
+        // Initialize Auto-Complete
         $("#txtSearchProduct").autocomplete({
             source: function (request, response) {
                 var products = new Array();
@@ -180,6 +184,7 @@
             }
         }).autocomplete('enable'); 
 
+        // Add Product Button click event
         $('.btn-addProduct').on('click', function () {
             if ($("#hfProductId").val() == "") {
                 displayModalMessage("Please search for a product.");
@@ -207,9 +212,38 @@
 
             $("#hfProductId").val('');
             $("#txtSearchProduct").val('');
+            $("#txtSearchProduct").focus();
             $("#txtQuantity").val('1');
 
             computeTotal(parseFloat(totalCost));
+        });
+
+        $('.btn-submit-order').on('click', function () {
+
+            orderDetailsObj = [];
+            $('.table-message tbody tr:not(:first)').each(function () {
+                console.log($(this));
+            });
+
+            var data = JSON.stringify({
+                ClientId: $('#ddlClientId').val(),
+                Terms: $('#txtTerms').val(),
+                DueDate: $('#txtDueDate').val(),
+                Remarks: $('#txtRemarks').val(),
+                CustomerPONumber: $('#txtCustomerPONumber').val()
+            });
+
+            @*$.ajax({
+                url: "@(Url.Action("Create", "Order"))",
+                data: data,
+                contentType: "application/json;charset=utf-8",
+                type: "POST",
+                success: function (result) {
+                    $('#divMessages').html(result);
+                    loadData();
+                    $('#modalContainer').modal('hide');
+                }
+            });*@
         });
 
         $('body').on('click', '.remove-product', function (e) {

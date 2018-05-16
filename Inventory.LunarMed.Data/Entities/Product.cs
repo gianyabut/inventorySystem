@@ -27,9 +27,13 @@ namespace Inventory.LunarMed.Data.Entities
 
         public string Supplier { get; set; }
         public DateTime PurchaseDate { get; set; }
+        public int ProductGroupId { get; set; }
 
         [ForeignKey("UnitSizeId")]
         public virtual UnitSize UnitSize { get; set; }
+
+        [ForeignKey("ProductGroupId")]
+        public virtual ProductGroup ProductGroup { get; set; }
 
     }
 }

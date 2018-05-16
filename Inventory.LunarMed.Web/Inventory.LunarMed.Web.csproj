@@ -221,21 +221,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IUserManager.cs" />
-    <Compile Include="Migrations\201805120745106_Intial.cs" />
-    <Compile Include="Migrations\201805120745106_Intial.Designer.cs">
-      <DependentUpon>201805120745106_Intial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805141437340_AddedSaleDetails.cs" />
-    <Compile Include="Migrations\201805141437340_AddedSaleDetails.Designer.cs">
-      <DependentUpon>201805141437340_AddedSaleDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805151007245_TransferSaleQuantity.cs" />
-    <Compile Include="Migrations\201805151007245_TransferSaleQuantity.Designer.cs">
-      <DependentUpon>201805151007245_TransferSaleQuantity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805151035135_AddedClientIdInSaleTable.cs" />
-    <Compile Include="Migrations\201805151035135_AddedClientIdInSaleTable.Designer.cs">
-      <DependentUpon>201805151035135_AddedClientIdInSaleTable.cs</DependentUpon>
+    <Compile Include="Migrations\201805160901182_Initial.cs" />
+    <Compile Include="Migrations\201805160901182_Initial.Designer.cs">
+      <DependentUpon>201805160901182_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -424,17 +412,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805120745106_Intial.resx">
-      <DependentUpon>201805120745106_Intial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805141437340_AddedSaleDetails.resx">
-      <DependentUpon>201805141437340_AddedSaleDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805151007245_TransferSaleQuantity.resx">
-      <DependentUpon>201805151007245_TransferSaleQuantity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805151035135_AddedClientIdInSaleTable.resx">
-      <DependentUpon>201805151035135_AddedClientIdInSaleTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805160901182_Initial.resx">
+      <DependentUpon>201805160901182_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

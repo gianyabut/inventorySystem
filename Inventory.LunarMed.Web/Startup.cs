@@ -29,6 +29,13 @@ namespace Inventory.LunarMed.Web
                 cfg.CreateMap<ProductViewModel, Product>()
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)))
                     .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.PurchaseDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)));
+
+
+                cfg.CreateMap<OrderViewModel, Order>();
+                cfg.CreateMap<Order, OrderViewModel>();
+
+                cfg.CreateMap<OrderDetailViewModel, OrderDetails>();
+                cfg.CreateMap<OrderDetails, OrderDetailViewModel>();
             });
         }
     }
