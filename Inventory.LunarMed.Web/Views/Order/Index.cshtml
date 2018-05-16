@@ -6,7 +6,7 @@
 
 <div class="span9">
     <div class="content">
-        @* @Html.Partial("_ViewMessageList", Model.Messages)*@
+         @Html.Partial("_ViewMessageList", Model.Messages)
         <div class="module message">
             <div class="module-head">
                 <h3>Order Information</h3>
@@ -81,7 +81,7 @@
                     <input type="hidden" id="hfSellingPrice" />
                 </div>
                 <div class="pull-right">
-                    <a href="#" class="btn btn-primary btn-addProduct">Add Product</a>
+                    <a href="#" class="btn btn-primary btn-add-product">Add Product</a>
                 </div>
             </div>
             <div class="module-body table">
@@ -185,7 +185,7 @@
         }).autocomplete('enable'); 
 
         // Add Product Button click event
-        $('.btn-addProduct').on('click', function () {
+        $('.btn-add-product').on('click', function () {
             if ($("#hfProductId").val() == "") {
                 displayModalMessage("Please search for a product.");
                 return;
@@ -201,7 +201,7 @@
             var totalCost = Number((parseInt($("#hfSellingPrice").val()) * parseInt($("#txtQuantity").val()))).toFixed(2);
             $('table.table-message tbody').append(
                 '<tr class="unread">'
-                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a></td>'
+                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a><input type="hidden" value="' + $("#hfProductId").val() + '" /></td>'
                 + '<td class="cell-title">' + $.trim(name[0]) + '</td>'
                 + '<td class="cell-author">' + $("#hfUnitSize").val() + '</td>'
                 + '<td class="cell-time align-center">' + $("#txtQuantity").val() + '</td>'
@@ -222,7 +222,10 @@
 
             orderDetailsObj = [];
             $('.table-message tbody tr:not(:first)').each(function () {
-                console.log($(this));
+                orderDetails = {};
+                orderDetails['ProductId'] = $(this).children('td:first').find('input').val();
+                orderDetails['Quantity'] = $(this).children('td:nth-child(4)').text();
+                orderDetailsObj.push(orderDetails);
             });
 
             var data = JSON.stringify({
@@ -230,20 +233,19 @@
                 Terms: $('#txtTerms').val(),
                 DueDate: $('#txtDueDate').val(),
                 Remarks: $('#txtRemarks').val(),
-                CustomerPONumber: $('#txtCustomerPONumber').val()
+                CustomerPONumber: $('#txtCustomerPONumber').val(),
+                OrderDetails: orderDetailsObj
             });
 
-            @*$.ajax({
+            $.ajax({
                 url: "@(Url.Action("Create", "Order"))",
                 data: data,
                 contentType: "application/json;charset=utf-8",
                 type: "POST",
                 success: function (result) {
                     $('#divMessages').html(result);
-                    loadData();
-                    $('#modalContainer').modal('hide');
                 }
-            });*@
+            });
         });
 
         $('body').on('click', '.remove-product', function (e) {

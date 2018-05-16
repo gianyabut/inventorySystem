@@ -18,6 +18,13 @@ else
     </div>
 
     <div class="control-group">
+        <label class="control-label" for="basicinput">Product Group</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.ProductGroupId, Model.ProductGroupList, new { @class = "span8" })
+        </div>
+    </div>
+
+    <div class="control-group">
         <label class="control-label" for="basicinput">Batch Number</label>
         <div class="controls">
             @Html.TextBoxFor(model => model.BatchNumber, new { @class = "span8", required = "required" })
@@ -113,7 +120,8 @@ else
             ExpirationDate: $('#expirateDate').val(),
             UnitSizeId: $('#UnitSizeId').val(),
             Supplier: $('#Supplier').val(),
-            PurchaseDate: $('#purchaseDate').val()
+            PurchaseDate: $('#purchaseDate').val(),
+            ProductGroupId: $('#ProductGroupId').val()
         };
 
         $.ajax({

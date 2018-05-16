@@ -16,12 +16,14 @@ namespace Inventory.LunarMed.Web.Controllers
     public class ProductController : Controller
     {
         private readonly IGenericRepository<Product> _productRepository;
+        private readonly IGenericRepository<ProductGroup> _productGroupRepository;
         private readonly IGenericRepository<UnitSize> _unitSizeRepository;
 
-        public ProductController(IGenericRepository<Product> productRepository, IGenericRepository<UnitSize> unitSizeRepository)
+        public ProductController(IGenericRepository<Product> productRepository, IGenericRepository<UnitSize> unitSizeRepository, IGenericRepository<ProductGroup> productGroupRepository)
         {
             _productRepository = productRepository;
             _unitSizeRepository = unitSizeRepository;
+            _productGroupRepository = productGroupRepository;
         }
 
         // GET: Product
@@ -59,7 +61,8 @@ namespace Inventory.LunarMed.Web.Controllers
                 ExpirationDate = DateTime.Now.ToString("MM/dd/yyyy"),
                 PurchaseDate = DateTime.Now.ToString("MM/dd/yyyy"),
                 StockQuantity = 1,
-                UnitSizeList = GetUnitSizeList()
+                UnitSizeList = GetUnitSizeList(),
+                ProductGroupList = GetProductGroupList()
             };
 
             return this.PartialView("_AddOrEditProductModal", model);
@@ -115,6 +118,7 @@ namespace Inventory.LunarMed.Web.Controllers
             var product = _productRepository.Get(id);
             var model = Mapper.Map<Product, ProductViewModel>(product);
             model.UnitSizeList = GetUnitSizeList();
+            model.ProductGroupList = GetProductGroupList();
 
             return PartialView("_AddOrEditProductModal", model);
         }
@@ -261,6 +265,25 @@ namespace Inventory.LunarMed.Web.Controllers
             }
 
             return unitSizeListItem;
+        }
+
+        /// <summary>
+        /// Get all product group and assign to SelectListItem variable
+        /// </summary>
+        /// <returns>The SelectListItem variable of all UnitSize</returns>
+        private List<SelectListItem> GetProductGroupList()
+        {
+            var productGroupItem = new List<SelectListItem>();
+            foreach (var productGroup in _productGroupRepository.GetAll())
+            {
+                productGroupItem.Add(new SelectListItem()
+                {
+                    Text = productGroup.Name,
+                    Value = productGroup.ProductGroupId.ToString()
+                });
+            }
+
+            return productGroupItem;
         }
 
         #endregion Private Methods

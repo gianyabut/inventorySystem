@@ -26,7 +26,9 @@ namespace Inventory.LunarMed.Web.Models
         public string UnitSizeName { get; set; }
         public string Supplier { get; set; }
         public string PurchaseDate { get; set; }
+        public int ProductGroupId { get; set; }
 
         public IEnumerable<SelectListItem> UnitSizeList { get; set; }
+        public IEnumerable<SelectListItem> ProductGroupList { get; set; }
     }
 }

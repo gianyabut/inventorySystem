@@ -41,7 +41,7 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             var result = new List<KeyValuePair<string, string>>();
 
-            foreach(var product in _productRepository.GetAll().Where(s => s.Name.Contains(wildcard)))
+            foreach(var product in _productRepository.GetAll().Where(s => s.Name.ToLower().Contains(wildcard.ToLower())))
             {
                 var name = product.Name.ToString() + " (Left: " + product.StockQuantity + ")";
                 result.Add(new KeyValuePair<string, string>(product.ProductId.ToString(), name));
@@ -72,6 +72,15 @@ namespace Inventory.LunarMed.Web.Controllers
             try
             {
                 var order = Mapper.Map<OrderViewModel, Order>(model);
+
+                // Subtract current order to quantity
+                foreach(var orderDetails in order.OrderDetails)
+                {
+                    var product = _productRepository.Find(i => i.ProductId == orderDetails.ProductId);
+                    product.StockQuantity = product.StockQuantity - orderDetails.Quantity;
+                    _productRepository.Update(product);
+                }
+
                 _orderRepository.Add(order);
 
                 messages = new List<ViewMessage>
