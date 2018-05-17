@@ -1,0 +1,47 @@
+﻿@using Inventory.LunarMed.Web.Models;
+@model ListOrdersViewModel
+@{
+    ViewBag.Title = "Orders List";
+}
+
+
+<div class="span9">
+    <div class="content">
+        @Html.Partial("_ViewMessageList", Model.Messages)
+        <div class="module">
+            <div class="module-head overflow-hidden">
+                <h3 class="pull-left">
+                    Orders
+                </h3>
+                <div class="pull-right">
+                    <a class="btn btn-small btn-info" href="@Url.Action("Index", "Order")">Place Order</a>
+                </div>
+            </div>
+            <div class="module-body table">
+                @Html.Partial("_ListOrders", Model.Orders)
+            </div>
+        </div>
+        <!--/.module-->
+    </div>
+    <!--/.content-->
+</div>
+<!--/.span9-->
+
+<div id="modalContainer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <div class="control-group">
+                    <div class="controls">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

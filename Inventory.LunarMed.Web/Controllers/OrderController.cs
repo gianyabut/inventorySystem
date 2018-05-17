@@ -17,12 +17,15 @@ namespace Inventory.LunarMed.Web.Controllers
         private readonly IGenericRepository<Order> _orderRepository;
         private readonly IGenericRepository<Client> _clientRepository;
         private readonly IGenericRepository<Product> _productRepository;
+        private readonly IGenericRepository<OrderDetails> _orderDetailsRepository;
 
-        public OrderController(IGenericRepository<Order> orderRepository, IGenericRepository<Client> clientRepository, IGenericRepository<Product> productRepository)
+        public OrderController(IGenericRepository<Order> orderRepository, IGenericRepository<Client> clientRepository, 
+            IGenericRepository<Product> productRepository, IGenericRepository<OrderDetails> orderDetailsRepository)
         {
             _orderRepository = orderRepository;
             _clientRepository = clientRepository;
             _productRepository = productRepository;
+            _orderDetailsRepository = orderDetailsRepository;
         }
 
         // GET: Order
@@ -32,6 +35,34 @@ namespace Inventory.LunarMed.Web.Controllers
             {
                 ClientsList = GetClients()
             };
+
+            return View(model);
+        }
+
+        // GET: Order/List
+        public ActionResult List()
+        {
+            var orders = _orderRepository.GetAll();
+
+            var model = new ListOrdersViewModel
+            {
+                Orders = Mapper.Map<List<Order>, List<OrderViewModel>>(orders.ToList())
+            };
+
+            foreach (var order in model.Orders)
+            {
+                var orderDetails = _orderDetailsRepository.List(i => i.OrderId == order.OrderId);
+                decimal total = 0;
+                foreach(var item in orderDetails)
+                {
+                    var productId = item.ProductId;
+                    var quantity = item.Quantity;
+
+                    var product = _productRepository.Find(i => i.ProductId == productId);
+                    total += product.SellingPrice * quantity;
+                }
+                order.Total = total;
+            }
 
             return View(model);
         }

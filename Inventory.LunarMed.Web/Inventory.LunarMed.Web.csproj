@@ -231,6 +231,7 @@
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListClientsViewModel.cs" />
+    <Compile Include="Models\ListOrdersViewModel.cs" />
     <Compile Include="Models\ListProductsViewModel.cs" />
     <Compile Include="Models\ListProductGroupsViewModel.cs" />
     <Compile Include="Models\ListUnitSizeViewModel.cs" />
@@ -387,6 +388,8 @@
     <Content Include="Views\Product\_AddOrEditProductModal.cshtml" />
     <Content Include="Views\Home\_ListProductsDisplayOnly.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\List.cshtml" />
+    <Content Include="Views\Order\_ListOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
