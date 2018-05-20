@@ -39,6 +39,10 @@ namespace Inventory.LunarMed.Web
 
                 cfg.CreateMap<OrderDetailViewModel, OrderDetails>();
                 cfg.CreateMap<OrderDetails, OrderDetailViewModel>();
+
+                cfg.CreateMap<CollectionViewModel, Collection>();
+                cfg.CreateMap<Collection, CollectionViewModel>()
+                    .ForMember(dest => dest.CustomerPONumber, opt => opt.MapFrom(src => src.Order.CustomerPONumber));
             });
         }
     }

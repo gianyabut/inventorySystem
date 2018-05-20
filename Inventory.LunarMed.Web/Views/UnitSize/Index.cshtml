@@ -142,7 +142,7 @@
             $('#modalContainer').modal();
         });
 
-        // This is the delete client click event and calls the ajax service to delete the unit size
+        // This is the delete click event and calls the ajax service to delete the unit size
         $('body').on('click', '.delete-unitSize', function (e) {
             var url = "UnitSize/Delete"; // Full URL
             var data = JSON.stringify({ id: $('#hfUnitSizeId').val() });

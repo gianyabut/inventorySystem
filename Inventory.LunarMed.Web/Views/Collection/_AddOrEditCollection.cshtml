@@ -1,0 +1,87 @@
+﻿@model Inventory.LunarMed.Web.Models.CollectionViewModel
+
+@if (Model.CollectionId == 0)
+{
+    <h2>Add New Collection</h2>
+}
+else
+{
+    <h2>Edit Collection</h2>
+}
+
+@using (Html.BeginForm("Create", "Collection", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
+{
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Customer PO Number</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.CustomerPONumber, Model.CustomerPONumberList, new { @class = "span8" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Check Number</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.CheckNumber, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Amount</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Amount, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Balance</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Balance, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.CollectionId);
+    <div class="control-group">
+        <div class="controls control-submit">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    // The form submit event
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var url;
+        if ($('#CollectionId').val() == "0")
+            url = this.action;
+        else
+            url = "Collection/Edit";
+
+        var obj = {
+            CollectionId: $('#CollectionId').val(),
+            CheckNumber: $('#CheckNumber').val(),
+            Amount: $('#Amount').val(),
+            Balance: $('#Balance').val(),
+            CustomerPONumber: $('#CustomerPONumber').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(obj),
+            success: function (result) {
+                $('#divMessages').html(result);
+                loadData();
+                $('#modalContainer').modal('hide');
+            }
+        });
+    });
+
+</script>
+
+
+
