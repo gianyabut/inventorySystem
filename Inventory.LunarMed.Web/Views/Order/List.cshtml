@@ -46,24 +46,25 @@
     </div>
 </div>
 
-@section Scripts {
+@section Scripts 
+{
     
     <script type="text/javascript">
 
 
         initDataTable();
 
-        // Edit Product Link Click Event
+        // More details click event
         $('.module-body').on('click', '.more-details', function (e) {
             var id = $(this).parent().parent().children('td:first').text();
 
-            var url = "Product/Edit/" + id; // Full URL
+            var url = "/Order/GetDetails/" + id; // Full URL
 
             /* Cleanup */
             cleanModal();
 
-            $('.modal-dialog').css('height', '600px');
-            $('.modal-body').css('height', '490px');
+            $('.modal-dialog').css('height', '510px');
+            $('.modal-body').css('height', '400px');
 
             /* Close popups on click elsewhere */
             /* Source: http://stackoverflow.com/a/14857326/364 */

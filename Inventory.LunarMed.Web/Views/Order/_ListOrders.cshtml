@@ -5,6 +5,9 @@
     <thead>
         <tr>
             <th>
+                Order Id
+            </th>
+            <th>
                 Client Name
             </th>
             <th>
@@ -27,18 +30,22 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="@((item.OrderId % 2) == 1 ? "odd" : "even")">
-                <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
-                <td>@Html.DisplayFor(modelItem => item.CustomerPONumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Total)</td>
-                <td>@Html.DisplayFor(modelItem => item.Terms)</td>
-                <td>@Html.DisplayFor(modelItem => item.DueDate)</td>
-                <td><a href="#" class="dt-link more-details" style="text-decoration: none;"><i class="icon-folder-open dt-icon"></i> More Details</a> | <a href="#" class="dt-link delete-product-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
-            </tr>
+        <tr class="@((item.OrderId % 2) == 1 ? "odd" : "even")">
+            <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
+            <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
+            <td>@Html.DisplayFor(modelItem => item.CustomerPONumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.Total)</td>
+            <td>@Html.DisplayFor(modelItem => item.Terms)</td>
+            <td>@Html.DisplayFor(modelItem => item.DueDate)</td>
+            <td><a href="#" class="dt-link more-details" style="text-decoration: none;"><i class="icon-folder-open dt-icon"></i> More Details</a> | <a href="#" class="dt-link delete-product-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
+        </tr>
         }
     </tbody>
     <tfoot>
         <tr>
+            <th>
+                Order Id
+            </th>
             <th>
                 Client Name
             </th>

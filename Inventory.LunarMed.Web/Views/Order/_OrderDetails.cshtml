@@ -1,0 +1,48 @@
+﻿@model Inventory.LunarMed.Web.Models.DisplayOrderViewModel
+
+    <h2>Order Details</h2>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Customer PO Number</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.CustomerPONumber, new { @class = "span3", @disabled = "disabled" })
+        </div>
+    </div>
+
+    <div class="module message">
+        <div class="module-head">
+            <h3>
+                Order Details
+            </h3>
+        </div>
+        <div class="module-body table">
+            <table class="table table-message">
+                <tbody>
+                    <tr class="heading">
+                        <td class="cell-title align-left">
+                            Product Name
+                        </td>
+                        <td class="cell-author align-center">
+                            Quantity
+                        </td>
+                        <td class="cell-time align-right">
+                            Total
+                        </td>
+                    </tr>
+                    @foreach(var product in Model.OrderDetails)
+                    {
+                    <tr>
+                        <td>@product.ProductName</td>
+                        <td class="align-center">@product.Quantity</td>
+                        <td class="align-right">@product.Total</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="module-foot">
+            <div class="pull-right table-summary">
+                <span class="total">@Model.Total</span>
+            </div>
+        </div>
+    </div>

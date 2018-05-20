@@ -230,6 +230,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\CollectionViewModel.cs" />
+    <Compile Include="Models\DisplayOrderDetailsViewModel.cs" />
+    <Compile Include="Models\DisplayOrderViewModel.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ListClientsViewModel.cs" />
@@ -396,6 +398,7 @@
     <Content Include="Views\Collection\Index.cshtml" />
     <Content Include="Views\Collection\_AddOrEditCollection.cshtml" />
     <Content Include="Views\Collection\_ListCollections.cshtml" />
+    <Content Include="Views\Order\_OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

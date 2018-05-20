@@ -90,6 +90,33 @@ namespace Inventory.LunarMed.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        // GET: Order/GetDetails/id
+        public ActionResult GetDetails(int id)
+        {
+            var order = _orderRepository.Get(id);
+            var model = Mapper.Map<Order, DisplayOrderViewModel>(order);
+
+            var ordersListModel = new List<DisplayOrderDetailsViewModel>();
+            var orderDetails = _orderDetailsRepository.List(i => i.OrderId == model.OrderId);
+            decimal total = 0;
+            foreach(var orderDetail in orderDetails)
+            {
+                var product = _productRepository.Get(orderDetail.ProductId);
+                ordersListModel.Add(new DisplayOrderDetailsViewModel()
+                {
+                    ProductName = product.Name,
+                    Quantity = orderDetail.Quantity,
+                    Total = orderDetail.Quantity * product.SellingPrice
+                });
+                total += orderDetail.Quantity * product.SellingPrice;
+            }
+
+            model.Total = total;
+            model.OrderDetails = ordersListModel;
+
+            return this.PartialView("_OrderDetails", model);
+        }
+
         // POST: Order/Create
         /// <summary>
         /// This saves a new order 

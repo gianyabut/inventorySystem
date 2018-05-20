@@ -14,18 +14,18 @@
                         Product Count
                     </p>
                 </a><a href="#" class="btn-box big span4">
-                    <i class="icon-user"></i><b>15</b>
+                    <i class="icon-reorder"></i><b>@Model.Orders.Count.ToString()</b>
                     <p class="text-muted">
-                        Number of Users
+                        Number of Orders
                     </p>
                 </a><a href="#" class="btn-box big span4">
-                    <i class="icon-money"></i><b>15,152</b>
+                    <i class="icon-money"></i><b>@Model.Collections.Count.ToString()</b>
                     <p class="text-muted">
-                        Profit
+                        Number of Collections
                     </p>
                 </a>
             </div>
-            <div class="btn-box-row row-fluid">
+            @*<div class="btn-box-row row-fluid">
                 <div class="span8">
                     <div class="row-fluid">
                         <div class="span12">
@@ -91,7 +91,7 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div>*@
         </div>
         <!--/#btn-controls-->
         @*<div class="module">
