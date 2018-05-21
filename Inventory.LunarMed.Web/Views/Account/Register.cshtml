@@ -5,14 +5,18 @@
 
 <div class="wrapper">
     <div class="container">
+
+
         @if (!Html.ViewData.ModelState.IsValid)
         {
-            <div class="row">
-                <div class="alert alert-error">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    @Html.ValidationSummary("", new { @class = "" })
+                <div class="row">
+                    <div class="module module-login span4 offset4">
+                        <div class="alert alert-error" style="margin-bottom: 0;">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            @Html.ValidationSummary("", new { @class = "" })
+                        </div>
+                    </div>
                 </div>
-            </div>
         }
         @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
         {
@@ -32,6 +36,7 @@
                             <div class="control-group">
                                 <div class="controls row-fluid">
                                     @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "span12" })
+                                    <span class="help-inline">Password should contain special character, number, lower and uppercase letters.</span>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -51,6 +56,7 @@
                 </div>
             </div>
         }
+
     </div>
 </div><!--/.wrapper-->
 

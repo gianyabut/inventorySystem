@@ -4,6 +4,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Inventory.LunarMed.Data.Entities;
 using Inventory.LunarMed.Data.Entities.Base;
@@ -54,6 +55,8 @@ namespace Inventory.LunarMed.Web.Models
         /// </summary>
         private void CreateAuditLogs()
         {
+            User = Thread.CurrentPrincipal.Identity.Name;
+
             if (string.IsNullOrEmpty(this.User))
             {
                 this.User = "Admin";
