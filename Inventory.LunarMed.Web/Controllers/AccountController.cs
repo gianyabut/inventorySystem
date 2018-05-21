@@ -11,6 +11,10 @@ using Microsoft.Owin.Security;
 using Inventory.LunarMed.Web.Models;
 using Inventory.LunarMed.Web.Business.Interfaces;
 using Inventory.LunarMed.Data.Entities;
+using Inventory.LunarMed.Web.Models.Shared;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Inventory.LunarMed.Web.Enum;
 
 namespace Inventory.LunarMed.Web.Controllers
 {
@@ -57,6 +61,104 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        public ActionResult Users()
+        {
+            var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+
+            var model = new ListUsersViewModel
+            {
+                Messages = new List<ViewMessage>(),
+                Users = new List<UserViewModel>()
+            };
+
+            foreach (var user in userStore.Users)
+            {
+                model.Users.Add(new UserViewModel()
+                {
+                    UserId = user.Id,
+                    Username = user.UserName
+                });
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult UserList()
+        {
+            var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+
+            var model = new ListUsersViewModel
+            {
+                Messages = new List<ViewMessage>(),
+                Users = new List<UserViewModel>()
+            };
+
+            foreach (var user in userStore.Users)
+            {
+                model.Users.Add(new UserViewModel()
+                {
+                    UserId = user.Id,
+                    Username = user.UserName
+                });
+            }
+
+            return this.PartialView("_ListUsers", model.Users);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var messages = new List<ViewMessage>();
+
+            if (ModelState.IsValid)
+            {
+                var context = new ApplicationDbContext();
+                var user = await UserManager.FindByIdAsync(id);
+                var logins = user.Logins;
+                var rolesForUser = await _userManager.GetRolesAsync(id);
+
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    foreach (var login in logins.ToList())
+                    {
+                        await _userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                    }
+
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var item in rolesForUser.ToList())
+                        {
+                            // item should be the name of the role
+                            var result = await _userManager.RemoveFromRoleAsync(user.Id, item);
+                        }
+                    }
+
+                    await _userManager.DeleteAsync(user);
+                    transaction.Commit();
+
+                    messages.Add(new ViewMessage()
+                    {
+                        Type = MessageType.Success,
+                        Message = "User successfully deleted."
+                    });
+
+                }
+
+                return this.PartialView("_ViewMessageList", messages);
+            }
+            else
+            {
+                messages.Add(new ViewMessage()
+                {
+                    Type = MessageType.Success,
+                    Message = "An error occured while deleting user."
+                });
+
+                return this.PartialView("_ViewMessageList", messages);
+            }
         }
 
         //
@@ -139,7 +241,6 @@ namespace Inventory.LunarMed.Web.Controllers
             }
         }
 
-        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -160,7 +261,7 @@ namespace Inventory.LunarMed.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -168,7 +269,7 @@ namespace Inventory.LunarMed.Web.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Users", "Account");
                 }
                 AddErrors(result);
             }
