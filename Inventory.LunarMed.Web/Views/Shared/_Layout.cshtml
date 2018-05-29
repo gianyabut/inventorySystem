@@ -45,5 +45,23 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/common")
     @RenderSection("scripts", required: false)
+
+
+    @{
+        List<string> sidebarList = new List<string>(new string[] { "Client", "UnitSize", "Brand", "Generic", "ProductGroup", "Account" });
+        var currentController = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    }
+
+    <script type="text/javascript">
+
+        @if (sidebarList.Any(i => i.EndsWith(currentController)))
+        {
+            <text>
+                $('.collapse').collapse();
+            </text>
+        }
+
+    </script>
+
 </body>
 </html>
