@@ -53,6 +53,15 @@ namespace Inventory.LunarMed.Web
                 cfg.CreateMap<DisplayOrderDetailsViewModel, OrderDetails>();
                 cfg.CreateMap<OrderDetails, DisplayOrderDetailsViewModel>();
 
+                // Generic -> GenericViewModel and vice-versa
+                cfg.CreateMap<Generic, GenericViewModel>();
+                cfg.CreateMap<GenericViewModel, Generic>();
+
+                // Brand -> BrandViewModel and vice-versa
+                cfg.CreateMap<Brand, BrandViewModel>()
+                    .ForMember(dest => dest.GenericName, opt => opt.MapFrom(src => src.Generic.Name));
+                cfg.CreateMap<BrandViewModel, Brand>();
+
             });
         }
     }

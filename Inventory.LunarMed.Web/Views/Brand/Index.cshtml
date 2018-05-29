@@ -1,0 +1,175 @@
+﻿@using Inventory.LunarMed.Web.Models;
+@model ListBrandsViewModel
+@{
+    ViewBag.Title = "Brand";
+}
+
+
+<div class="span9">
+    <div class="content">
+        @Html.Partial("_ViewMessageList", Model.Messages)
+        <div class="module">
+            <div class="module-head overflow-hidden">
+                <h3 class="pull-left">
+                    Brand
+                </h3>
+                <div class="pull-right">
+                    <a class="btn btn-small btn-info" id="add-new-brand">Add New</a>
+                </div>
+            </div>
+            <div class="module-body table">
+                @Html.Partial("_ListBrands", Model.Brands)
+            </div>
+        </div>
+        <!--/.module-->
+    </div>
+    <!--/.content-->
+</div>
+<!--/.span9-->
+
+<div id="modalContainer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <div class="control-group">
+                    <div class="controls">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        initDataTable();
+
+        // Add new Brand click event
+        $('body').on('click', 'a#add-new-brand', function (e) {
+
+            var url = "Brand/Create"; // Full URL
+
+            /* Cleanup */
+            cleanModal();
+
+            /* Close popups on click elsewhere */
+            /* Source: http://stackoverflow.com/a/14857326/364 */
+            $('body').on('click', function (e) {
+                var popovers = [$('#btn-modal-share')];
+                $.each(popovers, function () {
+                    //the 'is' for buttons that trigger popups
+                    //the 'has' for icons within a button that triggers a popup
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover('hide');
+                    }
+                });
+            });
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (result) {
+                    result = '<div>' + result + '</div>';
+                    $('.modal-title').html($(result).find('h2').html());
+                    $('.modal-body').html(result);
+                    $('.modal-body').find('h2').remove();
+
+                    $('#modalContainer').modal();
+                }
+            });
+
+            e.preventDefault();
+        });
+
+        // Edit Brand Link Click Event
+        $('.module-body').on('click', '.edit-brand', function (e) {
+            var id = $(this).parent().parent().children('td:first').text();
+
+            var url = "Brand/Edit/" + id; // Full URL
+
+            /* Cleanup */
+            cleanModal();
+
+            /* Close popups on click elsewhere */
+            /* Source: http://stackoverflow.com/a/14857326/364 */
+            $('body').on('click', function (e) {
+                var popovers = [$('#btn-modal-share')];
+                $.each(popovers, function () {
+                    //the 'is' for buttons that trigger popups
+                    //the 'has' for icons within a button that triggers a popup
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover('hide');
+                    }
+                });
+            });
+
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (result) {
+                    result = '<div>' + result + '</div>';
+                    $('.modal-title').html($(result).find('h2').html());
+                    $('.modal-body').html(result);
+                    $('.modal-body').find('h2').remove();
+                    $('#modalContainer').modal();
+                }
+            });
+
+            e.preventDefault();
+        });
+
+        // This event acts like the Confirmation message for the Delete Operation
+        $('body').on('click', '.delete-brand-conf', function (e) {
+            // Cleanup
+            cleanModal();
+
+            // Display the Confirmation Message with its contents
+            $('.modal-title').html('<h4>Delete Brand Confirmation</h4>');
+
+            var id = $(this).parent().parent().children('td:first').text();
+            var name = $(this).parent().parent().children('td:nth-child(2)').text();
+            $('.modal-body').append('<h5>Are you sure you want to delete this Brand?</h5><br /><b>Name</b>: ' + name);
+            $('.modal-body').append('<input type="hidden" id="hfBrandId" value="' + id + '" />');
+            $('.modal-footer').append('<button type="button" class="btn btn-info delete-brand">Delete</button>');
+            $('#modalContainer').modal();
+        });
+
+        // This is the delete click event and calls the ajax service to delete the Brand
+        $('body').on('click', '.delete-brand', function (e) {
+            var url = "Brand/Delete"; // Full URL
+            var data = JSON.stringify({ id: $('#hfBrandId').val() });
+
+            $.ajax({
+                url: url,
+                data: data,
+                contentType: "application/json;charset=utf-8",
+                type: "POST",
+                success: function (result) {
+                    $('#divMessages').html(result);
+                    loadData();
+                    $('#modalContainer').modal('hide');
+                }
+            });
+        });
+
+        function loadData() {
+            $.ajax({
+                url: "/Brand/List",
+                type: "GET",
+                success: function (result) {
+                    $('.module-body').html('').html(result);
+                    initDataTable();
+                }
+            });
+        }
+
+    </script>
+}

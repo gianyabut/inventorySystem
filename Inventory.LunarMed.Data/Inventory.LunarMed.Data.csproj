@@ -48,8 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Base\BaseModel.cs" />
+    <Compile Include="Entities\Brand.cs" />
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\Collection.cs" />
+    <Compile Include="Entities\Generic.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductGroup.cs" />

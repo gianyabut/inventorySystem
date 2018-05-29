@@ -32,7 +32,14 @@ else
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="basicinput">Selling Price</label>
+        <label class="control-label" for="basicinput">SRP</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.SellingPrice, "{0:n2}", new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">SRP - Discounted</label>
         <div class="controls">
             @Html.TextBoxFor(model => model.SellingPrice, "{0:n2}", new { @class = "span8", required = "required" })
         </div>

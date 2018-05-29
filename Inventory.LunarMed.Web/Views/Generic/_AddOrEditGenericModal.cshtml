@@ -1,0 +1,71 @@
+﻿@model Inventory.LunarMed.Web.Models.GenericViewModel
+
+@if (Model.GenericId == 0)
+{
+    <h2>Add New Generic</h2>
+}
+else
+{
+    <h2>Edit Generic</h2>
+}
+
+@using (Html.BeginForm("Create", "Generic", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
+{
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Name</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Name, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Description</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Description, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.GenericId);
+    <div class="control-group">
+        <div class="controls control-submit">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    // The form submit event
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var url;
+        if ($('#GenericId').val() == "0")
+            url = this.action;
+        else
+            url = "Generic/Edit";
+
+        var obj = {
+            GenericId: $('#GenericId').val(),
+            Name: $('#Name').val(),
+            Description: $('#Description').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(obj),
+            success: function (result) {
+                $('#divMessages').html(result);
+                loadData();
+                $('#modalContainer').modal('hide');
+            }
+        });
+    });
+
+</script>
+
+
+
