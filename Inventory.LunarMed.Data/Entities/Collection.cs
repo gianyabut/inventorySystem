@@ -21,6 +21,8 @@ namespace Inventory.LunarMed.Data.Entities
 
         public int OrderId { get; set; }
 
+        public bool IsGovTax { get; set; }
+
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
     }

@@ -55,7 +55,9 @@ namespace Inventory.LunarMed.Web.Controllers
             var model = new CollectionViewModel
             {
                 CollectionId = 0,
-                CustomerPONumberList = GetCustomerPONumberList()
+                SalesInvoiceList = GetSalesInvoiceList(),
+                Amount = 0,
+                Balance = 0
             };
 
             return this.PartialView("_AddOrEditCollection", model);
@@ -74,7 +76,7 @@ namespace Inventory.LunarMed.Web.Controllers
             try
             {
                 var collection = Mapper.Map<CollectionViewModel, Collection>(model);
-                var order = _orderRepository.Find(i => i.CustomerPONumber == model.CustomerPONumber);
+                var order = _orderRepository.Find(i => i.SalesInvoice == model.SalesInvoice);
                 collection.OrderId = order.OrderId;
                 _collectionRepository.Add(collection);
 
@@ -112,7 +114,7 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             var collection = _collectionRepository.Get(id);
             var model = Mapper.Map<Collection, CollectionViewModel>(collection);
-            model.CustomerPONumberList = GetCustomerPONumberList();
+            model.SalesInvoiceList = GetSalesInvoiceList();
 
             return PartialView("_AddOrEditCollection", model);
         }
@@ -132,12 +134,13 @@ namespace Inventory.LunarMed.Web.Controllers
                 var collection = _collectionRepository.Get(model.CollectionId);
                 if (collection != null)
                 {
-                    var order = _orderRepository.Find(i => i.CustomerPONumber == model.CustomerPONumber);
+                    var order = _orderRepository.Find(i => i.SalesInvoice == model.SalesInvoice);
 
                     collection.OrderId = order.OrderId;
                     collection.CheckNumber = model.CheckNumber;
                     collection.Amount = model.Amount;
                     collection.Balance = model.Balance;
+                    collection.IsGovTax = model.IsGovTax;
                     _collectionRepository.Update(collection);
                 }
                 else
@@ -238,22 +241,22 @@ namespace Inventory.LunarMed.Web.Controllers
         }
 
         /// <summary>
-        /// Get all customer PO number and assign to SelectListItem variable
+        /// Get all Sales Invoice and assign to SelectListItem variable
         /// </summary>
-        /// <returns>The SelectListItem variable of all Customer PO Number</returns>
-        private List<SelectListItem> GetCustomerPONumberList()
+        /// <returns>The SelectListItem variable of all Sales Invoice</returns>
+        private List<SelectListItem> GetSalesInvoiceList()
         {
-            var poNumberListItems = new List<SelectListItem>();
+            var salesInvoiceItems = new List<SelectListItem>();
             foreach (var order in _orderRepository.GetAll())
             {
-                poNumberListItems.Add(new SelectListItem()
+                salesInvoiceItems.Add(new SelectListItem()
                 {
-                    Text = order.CustomerPONumber,
-                    Value = order.CustomerPONumber
+                    Text = order.SalesInvoice,
+                    Value = order.SalesInvoice
                 });
             }
 
-            return poNumberListItems;
+            return salesInvoiceItems;
         }
 
         #endregion Private Methods

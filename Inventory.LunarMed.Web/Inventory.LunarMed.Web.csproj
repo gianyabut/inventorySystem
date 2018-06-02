@@ -235,6 +235,14 @@
     <Compile Include="Migrations\201806021334374_AddedTotalInOrderTable.Designer.cs">
       <DependentUpon>201806021334374_AddedTotalInOrderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806021347086_AddedSalesInvoice.cs" />
+    <Compile Include="Migrations\201806021347086_AddedSalesInvoice.Designer.cs">
+      <DependentUpon>201806021347086_AddedSalesInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806021357334_AddedGovTax.cs" />
+    <Compile Include="Migrations\201806021357334_AddedGovTax.Designer.cs">
+      <DependentUpon>201806021357334_AddedGovTax.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\BrandViewModel.cs" />
@@ -450,6 +458,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806021334374_AddedTotalInOrderTable.resx">
       <DependentUpon>201806021334374_AddedTotalInOrderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806021347086_AddedSalesInvoice.resx">
+      <DependentUpon>201806021347086_AddedSalesInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806021357334_AddedGovTax.resx">
+      <DependentUpon>201806021357334_AddedGovTax.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -41,7 +41,7 @@ namespace Inventory.LunarMed.Web
 
                 cfg.CreateMap<CollectionViewModel, Collection>();
                 cfg.CreateMap<Collection, CollectionViewModel>()
-                    .ForMember(dest => dest.CustomerPONumber, opt => opt.MapFrom(src => src.Order.CustomerPONumber));
+                    .ForMember(dest => dest.SalesInvoice, opt => opt.MapFrom(src => src.Order.SalesInvoice));
 
                 cfg.CreateMap<DisplayOrderViewModel, Order>()
                    .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.DueDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)));

@@ -18,6 +18,7 @@ namespace Inventory.LunarMed.Data.Entities
         public DateTime DueDate { get; set; }
         public string Remarks { get; set; }
         public string CustomerPONumber { get; set; }
+        public string SalesInvoice { get; set; }
         public int ClientId { get; set; }
         public decimal Total { get; set; }
 
