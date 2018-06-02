@@ -11,7 +11,7 @@
                 @if (Request.IsAuthenticated)
                 {
                     <li>
-                        <a href="@Url.Action("Index", "Product")"><i class="menu-icon icon-table"></i>Inventory </a>
+                        <a href="@Url.Action("Index", "Stock")"><i class="menu-icon icon-table"></i>Inventory </a>
                     </li>
                     <li>
                         <a href="@Url.Action("Index", "Order")">
@@ -46,7 +46,6 @@
                             <li><a href="@Url.Action("Index", "UnitSize")"><i class="icon-adjust"></i> Unit Size </a></li>
                             <li><a href="@Url.Action("Index", "Brand")"><i class="icon-medkit"></i> Brands </a></li>
                             <li><a href="@Url.Action("Index", "Generic")"><i class="icon-certificate"></i> Generics </a></li>
-                            <li><a href="@Url.Action("Index", "ProductGroup")"><i class="icon-list"></i> Product Group </a></li>
                             <li><a href="@Url.Action("Users", "Account")"><i class="icon-user"></i> All Users </a></li>
                         </ul>
                     </li>

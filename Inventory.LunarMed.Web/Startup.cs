@@ -20,13 +20,12 @@ namespace Inventory.LunarMed.Web
                 cfg.CreateMap<ClientViewModel, Client>();
                 cfg.CreateMap<UnitSize, UnitSizeViewModel>();
                 cfg.CreateMap<UnitSizeViewModel, UnitSize>();
-                cfg.CreateMap<ProductGroup, ProductGroupViewModel>();
-                cfg.CreateMap<ProductGroupViewModel, ProductGroup>();
-                cfg.CreateMap<Product, ProductViewModel>()
+                cfg.CreateMap<Stock, StockViewModel>()
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => src.ExpirationDate.ToString("MM/dd/yyyy")))
                     .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate.ToString("MM/dd/yyyy")))
-                    .ForMember(dest => dest.UnitSizeName, opt => opt.MapFrom(src => src.UnitSize.Name));
-                cfg.CreateMap<ProductViewModel, Product>()
+                    .ForMember(dest => dest.UnitSizeName, opt => opt.MapFrom(src => src.UnitSize.Name))
+                    .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name));
+                cfg.CreateMap<StockViewModel, Stock>()
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)))
                     .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.PurchaseDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)));
 

@@ -44,8 +44,7 @@ namespace Inventory.LunarMed.Web.Models
         public DbSet<Client> Clients { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Order> Sales { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductGroup> ProductGroups { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
         public DbSet<UnitSize> UnitSizes { get; set; }
         public DbSet<Generic> Generics { get; set; }
         public DbSet<Brand> Brands { get; set; }

@@ -13,13 +13,13 @@ namespace Inventory.LunarMed.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IGenericRepository<Product> _productRepository;
+        private readonly IGenericRepository<Stock> _stockRepository;
         private readonly IGenericRepository<Order> _orderRepository;
         private readonly IGenericRepository<Collection> _collectionRepository;
 
-        public HomeController(IGenericRepository<Product> productRepository, IGenericRepository<Order> orderRepository, IGenericRepository<Collection> collectionRepository)
+        public HomeController(IGenericRepository<Data.Entities.Stock> stockRepository, IGenericRepository<Order> orderRepository, IGenericRepository<Collection> collectionRepository)
         {
-            _productRepository = productRepository;
+            _stockRepository = stockRepository;
             _orderRepository = orderRepository;
             _collectionRepository = collectionRepository;
         }
@@ -28,7 +28,7 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             var model = new HomePageViewModel
             {
-                Products = GetListProductsModel(),
+                Stocks = GetListStocksModel(),
                 Orders = GetListOrdersModel(),
                 Collections = GetListCollectionsModel()
             };
@@ -53,15 +53,15 @@ namespace Inventory.LunarMed.Web.Controllers
         #region Private Methods
 
         /// <summary>
-        /// This gets all the products and assign maps it to ProductViewModel
+        /// This gets all the stocks and assign maps it to StockViewModel
         /// </summary>
-        /// <returns>Returns a list of ProductViewModel object</returns>
-        private List<ProductViewModel> GetListProductsModel()
+        /// <returns>Returns a list of StockViewModel object</returns>
+        private List<StockViewModel> GetListStocksModel()
         {
-            var products = _productRepository.GetAll();
-            var productsList = Mapper.Map<List<Product>, List<ProductViewModel>>(products.ToList());
+            var stocks = _stockRepository.GetAll();
+            var stocksList = Mapper.Map<List<Stock>, List<StockViewModel>>(stocks.ToList());
 
-            return productsList;
+            return stocksList;
         }
 
         /// <summary>

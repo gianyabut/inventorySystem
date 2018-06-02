@@ -1,0 +1,76 @@
+﻿@using Inventory.LunarMed.Web.Models;
+@model List<StockViewModel>
+
+<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	display">
+    <thead>
+        <tr>
+            <th>
+                Product ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Batch Number
+            </th>
+            <th>
+                Selling Price
+            </th>
+            <th>
+                Quantity Left
+            </th>
+            <th>
+                Unit Size
+            </th>
+            <th>
+                Expiration Date
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@((item.StockId % 2) == 1 ? "odd" : "even")">
+                <td>@Html.DisplayFor(modelItem => item.StockId)</td>
+                <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                <td>@Html.DisplayFor(modelItem => item.BatchNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.SRP)</td>
+                <td>@Html.DisplayFor(modelItem => item.StockQuantity)</td>
+                <td>@Html.DisplayFor(modelItem => item.UnitSizeName)</td>
+                <td>@Html.DisplayFor(modelItem => item.ExpirationDate)</td>
+                <td><a href="#" class="dt-link edit-product" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-product-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Product ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Batch Number
+            </th>
+            <th>
+                Selling Price
+            </th>
+            <th>
+                Quantity Left
+            </th>
+            <th>
+                Unit Size
+            </th>
+            <th>
+                Expiration Date
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </tfoot>
+</table>

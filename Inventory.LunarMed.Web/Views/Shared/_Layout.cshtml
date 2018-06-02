@@ -46,7 +46,6 @@
     @Scripts.Render("~/bundles/common")
     @RenderSection("scripts", required: false)
 
-
     @{
         List<string> sidebarList = new List<string>(new string[] { "Client", "UnitSize", "Brand", "Generic", "ProductGroup", "Account" });
         var currentController = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();

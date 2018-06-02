@@ -16,15 +16,15 @@ namespace Inventory.LunarMed.Web.Controllers
     {
         private readonly IGenericRepository<Order> _orderRepository;
         private readonly IGenericRepository<Client> _clientRepository;
-        private readonly IGenericRepository<Product> _productRepository;
+        private readonly IGenericRepository<Stock> _stockRepository;
         private readonly IGenericRepository<OrderDetails> _orderDetailsRepository;
 
         public OrderController(IGenericRepository<Order> orderRepository, IGenericRepository<Client> clientRepository, 
-            IGenericRepository<Product> productRepository, IGenericRepository<OrderDetails> orderDetailsRepository)
+            IGenericRepository<Stock> stockRepository, IGenericRepository<OrderDetails> orderDetailsRepository)
         {
             _orderRepository = orderRepository;
             _clientRepository = clientRepository;
-            _productRepository = productRepository;
+            _stockRepository = stockRepository;
             _orderDetailsRepository = orderDetailsRepository;
         }
 
@@ -55,11 +55,11 @@ namespace Inventory.LunarMed.Web.Controllers
                 decimal total = 0;
                 foreach(var item in orderDetails)
                 {
-                    var productId = item.ProductId;
+                    var productId = item.StockId;
                     var quantity = item.Quantity;
 
-                    var product = _productRepository.Find(i => i.ProductId == productId);
-                    total += product.SellingPrice * quantity;
+                    var product = _stockRepository.Find(i => i.StockId == productId);
+                    total += product.SRP * quantity;
                 }
                 order.Total = total;
             }
@@ -72,11 +72,11 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             var result = new List<KeyValuePair<string, string>>();
 
-            foreach(var product in _productRepository.GetAll().Where(s => s.Name.ToLower().Contains(wildcard.ToLower())))
-            {
-                var name = product.Name.ToString() + " (Left: " + product.StockQuantity + ")";
-                result.Add(new KeyValuePair<string, string>(product.ProductId.ToString(), name));
-            }
+            //foreach(var product in _productRepository.GetAll().Where(s => s.Name.ToLower().Contains(wildcard.ToLower())))
+            //{
+            //    var name = product.Name.ToString() + " (Left: " + product.StockQuantity + ")";
+            //    result.Add(new KeyValuePair<string, string>(product.ProductId.ToString(), name));
+            //}
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -84,8 +84,8 @@ namespace Inventory.LunarMed.Web.Controllers
         // GET: Order/GetProductDetails/id
         public JsonResult GetProductDetails(int id)
         {
-            var product = _productRepository.Find(i => i.ProductId == id);
-            var model = Mapper.Map<Product, ProductViewModel>(product);
+            var product = _stockRepository.Find(i => i.StockId == id);
+            var model = Mapper.Map<Stock, StockViewModel>(product);
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -101,14 +101,15 @@ namespace Inventory.LunarMed.Web.Controllers
             decimal total = 0;
             foreach(var orderDetail in orderDetails)
             {
-                var product = _productRepository.Get(orderDetail.ProductId);
+                var product = _stockRepository.Get(orderDetail.StockId);
                 ordersListModel.Add(new DisplayOrderDetailsViewModel()
                 {
-                    ProductName = product.Name,
+                    // ToDo
+                    //ProductName = product.Name,
                     Quantity = orderDetail.Quantity,
-                    Total = orderDetail.Quantity * product.SellingPrice
+                    Total = orderDetail.Quantity * product.SRP
                 });
-                total += orderDetail.Quantity * product.SellingPrice;
+                total += orderDetail.Quantity * product.SRP;
             }
 
             model.Total = total;
@@ -134,9 +135,9 @@ namespace Inventory.LunarMed.Web.Controllers
                 // Subtract current order to quantity
                 foreach(var orderDetails in order.OrderDetails)
                 {
-                    var product = _productRepository.Find(i => i.ProductId == orderDetails.ProductId);
+                    var product = _stockRepository.Find(i => i.StockId == orderDetails.StockId);
                     product.StockQuantity = product.StockQuantity - orderDetails.Quantity;
-                    _productRepository.Update(product);
+                    _stockRepository.Update(product);
                 }
 
                 _orderRepository.Add(order);

@@ -216,21 +216,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\ProductGroupController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\UnitSizeController.cs" />
     <Compile Include="Enum\MessageType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IUserManager.cs" />
-    <Compile Include="Migrations\201805160901182_Initial.cs" />
-    <Compile Include="Migrations\201805160901182_Initial.Designer.cs">
-      <DependentUpon>201805160901182_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805291205046_GenericBrandTables.cs" />
-    <Compile Include="Migrations\201805291205046_GenericBrandTables.Designer.cs">
-      <DependentUpon>201805291205046_GenericBrandTables.cs</DependentUpon>
+    <Compile Include="Migrations\201806020809508_Initial.cs" />
+    <Compile Include="Migrations\201806020809508_Initial.Designer.cs">
+      <DependentUpon>201806020809508_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -247,16 +242,14 @@
     <Compile Include="Models\ListCollectionsViewModel.cs" />
     <Compile Include="Models\ListGenericsViewModel.cs" />
     <Compile Include="Models\ListOrdersViewModel.cs" />
-    <Compile Include="Models\ListProductsViewModel.cs" />
-    <Compile Include="Models\ListProductGroupsViewModel.cs" />
+    <Compile Include="Models\ListStocksViewModel.cs" />
     <Compile Include="Models\ListUnitSizeViewModel.cs" />
     <Compile Include="Models\ListUsersViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\DTO\OrderDetailViewModel.cs" />
     <Compile Include="Models\DTO\OrderViewModel.cs" />
-    <Compile Include="Models\DTO\ProductGroupViewModel.cs" />
     <Compile Include="Models\Shared\ViewMessage.cs" />
-    <Compile Include="Models\DTO\ProductViewModel.cs" />
+    <Compile Include="Models\DTO\StockViewModel.cs" />
     <Compile Include="Models\DTO\UnitSizeViewModel.cs" />
     <Compile Include="Models\DTO\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -397,12 +390,9 @@
     <Content Include="Views\UnitSize\Index.cshtml" />
     <Content Include="Views\UnitSize\_AddOrEditUnitSizeModal.cshtml" />
     <Content Include="Views\UnitSize\_ListUnitSizes.cshtml" />
-    <Content Include="Views\ProductGroup\Index.cshtml" />
-    <Content Include="Views\ProductGroup\_ListProductGroups.cshtml" />
-    <Content Include="Views\ProductGroup\_AddOrEditProductGroupModal.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\_ListProducts.cshtml" />
-    <Content Include="Views\Product\_AddOrEditProductModal.cshtml" />
+    <Content Include="Views\Stock\Index.cshtml" />
+    <Content Include="Views\Stock\_ListStocks.cshtml" />
+    <Content Include="Views\Stock\_AddOrEditStockModal.cshtml" />
     <Content Include="Views\Home\_ListProductsDisplayOnly.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
@@ -444,11 +434,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805160901182_Initial.resx">
-      <DependentUpon>201805160901182_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805291205046_GenericBrandTables.resx">
-      <DependentUpon>201805291205046_GenericBrandTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806020809508_Initial.resx">
+      <DependentUpon>201806020809508_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

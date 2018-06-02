@@ -9,7 +9,7 @@
         <div class="btn-controls">
             <div class="btn-box-row row-fluid">
                 <a href="#" class="btn-box big span4">
-                    <i class=" icon-table"></i><b>@Model.Products.Count.ToString()</b>
+                    <i class=" icon-table"></i><b>@Model.Stocks.Count.ToString()</b>
                     <p class="text-muted">
                         Product Count
                     </p>
@@ -114,7 +114,7 @@
                 </h3>
             </div>
             <div class="module-body table">
-                @Html.Partial("_ListProductsDisplayOnly", Model.Products)
+                @Html.Partial("_ListProductsDisplayOnly", Model.Stocks)
             </div>
         </div>
         <!--/.module-->

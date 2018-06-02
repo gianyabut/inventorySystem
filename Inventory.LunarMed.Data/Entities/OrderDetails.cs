@@ -16,11 +16,12 @@ namespace Inventory.LunarMed.Data.Entities
         public int OrderDetailsId { get; set; }
         public int OrderId { get; set; }
 
-        public int ProductId { get; set; }
+        public int StockId { get; set; }
         public int Quantity { get; set; }
 
-        [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; }
+        [ForeignKey("StockId")]
+        public virtual Stock Stock { get; set; }
+
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
     }

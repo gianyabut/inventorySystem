@@ -1,0 +1,168 @@
+﻿@model Inventory.LunarMed.Web.Models.StockViewModel
+@if (Model.StockId == 0)
+{
+    <h2>Add New Stock</h2>
+}
+else
+{
+    <h2>Edit Stock</h2>
+}
+
+@using (Html.BeginForm("Create", "Stock", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
+{
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Brand</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.BrandId, Model.BrandList, new { @class = "span8" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Batch Number</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.BatchNumber, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+    @*<div class="control-group">
+            <label class="control-label" for="basicinput">SRP - Discounted</label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.SellingPrice, "{0:n2}", new { @class = "span8", required = "required" })
+            </div>
+        </div>*@
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Cost</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Cost, "{0:n2}", new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Mark Up</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.MarkUp, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">SRP</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.SRP, "{0:n2}", new { @class = "span8", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Stock Quantity</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.StockQuantity, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Expiration Date</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.ExpirationDate, new { @class = "span8 clsDatePicker", id = "expirateDate" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Unit Size</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.UnitSizeId, Model.UnitSizeList, new { @class = "span8" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Supplier</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Supplier, new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Purchase Date</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.PurchaseDate, new { @class = "span8 clsDatePicker", id = "purchaseDate" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.StockId);
+    <div class="control-group">
+        <div class="controls control-submit">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    computeSRP();
+
+    $('#Cost').bind('input', function () {
+        computeSRP();
+    });
+
+    $('#MarkUp').bind('input', function () {
+        computeSRP();
+    });
+
+    // The form submit event
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var url;
+        if ($('#StockId').val() == "0")
+            url = this.action;
+        else
+            url = "Stock/Edit";
+
+        var obj = {
+            StockId: $('#StockId').val(),
+            BrandId: $('#BrandId').val(),
+            BatchNumber: $('#BatchNumber').val(),
+            Cost: $('#Cost').val(),
+            SRP: $('#SRP').val(),
+            MarkUp: $('#MarkUp').val(),
+            StockQuantity: $('#StockQuantity').val(),
+            ExpirationDate: $('#expirateDate').val(),
+            UnitSizeId: $('#UnitSizeId').val(),
+            Supplier: $('#Supplier').val(),
+            PurchaseDate: $('#purchaseDate').val(),
+            ProductGroupId: $('#ProductGroupId').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(obj),
+            success: function (result) {
+                $('#divMessages').html(result);
+                loadData();
+                $('#modalContainer').modal('hide');
+            }
+        });
+    });
+
+    function computeSRP() {
+        var cost = $('#Cost').val();
+        var markUp = $('#MarkUp').val();
+        var multiplier;
+
+        if (markUp < 100)
+            multiplier = markUp / 100 + 1;
+        else
+            multiplier = markUp / 100;
+
+        var srp = cost * multiplier;
+
+        $('#SRP').val(srp.toFixed(2));
+    }
+
+</script>
+
+
+
+

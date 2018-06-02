@@ -5,7 +5,7 @@
     <thead>
         <tr>
             <th>
-                Brand Id
+                Id
             </th>
             <th>
                 Name
@@ -25,18 +25,18 @@
         @foreach (var brand in Model)
         {
             <tr class="@((brand.BrandId % 2) == 1 ? "odd" : "even")">
-                <td>@Html.DisplayFor(modelItem => brand.BrandId)</td>
-                <td>@Html.DisplayFor(modelItem => brand.Name)</td>
-                <td>@Html.DisplayFor(modelItem => brand.Description)</td>
-                <td>@Html.DisplayFor(modelItem => brand.GenericName)</td>
-                <td><a href="#" class="dt-link edit-brand" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-brand-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
+                <td width="10">@Html.DisplayFor(modelItem => brand.BrandId)</td>
+                <td width="50">@Html.DisplayFor(modelItem => brand.Name)</td>
+                <td width="350">@Html.DisplayFor(modelItem => brand.Description)</td>
+                <td width="50">@Html.DisplayFor(modelItem => brand.GenericName)</td>
+                <td width="120"><a href="#" class="dt-link edit-brand" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-brand-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
             <th>
-                Brand Id
+                Id
             </th>
             <th>
                 Name
