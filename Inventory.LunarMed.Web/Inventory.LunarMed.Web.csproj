@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201806020809508_Initial.Designer.cs">
       <DependentUpon>201806020809508_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806021318469_AddedSRPDC.cs" />
+    <Compile Include="Migrations\201806021318469_AddedSRPDC.Designer.cs">
+      <DependentUpon>201806021318469_AddedSRPDC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\BrandViewModel.cs" />
@@ -436,6 +440,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806020809508_Initial.resx">
       <DependentUpon>201806020809508_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806021318469_AddedSRPDC.resx">
+      <DependentUpon>201806021318469_AddedSRPDC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

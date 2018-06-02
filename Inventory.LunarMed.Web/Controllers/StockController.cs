@@ -82,15 +82,15 @@ namespace Inventory.LunarMed.Web.Controllers
             var messages = new List<ViewMessage>();
             try
             {
-                var product = Mapper.Map<StockViewModel, Stock>(model);
-                _stockRepository.Add(product);
+                var stock = Mapper.Map<StockViewModel, Stock>(model);
+                _stockRepository.Add(stock);
 
                 messages = new List<ViewMessage>
                 {
                     new ViewMessage()
                     {
                         Type = MessageType.Success,
-                        Message = "New stock successfully saved."
+                        Message = "New Stock successfully saved."
                     }
                 };
             }
@@ -113,21 +113,21 @@ namespace Inventory.LunarMed.Web.Controllers
         /// <summary>
         /// This displays the details of the selected stock that is about to be edited
         /// </summary>
-        /// <param name="id">The Product ID</param>
+        /// <param name="id">The Stock ID</param>
         /// <returns>Returns a partial view containing the details of the stock.</returns>
         public ActionResult Edit(int id)
         {
-            var product = _stockRepository.Get(id);
-            var model = Mapper.Map<Stock, StockViewModel>(product);
+            var stock = _stockRepository.Get(id);
+            var model = Mapper.Map<Stock, StockViewModel>(stock);
             model.UnitSizeList = GetUnitSizeList();
-            //model.ProductGroupList = GetProductGroupList();
+            model.BrandList = GetBrandListItems();
 
             return PartialView("_AddOrEditStockModal", model);
         }
 
         // POST: Stock/Edit/5
         /// <summary>
-        /// This updates the client based on the passed product model
+        /// This updates the client based on the passed Stock model
         /// </summary>
         /// <param name="model">The StockViewModel object.</param>
         /// <returns>A partial view containing the result of the process.</returns>
@@ -159,7 +159,7 @@ namespace Inventory.LunarMed.Web.Controllers
                         new ViewMessage()
                         {
                             Type = MessageType.Error,
-                            Message = "Product cannot be found."
+                            Message = "Stock cannot be found."
                         }
                     };
                     return this.PartialView("_ViewMessageList", messages);
@@ -171,7 +171,7 @@ namespace Inventory.LunarMed.Web.Controllers
                     new ViewMessage()
                     {
                         Type = MessageType.Success,
-                        Message = "Product successfully updated."
+                        Message = "Stock successfully updated."
                     }
                 };
             }
@@ -192,7 +192,7 @@ namespace Inventory.LunarMed.Web.Controllers
 
         // POST: Stock/Delete
         /// <summary>
-        /// This deletes passed product id
+        /// This deletes passed Stock id
         /// </summary>
         /// <param name="id">The ID of the product.</param>
         /// <returns>A partial view containing the result of the process.</returns>
@@ -202,22 +202,22 @@ namespace Inventory.LunarMed.Web.Controllers
             var messages = new List<ViewMessage>();
             try
             {
-                var product = _stockRepository.Get(id);
-                if (product == null)
+                var stock = _stockRepository.Get(id);
+                if (stock == null)
                 {
                     messages.Add(new ViewMessage()
                     {
                         Type = MessageType.Error,
-                        Message = "Product cannot be found."
+                        Message = "Stock cannot be found."
                     });
                     return this.PartialView("_ViewMessageList", messages);
                 }
 
-                _stockRepository.Delete(product);
+                _stockRepository.Delete(stock);
                 messages.Add(new ViewMessage()
                 {
                     Type = MessageType.Success,
-                    Message = "Product successfully deleted."
+                    Message = "Stock successfully deleted."
                 });
             }
             catch (Exception ex)
@@ -240,10 +240,10 @@ namespace Inventory.LunarMed.Web.Controllers
         /// <returns>Returns a ListStocksViewModel object</returns>
         private ListStocksViewModel GetListStocksModel()
         {
-            var products = _stockRepository.GetAll();
+            var stocks = _stockRepository.GetAll();
             var model = new ListStocksViewModel();
 
-            var productsList = Mapper.Map<List<Stock>, List<StockViewModel>>(products.ToList());
+            var productsList = Mapper.Map<List<Stock>, List<StockViewModel>>(stocks.ToList());
             model.Stocks = productsList;
             model.Messages = new List<ViewMessage>();
 

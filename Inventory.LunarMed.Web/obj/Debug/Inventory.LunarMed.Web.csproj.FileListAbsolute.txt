@@ -260,3 +260,4 @@ C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\
 C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.csproj.CopyComplete
 C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.dll
 C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.pdb
+C:\Users\PREDATOR\Source\Repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.Migrations.AddedSRPDC.resources

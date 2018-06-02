@@ -18,6 +18,8 @@ namespace Inventory.LunarMed.Web.Models
         public decimal Cost { get; set; }
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal SRP { get; set; }
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public decimal SRPDC { get; set; }
 
         public int MarkUp { get; set; }
         public int StockQuantity { get; set; }

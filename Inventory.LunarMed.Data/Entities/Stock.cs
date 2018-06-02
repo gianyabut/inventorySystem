@@ -19,6 +19,7 @@ namespace Inventory.LunarMed.Data.Entities
         public string BatchNumber { get; set; }
         public decimal Cost { get; set; }
         public decimal SRP { get; set; }
+        public decimal SRPDC { get; set; }
         public int MarkUp { get; set; }
         public int StockQuantity { get; set; }
         public DateTime ExpirationDate { get; set; }
