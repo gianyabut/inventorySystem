@@ -231,6 +231,10 @@
     <Compile Include="Migrations\201806021318469_AddedSRPDC.Designer.cs">
       <DependentUpon>201806021318469_AddedSRPDC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806021334374_AddedTotalInOrderTable.cs" />
+    <Compile Include="Migrations\201806021334374_AddedTotalInOrderTable.Designer.cs">
+      <DependentUpon>201806021334374_AddedTotalInOrderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\BrandViewModel.cs" />
@@ -443,6 +447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806021318469_AddedSRPDC.resx">
       <DependentUpon>201806021318469_AddedSRPDC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806021334374_AddedTotalInOrderTable.resx">
+      <DependentUpon>201806021334374_AddedTotalInOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

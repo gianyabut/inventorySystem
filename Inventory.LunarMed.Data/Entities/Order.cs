@@ -19,6 +19,7 @@ namespace Inventory.LunarMed.Data.Entities
         public string Remarks { get; set; }
         public string CustomerPONumber { get; set; }
         public int ClientId { get; set; }
+        public decimal Total { get; set; }
 
 
         [ForeignKey("ClientId")]
