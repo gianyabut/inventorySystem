@@ -32,6 +32,15 @@ else
             @Html.TextBoxFor(model => model.ContactNumber, new { @class = "span8", required = "required" })
         </div>
     </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Supplier?</label>
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" value="" id="IsSupplier">
+            </label>
+        </div>
+    </div>
     @Html.HiddenFor(model => model.ClientId);
     <div class="control-group">
         <div class="controls control-submit">
@@ -58,7 +67,8 @@ else
             ClientId: $('#ClientId').val(),
             Name: $('#Name').val(),
             Address: $('#Address').val(),
-            ContactNumber: $('#ContactNumber').val()
+            ContactNumber: $('#ContactNumber').val(),
+            IsSupplier: ($('#IsSupplier').is(':checked') ? 1 : 0)
         };
 
         $.ajax({

@@ -18,13 +18,15 @@ namespace Inventory.LunarMed.Web.Controllers
         private readonly IGenericRepository<Stock> _stockRepository;
         private readonly IGenericRepository<UnitSize> _unitSizeRepository;
         private readonly IGenericRepository<Brand> _brandRepository;
+        private readonly IGenericRepository<Client> _clientRepository;
 
         public StockController(IGenericRepository<Stock> stockRepository, IGenericRepository<UnitSize> unitSizeRepository, 
-            IGenericRepository<Brand> brandRepository)
+            IGenericRepository<Brand> brandRepository, IGenericRepository<Client> clientRepository)
         {
             _stockRepository = stockRepository;
             _unitSizeRepository = unitSizeRepository;
             _brandRepository = brandRepository;
+            _clientRepository = clientRepository;
         }
 
         // GET: Product
@@ -64,7 +66,8 @@ namespace Inventory.LunarMed.Web.Controllers
                 StockQuantity = 1,
                 MarkUp = 10,
                 UnitSizeList = GetUnitSizeList(),
-                BrandList = GetBrandListItems()
+                BrandList = GetBrandListItems(),
+                SupplierList = GetSuppliersList()
             };
 
             return this.PartialView("_AddOrEditStockModal", model);
@@ -121,6 +124,7 @@ namespace Inventory.LunarMed.Web.Controllers
             var model = Mapper.Map<Stock, StockViewModel>(stock);
             model.UnitSizeList = GetUnitSizeList();
             model.BrandList = GetBrandListItems();
+            model.SupplierList = GetSuppliersList();
 
             return PartialView("_AddOrEditStockModal", model);
         }
@@ -148,7 +152,7 @@ namespace Inventory.LunarMed.Web.Controllers
                     stock.StockQuantity = model.StockQuantity;
                     stock.ExpirationDate = DateTime.ParseExact(model.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
                     stock.UnitSizeId = model.UnitSizeId;
-                    stock.Supplier = model.Supplier;
+                    stock.ClientId = model.ClientId;
                     stock.PurchaseDate = DateTime.ParseExact(model.PurchaseDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
                     _stockRepository.Update(stock);
                 }
@@ -267,6 +271,25 @@ namespace Inventory.LunarMed.Web.Controllers
             }
 
             return unitSizeListItem;
+        }
+
+        /// <summary>
+        /// Get all supplier and assign to SelectListItem variable
+        /// </summary>
+        /// <returns>The SelectListItem variable of all Suppliers</returns>
+        private List<SelectListItem> GetSuppliersList()
+        {
+            var supplierItem = new List<SelectListItem>();
+            foreach (var supplier in _clientRepository.List(i => i.IsSupplier))
+            {
+                supplierItem.Add(new SelectListItem()
+                {
+                    Text = supplier.Name,
+                    Value = supplier.ClientId.ToString()
+                });
+            }
+
+            return supplierItem;
         }
 
         /// <summary>

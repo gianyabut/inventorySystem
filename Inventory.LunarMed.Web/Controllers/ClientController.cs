@@ -127,6 +127,7 @@ namespace Inventory.LunarMed.Web.Controllers
                     client.Name = model.Name;
                     client.Address = model.Address;
                     client.ContactNumber = model.ContactNumber;
+                    client.IsSupplier = model.IsSupplier;
                     _clientRepository.Update(client);
                 }
                 else

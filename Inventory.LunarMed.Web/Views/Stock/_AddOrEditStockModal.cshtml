@@ -76,7 +76,7 @@ else
     <div class="control-group">
         <label class="control-label" for="basicinput">Supplier</label>
         <div class="controls">
-            @Html.TextBoxFor(model => model.Supplier, new { @class = "span8", required = "required" })
+            @Html.DropDownListFor(model => model.ClientId, Model.SupplierList, new { @class = "span8" })
         </div>
     </div>
 
@@ -125,11 +125,12 @@ else
             BatchNumber: $('#BatchNumber').val(),
             Cost: $('#Cost').val(),
             SRP: $('#SRP').val(),
+            SRPDC: $('#SRPDC').val(),
             MarkUp: $('#MarkUp').val(),
             StockQuantity: $('#StockQuantity').val(),
             ExpirationDate: $('#expirateDate').val(),
             UnitSizeId: $('#UnitSizeId').val(),
-            Supplier: $('#Supplier').val(),
+            ClientId: $('#ClientId').val(),
             PurchaseDate: $('#purchaseDate').val(),
             ProductGroupId: $('#ProductGroupId').val()
         };

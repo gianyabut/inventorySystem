@@ -24,6 +24,7 @@ namespace Inventory.LunarMed.Web
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => src.ExpirationDate.ToString("MM/dd/yyyy")))
                     .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => src.PurchaseDate.ToString("MM/dd/yyyy")))
                     .ForMember(dest => dest.UnitSizeName, opt => opt.MapFrom(src => src.UnitSize.Name))
+                    .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.Client.Name))
                     .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name));
                 cfg.CreateMap<StockViewModel, Stock>()
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)))

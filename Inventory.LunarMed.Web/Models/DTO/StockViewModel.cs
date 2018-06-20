@@ -26,10 +26,12 @@ namespace Inventory.LunarMed.Web.Models
         public string ExpirationDate { get; set; }
         public int UnitSizeId { get; set; }
         public string UnitSizeName { get; set; }
-        public string Supplier { get; set; }
+        public int ClientId { get; set; }
+        public string ClientName { get; set; }
         public string PurchaseDate { get; set; }
 
         public IEnumerable<SelectListItem> UnitSizeList { get; set; }
         public IEnumerable<SelectListItem> BrandList { get; set; }
+        public IEnumerable<SelectListItem> SupplierList { get; set; }
     }
 }
