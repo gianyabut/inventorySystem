@@ -1,7 +1,8 @@
 ﻿@using Inventory.LunarMed.Web.Models;
 @model OrderViewModel
 @{
-    ViewBag.Title = "Place Order";
+
+    ViewBag.Title = "Place Order - " + (Model.Type == "client" ? "Client" : "Supplier");
 }
 
 <div class="span9">
@@ -9,14 +10,14 @@
          @Html.Partial("_ViewMessageList", Model.Messages)
         <div class="module message">
             <div class="module-head">
-                <h3>Order Information</h3>
+                <h3>Order Information - @(Model.Type == "client" ? "Client" : "Supplier")</h3>
             </div>
             <div class="module-option clearfix">
                 <div class="form-row">
                     <div class="col-half">
-                        <select tabindex="1" data-placeholder="Select client.." class="span4" id="ddlClientId">
-                            <option value="">Select client..</option>
-                            @foreach(var client in Model.ClientsList)
+                        <select tabindex="1" data-placeholder="Select.." class="span4" id="ddlClientId">
+                            <option value="">Select..</option>
+                            @foreach (var client in Model.ClientsList)
                             {
                                 <option value="@client.Value">@client.Text</option>
                             }
@@ -27,9 +28,9 @@
                 </div>
                 <div class="form-row">
                     <div class="col-half">
-                        <label for="basicinput">Customer PO Number</label>
+                        <label for="basicinput">Sales Invoice</label>
                         <div class="controls">
-                            <input type="text" id="txtCustomerPONumber" class="span4" value="@Model.CustomerPONumber">
+                            <input type="text" id="txtSalesInvoice" class="span4" value="@Model.SalesInvoice">
                         </div>
                     </div>
                     <div class="col-half">
@@ -47,7 +48,7 @@
                         </div>
                     </div>
                     <div class="col-half">
-                        <label for="basicinput">Terms</label>
+                        <label for="basicinput">Terms (Days)</label>
                         <div class="controls">
                             <div class="input-prepend">
                                 <span class="add-on">#</span><input id="txtTerms" class="span1" type="text" value="@Model.Terms">
@@ -75,10 +76,11 @@
                     <div class="input-prepend pull-right margin-left-15">
                         <span class="add-on">Quantity</span><input id="txtQuantity" class="span1" type="text" value="1" />
                     </div>
-                    <input type="hidden" id="hfProductId" />
+                    <input type="hidden" id="hfStockId" />
                     <input type="hidden" id="hfStockLeft" />
                     <input type="hidden" id="hfUnitSize" />
                     <input type="hidden" id="hfSellingPrice" />
+                    <input type="hidden" id="hfType" value="@(Model.Type == "client" ? "C" : "S")" />
                 </div>
                 <div class="pull-right">
                     <a href="#" class="btn btn-primary btn-add-product">Add Product</a>
@@ -161,7 +163,7 @@
                 });
                 response(products);
             },
-            minLength: 1,
+            minLength: 2,
             select: function (event, ui) {
                 $.ajax({
                     cache: false,
@@ -171,14 +173,15 @@
                     url: "@(Url.Action("GetProductDetails", "Order"))",
                     data: { "id": ui.item.Id },                    
                     success: function (data) {     
-                        $("#hfProductId").val(data.ProductId);
+                        console.log(data);
+                        $("#hfStockId").val(data.StockId);
                         $("#hfStockLeft").val(data.StockQuantity);
                         $("#hfUnitSize").val(data.UnitSizeName);
-                        $("#hfSellingPrice").val(data.SellingPrice);
+                        $("#hfSellingPrice").val(data.SRP);
 
-                        if (data.StockQuantity == "0") {
-                            displayModalMessage("Selected product is currently out of stock.");
-                        }
+                        //if (data.StockQuantity == "0") {
+                        //    displayModalMessage("Selected product is currently out of stock.");
+                        //}
                     }
                 });
             }
@@ -191,17 +194,17 @@
                 return;
             }
 
-            if (parseInt($("#hfStockLeft").val()) < parseInt($('#txtQuantity').val())) {
-                $('#txtQuantity').val($("#hfStockLeft").val());
-                displayModalMessage("Quantity is greater than the current stock.");
-                return;
-            }
+            //if (parseInt($("#hfStockLeft").val()) < parseInt($('#txtQuantity').val())) {
+            //    $('#txtQuantity').val($("#hfStockLeft").val());
+            //    displayModalMessage("Quantity is greater than the current stock.");
+            //    return;
+            //}
 
             var name = $("#txtSearchProduct").val().split("(");
-            var totalCost = Number((parseInt($("#hfSellingPrice").val()) * parseInt($("#txtQuantity").val()))).toFixed(2);
+            var totalCost = Number((parseFloat($("#hfSellingPrice").val()) * parseFloat($("#txtQuantity").val()))).toFixed(2);
             $('table.table-message tbody').append(
                 '<tr class="unread">'
-                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a><input type="hidden" value="' + $("#hfProductId").val() + '" /></td>'
+                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a><input type="hidden" value="' + $("#hfStockId").val() + '" /></td>'
                 + '<td class="cell-title">' + $.trim(name[0]) + '</td>'
                 + '<td class="cell-author">' + $("#hfUnitSize").val() + '</td>'
                 + '<td class="cell-time align-center">' + $("#txtQuantity").val() + '</td>'
@@ -210,7 +213,7 @@
                 + '</tr>'
             );
 
-            $("#hfProductId").val('');
+            $("#hfStockId").val('');
             $("#txtSearchProduct").val('');
             $("#txtSearchProduct").focus();
             $("#txtQuantity").val('1');
@@ -223,20 +226,20 @@
             orderDetailsObj = [];
             $('.table-message tbody tr:not(:first)').each(function () {
                 orderDetails = {};
-                orderDetails['ProductId'] = $(this).children('td:first').find('input').val();
+                orderDetails['StockId'] = $(this).children('td:first').find('input').val();
                 orderDetails['Quantity'] = $(this).children('td:nth-child(4)').text();
                 orderDetailsObj.push(orderDetails);
             });
-
+            console.log(orderDetailsObj);
             var data = JSON.stringify({
                 ClientId: $('#ddlClientId').val(),
                 Terms: $('#txtTerms').val(),
                 DueDate: $('#txtDueDate').val(),
                 Remarks: $('#txtRemarks').val(),
-                CustomerPONumber: $('#txtCustomerPONumber').val(),
+                SalesInvoice: $('#txtSalesInvoice').val(),
+                Type: $('#hfType').val(),
                 OrderDetails: orderDetailsObj
             });
-
             $.ajax({
                 url: "@(Url.Action("Create", "Order"))",
                 data: data,

@@ -14,6 +14,7 @@ namespace Inventory.LunarMed.Web.Models
         public string DueDate { get; set; }
         public string Remarks { get; set; }
         public string CustomerPONumber { get; set; }
+        public string SalesInvoice { get; set; }
         public decimal Total { get; set; }
 
         public List<DisplayOrderDetailsViewModel> OrderDetails { get; set; }

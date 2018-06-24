@@ -35,7 +35,7 @@
         {
         <tr class="@((item.StockId % 2) == 1 ? "odd" : "even")">
             <td>@Html.DisplayFor(modelItem => item.StockId)</td>
-            <td></td>
+            <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
             <td>@Html.DisplayFor(modelItem => item.BatchNumber)</td>
             <td>@Html.DisplayFor(modelItem => item.SRP)</td>
             <td>@Html.DisplayFor(modelItem => item.StockQuantity)</td>

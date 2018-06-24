@@ -11,13 +11,13 @@
                 Client Name
             </th>
             <th>
-                PO NUmber
+                Sales Invoice
             </th>
             <th>
                 Total
             </th>
             <th>
-                Terms
+                Type
             </th>
             <th>
                 Due Date
@@ -33,9 +33,9 @@
         <tr class="@((item.OrderId % 2) == 1 ? "odd" : "even")">
             <td>@Html.DisplayFor(modelItem => item.OrderId)</td>
             <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
-            <td>@Html.DisplayFor(modelItem => item.CustomerPONumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.SalesInvoice)</td>
             <td>@Html.DisplayFor(modelItem => item.Total)</td>
-            <td>@Html.DisplayFor(modelItem => item.Terms)</td>
+            <td>@(item.Type == "C" ? "Client" : "Supplier")</td>
             <td>@Html.DisplayFor(modelItem => item.DueDate)</td>
             <td><a href="#" class="dt-link more-details" style="text-decoration: none;"><i class="icon-folder-open dt-icon"></i> More Details</a> </td>
            @* | <a href="#" class="dt-link delete-product-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a>*@
@@ -51,13 +51,13 @@
                 Client Name
             </th>
             <th>
-                PO NUmber
+                Sales Invoice
             </th>
             <th>
                 Total
             </th>
             <th>
-                Terms
+                Type
             </th>
             <th>
                 Due Date

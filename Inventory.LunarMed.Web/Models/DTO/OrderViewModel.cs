@@ -23,6 +23,7 @@ namespace Inventory.LunarMed.Web.Models
         public string CustomerPONumber { get; set; }
         public string SalesInvoice { get; set; }
         public decimal Total { get; set; }
+        public string Type { get; set; }
 
         public List<OrderDetailViewModel> OrderDetails { get; set; }
         

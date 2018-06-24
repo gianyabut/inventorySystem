@@ -22,6 +22,10 @@ namespace Inventory.LunarMed.Data.Entities
         public int ClientId { get; set; }
         public decimal Total { get; set; }
 
+        [Column(TypeName = "char")]
+        [StringLength(1)]
+        public string Type { get; set; }
+
 
         [ForeignKey("ClientId")]
         public virtual Client Client { get; set; }

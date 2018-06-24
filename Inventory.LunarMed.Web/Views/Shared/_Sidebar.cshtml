@@ -14,8 +14,14 @@
                         <a href="@Url.Action("Index", "Stock")"><i class="menu-icon icon-table"></i>Inventory </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Index", "Order")">
-                            <i class="menu-icon icon-money"></i>Place Order
+                        <a href="@Url.Action("Index", "Order", new { type = "client" })">
+                            <i class="menu-icon icon-money"></i>PO - Client
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="@Url.Action("Index", "Order", new { type = "supplier" })">
+                            <i class="menu-icon icon-money"></i>PO - Supplier
                         </a>
                     </li>
                     <li>

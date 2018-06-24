@@ -10,7 +10,7 @@ namespace Inventory.LunarMed.Web.Models
         public int SaleDetailsId { get; set; }
         public int SaleId { get; set; }
 
-        public int ProductId { get; set; }
+        public int StockId { get; set; }
         public int Quantity { get; set; }
     }
 }

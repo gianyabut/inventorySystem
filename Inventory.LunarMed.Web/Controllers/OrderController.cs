@@ -18,23 +18,28 @@ namespace Inventory.LunarMed.Web.Controllers
         private readonly IGenericRepository<Client> _clientRepository;
         private readonly IGenericRepository<Stock> _stockRepository;
         private readonly IGenericRepository<OrderDetails> _orderDetailsRepository;
+        private readonly IGenericRepository<Brand> _brandRepository;
 
         public OrderController(IGenericRepository<Order> orderRepository, IGenericRepository<Client> clientRepository, 
-            IGenericRepository<Stock> stockRepository, IGenericRepository<OrderDetails> orderDetailsRepository)
+            IGenericRepository<Stock> stockRepository, IGenericRepository<OrderDetails> orderDetailsRepository, IGenericRepository<Brand> brandRepository)
         {
             _orderRepository = orderRepository;
             _clientRepository = clientRepository;
             _stockRepository = stockRepository;
             _orderDetailsRepository = orderDetailsRepository;
+            _brandRepository = brandRepository;
         }
 
         // GET: Order
-        public ActionResult Index()
+        public ActionResult Index(string type)
         {
+            bool isSupplier = (type == "client" ? false : true);
             var model = new OrderViewModel()
             {
-                ClientsList = GetClients()
+                ClientsList = GetClients(isSupplier)
             };
+
+            model.Type = type;
 
             return View(model);
         }
@@ -72,11 +77,13 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             var result = new List<KeyValuePair<string, string>>();
 
-            //foreach(var product in _productRepository.GetAll().Where(s => s.Name.ToLower().Contains(wildcard.ToLower())))
-            //{
-            //    var name = product.Name.ToString() + " (Left: " + product.StockQuantity + ")";
-            //    result.Add(new KeyValuePair<string, string>(product.ProductId.ToString(), name));
-            //}
+            foreach (var product in _brandRepository.List(i => i.Generic.Name.Contains(wildcard.ToLower())))
+            {
+                var stockDetails = _stockRepository.Find(i => i.BrandId == product.BrandId);
+                bool inStock = (stockDetails.StockQuantity > 0 ? true : false);
+                var name = product.Name.ToString() + (inStock ? " (In Stock: " + stockDetails.StockQuantity.ToString() + ")" : "");
+                result.Add(new KeyValuePair<string, string>(stockDetails.StockId.ToString(), name));
+            }
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -105,7 +112,7 @@ namespace Inventory.LunarMed.Web.Controllers
                 ordersListModel.Add(new DisplayOrderDetailsViewModel()
                 {
                     // ToDo
-                    //ProductName = product.Name,
+                    ProductName = product.Brand.Name,
                     Quantity = orderDetail.Quantity,
                     Total = orderDetail.Quantity * product.SRP
                 });
@@ -136,7 +143,25 @@ namespace Inventory.LunarMed.Web.Controllers
                 foreach(var orderDetails in order.OrderDetails)
                 {
                     var product = _stockRepository.Find(i => i.StockId == orderDetails.StockId);
-                    product.StockQuantity = product.StockQuantity - orderDetails.Quantity;
+                    if(product.StockQuantity > 0)
+                    {
+                        if (product.StockQuantity >= orderDetails.Quantity)
+                        {
+                            product.StockQuantity = product.StockQuantity - orderDetails.Quantity;
+                        }
+                        else
+                        {
+                            messages = new List<ViewMessage>
+                            {
+                                new ViewMessage()
+                                {
+                                    Type = MessageType.Error,
+                                    Message = "Quantity is greater current stock"
+                                }
+                            };
+                            return this.PartialView("_ViewMessageList", messages);
+                        }
+                    }
                     _stockRepository.Update(product);
                 }
 
@@ -172,10 +197,10 @@ namespace Inventory.LunarMed.Web.Controllers
         /// Get all clients and assign to SelectListItem variable
         /// </summary>
         /// <returns>The SelectListItem variable of all clients</returns>
-        private List<SelectListItem> GetClients()
+        private List<SelectListItem> GetClients(bool isSupplier)
         {
             var clientList = new List<SelectListItem>();
-            foreach (var client in _clientRepository.GetAll())
+            foreach (var client in _clientRepository.List(i => i.IsSupplier == isSupplier))
             {
                 clientList.Add(new SelectListItem()
                 {

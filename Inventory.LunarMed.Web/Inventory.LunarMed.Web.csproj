@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201806201209082_Initial.Designer.cs">
       <DependentUpon>201806201209082_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806240816546_AddedPOType.cs" />
+    <Compile Include="Migrations\201806240816546_AddedPOType.Designer.cs">
+      <DependentUpon>201806240816546_AddedPOType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\BrandViewModel.cs" />
@@ -436,6 +440,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806201209082_Initial.resx">
       <DependentUpon>201806201209082_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806240816546_AddedPOType.resx">
+      <DependentUpon>201806240816546_AddedPOType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
