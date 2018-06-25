@@ -19,15 +19,18 @@ namespace Inventory.LunarMed.Web.Controllers
         private readonly IGenericRepository<Stock> _stockRepository;
         private readonly IGenericRepository<OrderDetails> _orderDetailsRepository;
         private readonly IGenericRepository<Brand> _brandRepository;
+        private readonly IGenericRepository<Generic> _genericRepository;
 
         public OrderController(IGenericRepository<Order> orderRepository, IGenericRepository<Client> clientRepository, 
-            IGenericRepository<Stock> stockRepository, IGenericRepository<OrderDetails> orderDetailsRepository, IGenericRepository<Brand> brandRepository)
+            IGenericRepository<Stock> stockRepository, IGenericRepository<OrderDetails> orderDetailsRepository, IGenericRepository<Brand> brandRepository,
+            IGenericRepository<Generic> genericRepository)
         {
             _orderRepository = orderRepository;
             _clientRepository = clientRepository;
             _stockRepository = stockRepository;
             _orderDetailsRepository = orderDetailsRepository;
             _brandRepository = brandRepository;
+            _genericRepository = genericRepository;
         }
 
         // GET: Order
@@ -77,12 +80,9 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             var result = new List<KeyValuePair<string, string>>();
 
-            foreach (var product in _brandRepository.List(i => i.Generic.Name.Contains(wildcard.ToLower())))
+            foreach (var generic in _genericRepository.List(i => i.Name.Contains(wildcard.ToLower().ToString())))
             {
-                var stockDetails = _stockRepository.Find(i => i.BrandId == product.BrandId);
-                bool inStock = (stockDetails.StockQuantity > 0 ? true : false);
-                var name = product.Name.ToString() + (inStock ? " (In Stock: " + stockDetails.StockQuantity.ToString() + ")" : "");
-                result.Add(new KeyValuePair<string, string>(stockDetails.StockId.ToString(), name));
+                result.Add(new KeyValuePair<string, string>(generic.GenericId.ToString(), generic.Name));
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -91,8 +91,8 @@ namespace Inventory.LunarMed.Web.Controllers
         // GET: Order/GetProductDetails/id
         public JsonResult GetProductDetails(int id)
         {
-            var product = _stockRepository.Find(i => i.StockId == id);
-            var model = Mapper.Map<Stock, StockViewModel>(product);
+            var product = _stockRepository.List(i => i.Brand.GenericId == id);
+            var model = Mapper.Map<List<Stock>, List<StockViewModel>>(product);
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
