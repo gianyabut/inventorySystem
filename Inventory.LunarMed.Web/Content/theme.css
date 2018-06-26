@@ -2008,6 +2008,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .modal-header h4.modal-title {
     margin: 5px 0;
+    color: #fff;
 }
 
 .control-submit {
@@ -2062,4 +2063,20 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 .padding-10 {
     padding: 10px !important;
+}
+
+.modal-header {
+    background-color: #428bca;
+}
+
+input.txt-quantity {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 12px;
+    padding: 2px 3px;
+}
+
+.rd-srp {
+    margin: -1px 0 0 !important;
 }

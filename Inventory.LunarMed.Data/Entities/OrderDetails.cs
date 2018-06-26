@@ -18,6 +18,7 @@ namespace Inventory.LunarMed.Data.Entities
 
         public int StockId { get; set; }
         public int Quantity { get; set; }
+        public decimal Price { get; set; }
 
         [ForeignKey("StockId")]
         public virtual Stock Stock { get; set; }

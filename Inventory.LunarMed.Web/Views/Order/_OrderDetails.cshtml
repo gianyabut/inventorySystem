@@ -12,7 +12,7 @@
     <div class="module message">
         <div class="module-head">
             <h3>
-                Order Details
+                List
             </h3>
         </div>
         <div class="module-body table">
@@ -20,7 +20,10 @@
                 <tbody>
                     <tr class="heading">
                         <td class="cell-title align-left">
-                            Product Name
+                            Brand
+                        </td>
+                        <td class="cell-author align-center">
+                            Price
                         </td>
                         <td class="cell-author align-center">
                             Quantity
@@ -33,6 +36,7 @@
                     {
                     <tr>
                         <td>@product.ProductName</td>
+                        <td class="align-center">@product.Price</td>
                         <td class="align-center">@product.Quantity</td>
                         <td class="align-right">@product.Total</td>
                     </tr>

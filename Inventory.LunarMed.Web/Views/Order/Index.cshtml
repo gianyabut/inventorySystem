@@ -89,38 +89,16 @@
                     <thead>
                         <tr>
                             <th width="20">&nbsp;</th>
+                            <th width="25">#</th>
                             <th>Brand</th>
                             <th>Supplier</th>
-                            <th>SRP</th>
-                            <th>SRP - DC</th>
+                            <th>SRP/DC</th>
+                            <th>Unit Size</th>
+                            <th>Expiration Date</th>
                             <th>Stock</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @*<tr>
-                            <td><a href="#" style="text-decoration:none;" class="chk-product"><i class="icon-check"></i></a></td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>1321321</td>
-                            <td>1321321</td>
-                            <td>1321321</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#" style="text-decoration:none;"><i class="icon-check"></i></a></td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>fat</td>
-                            <td>1321321</td>
-                            <td>1321321</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#" style="text-decoration:none;"><i class="icon-check"></i></a></td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>twitter</td>
-                            <td>1321321</td>
-                            <td>1321321</td>
-                        </tr>*@
                     </tbody>
                 </table>
             </div>
@@ -130,15 +108,18 @@
                         <tr class="heading">
                             <td class="cell-check"></td>
                             <td class="cell-title">
-                                Product Name
+                                Brand
                             </td>
                             <td class="cell-title">
                                 Unit Size
                             </td>
-                            <td class="cell-author align-center">
+                            <td class="cell-title">
+                                Supplier
+                            </td>
+                            <td class="cell-time align-right">
                                 Quantity
                             </td>
-                            <td class="cell-time">
+                            <td class="cell-time align-right">
                                 Cost
                             </td>
                             <td class="cell-time align-right">
@@ -181,6 +162,7 @@
     <script type="text/javascript">
 
         $("#txtDueDate").datepicker();
+        $('#tbl-product-list').hide();
 
         // Initialize Auto-Complete
         $("#txtSearchProduct").autocomplete({
@@ -211,29 +193,25 @@
                     url: "@(Url.Action("GetProductDetails", "Order"))",
                     data: { "id": ui.item.Id },                    
                     success: function (data) {  
+
+                        $('#tbl-product-list').show();
                         $('#tbl-product-list tbody').html('');
 
                         $.each(data, function (propName, propVal) {
-
                             $('#tbl-product-list tbody').append(
                                 '<tr">'
                                 + '<td><a href="#" style="text-decoration:none;" class="chk-product"><i class="icon-check"></i></a><input type="hidden" value="' + propVal.StockId + '" /></td>'
+                                + '<td><input type="text" class="txt-quantity" value="1" /></td>'
                                 + '<td>' + propVal.BrandName + '</td>'
                                 + '<td>' + propVal.ClientName + '</td>'
-                                + '<td>' + propVal.SRP + '</td>'
-                                + '<td>' + propVal.SRPDC + '</td>'
+                                + '<td><input type="radio" class="rd-srp" name="' + propVal.StockId + '" value="' + propVal.SRP + '" checked /> ' + propVal.SRP + ((propVal.SRPDC != "0") ? ' <input type="radio" class="rd-srp" name="' + propVal.StockId + '" value="' + propVal.SRPDC + '" /> ' + propVal.SRPDC : '') + '</td>'
+                                + '<td>' + propVal.UnitSizeName + '</td>'
+                                + '<td>' + propVal.ExpirationDate + '</td>'
                                 + '<td>' + propVal.StockQuantity + '</td>'
                                 + '</tr>'
                             );
 
                         });
-
-                        
-
-                        $("#hfStockId").val(data.StockId);
-                        $("#hfStockLeft").val(data.StockQuantity);
-                        $("#hfUnitSize").val(data.UnitSizeName);
-                        $("#hfSellingPrice").val(data.SRP);
 
                         //if (data.StockQuantity == "0") {
                         //    displayModalMessage("Selected product is currently out of stock.");
@@ -243,27 +221,35 @@
             }
         }).autocomplete('enable'); 
 
-        // Add Product Button click event
-        $('body').on('click', 'a.chk-product', function () {
-            var name = $("#txtSearchProduct").val().split("(");
-            var totalCost = Number((parseFloat($("#hfSellingPrice").val()) * parseFloat($("#txtQuantity").val()))).toFixed(2);
+        // Add Product Link click event
+        $('body').on('click', 'a.chk-product', function (e) {
+            e.preventDefault();
+
+            var stockId = $(this).parent().find('input[type=hidden]').val();
+            var price = $(this).parent().parent().children('td:nth-child(5)').find('input[name=' + stockId + ']:checked').val();
+            var unitSize = $(this).parent().parent().children('td:nth-child(6)').text();
+            var brand = $(this).parent().parent().children('td:nth-child(3)').text();
+            var supplier = $(this).parent().parent().children('td:nth-child(4)').text();
+            var quantity = $(this).parent().parent().children('td:nth-child(2)').find('input[type=text]').val();
+            var totalCost = Number((parseFloat(price) * parseFloat(quantity))).toFixed(2);
+
             $('table.table-message tbody').append(
                 '<tr class="unread">'
-                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a><input type="hidden" value="' + $("#hfStockId").val() + '" /></td>'
-                + '<td class="cell-title">' + $.trim(name[0]) + '</td>'
-                + '<td class="cell-author">' + $("#hfUnitSize").val() + '</td>'
-                + '<td class="cell-time align-center">' + $("#txtQuantity").val() + '</td>'
-                + '<td class="cell-time">' + Number($("#hfSellingPrice").val()).toFixed(2) + '</td>'
-                + '<td class="cell-time align-right"">' + totalCost + '</td>'
+                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a><input type="hidden" value="' + stockId + '" /></td>'
+                + '<td class="cell-title">' + brand + '</td>'
+                + '<td class="cell-title">' + unitSize + '</td>'
+                + '<td class="cell-title">' + supplier + '</td>'
+                + '<td class="cell-time align-right">' + quantity + '</td>'
+                + '<td class="cell-time align-right">' + price + '</td>'
+                + '<td class="cell-time align-right">' + totalCost + '</td>'
                 + '</tr>'
             );
 
-            $("#hfStockId").val('');
-            $("#txtSearchProduct").val('');
-            $("#txtSearchProduct").focus();
-            $("#txtQuantity").val('1');
-
             computeTotal(parseFloat(totalCost));
+
+            $('#tbl-product-list tbody').html('');
+            $('#tbl-product-list').hide();
+            $('#txtSearchProduct').val('');
         });
 
         $('.btn-submit-order').on('click', function () {
@@ -272,10 +258,10 @@
             $('.table-message tbody tr:not(:first)').each(function () {
                 orderDetails = {};
                 orderDetails['StockId'] = $(this).children('td:first').find('input').val();
-                orderDetails['Quantity'] = $(this).children('td:nth-child(4)').text();
+                orderDetails['Quantity'] = $(this).children('td:nth-child(5)').text();
+                orderDetails['Price'] = $(this).children('td:nth-child(6)').text();
                 orderDetailsObj.push(orderDetails);
             });
-            console.log(orderDetailsObj);
             var data = JSON.stringify({
                 ClientId: $('#ddlClientId').val(),
                 Terms: $('#txtTerms').val(),
@@ -286,6 +272,7 @@
                 Total: $('.total').text(),
                 OrderDetails: orderDetailsObj
             });
+
             $.ajax({
                 url: "@(Url.Action("Create", "Order"))",
                 data: data,

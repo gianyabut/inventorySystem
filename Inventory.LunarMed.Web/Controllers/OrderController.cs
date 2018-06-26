@@ -114,7 +114,8 @@ namespace Inventory.LunarMed.Web.Controllers
                     // ToDo
                     ProductName = product.Brand.Name,
                     Quantity = orderDetail.Quantity,
-                    Total = orderDetail.Quantity * product.SRP
+                    Total = orderDetail.Quantity * product.SRP,
+                    Price = orderDetail.Price
                 });
                 total += orderDetail.Quantity * product.SRP;
             }
