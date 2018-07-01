@@ -14,6 +14,9 @@
                     <li class="@Html.IsSelected(actions: "Index", controllers: "Stock")">
                         <a href="@Url.Action("Index", "Stock")"><i class="menu-icon icon-table"></i>Inventory </a>
                     </li>
+                    <li class="@Html.IsSelected(actions: "Index", controllers: "Price")">
+                        <a href="@Url.Action("Index", "Price")"><i class="menu-icon icon-table"></i>Supplier's Price List </a>
+                    </li>
                     <li id="po-client">
                         <a href="@Url.Action("Index", "Order", new { type = "client" })">
                             <i class="menu-icon icon-money"></i>PO - Client

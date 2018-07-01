@@ -53,6 +53,7 @@
     <Compile Include="Entities\Collection.cs" />
     <Compile Include="Entities\Generic.cs" />
     <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\Price.cs" />
     <Compile Include="Entities\Stock.cs" />
     <Compile Include="Entities\OrderDetails.cs" />
     <Compile Include="Entities\UnitSize.cs" />

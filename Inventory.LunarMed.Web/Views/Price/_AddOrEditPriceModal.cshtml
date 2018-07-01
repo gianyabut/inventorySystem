@@ -1,0 +1,89 @@
+﻿@model Inventory.LunarMed.Web.Models.DTO.PriceViewModel
+@if (Model.PriceId == 0)
+{
+    <h2>Add New Price</h2>
+}
+else
+{
+    <h2>Edit Price</h2>
+}
+
+@using (Html.BeginForm("Create", "Price", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
+{
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Brand</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.BrandId, Model.BrandList, new { @class = "span8" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Cost</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.Cost, "{0:n2}", new { @class = "span8", required = "required" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Unit Size</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.UnitSizeId, Model.UnitSizeList, new { @class = "span8" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Supplier</label>
+        <div class="controls">
+            @Html.DropDownListFor(model => model.ClientId, Model.SupplierList, new { @class = "span8" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.PriceId);
+    <div class="control-group">
+        <div class="controls control-submit">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    // The form submit event
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        var url;
+        if ($('#PriceId').val() == "0")
+            url = this.action;
+        else
+            url = "Price/Edit";
+
+        var obj = {
+            PriceId: $('#PriceId').val(),
+            BrandId: $('#BrandId').val(),
+            Cost: $('#Cost').val(),
+            UnitSizeId: $('#UnitSizeId').val(),
+            ClientId: $('#ClientId').val()
+        };
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(obj),
+            success: function (result) {
+                $('#divMessages').html(result);
+                loadData();
+                $('#modalContainer').modal('hide');
+            }
+        });
+    });
+
+</script>
+
+
+
+
+

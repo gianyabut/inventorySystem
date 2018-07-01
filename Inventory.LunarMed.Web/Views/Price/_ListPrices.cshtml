@@ -1,0 +1,62 @@
+﻿@using Inventory.LunarMed.Web.Models.DTO;
+@model List<PriceViewModel>
+
+<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	display">
+    <thead>
+        <tr>
+            <th>
+                Price ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Supplier
+            </th>
+            <th>
+                Unit Size
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@((item.PriceId % 2) == 1 ? "odd" : "even")">
+                <td>@Html.DisplayFor(modelItem => item.PriceId)</td>
+                <td>@Html.DisplayFor(modelItem => item.BrandName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Cost)</td>
+                <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
+                <td>@Html.DisplayFor(modelItem => item.UnitSizeName)</td>
+                <td><a href="#" class="dt-link edit-price" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-price-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Price ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Supplier
+            </th>
+            <th>
+                Unit Size
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </tfoot>
+</table>

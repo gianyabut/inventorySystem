@@ -48,6 +48,7 @@ namespace Inventory.LunarMed.Web.Models
         public DbSet<UnitSize> UnitSizes { get; set; }
         public DbSet<Generic> Generics { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Price> Prices { get; set; }
 
         #endregion
 

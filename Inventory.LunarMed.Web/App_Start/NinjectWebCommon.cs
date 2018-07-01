@@ -89,6 +89,7 @@ namespace Inventory.LunarMed.Web.App_Start
             kernel.Bind(typeof(IGenericRepository<UnitSize>)).To(typeof(GenericRepository<UnitSize>));
             kernel.Bind(typeof(IGenericRepository<Generic>)).To(typeof(GenericRepository<Generic>));
             kernel.Bind(typeof(IGenericRepository<Brand>)).To(typeof(GenericRepository<Brand>));
+            kernel.Bind(typeof(IGenericRepository<Price>)).To(typeof(GenericRepository<Price>));
         }        
     }
 }

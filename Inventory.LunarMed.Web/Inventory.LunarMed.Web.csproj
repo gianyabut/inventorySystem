@@ -216,6 +216,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\UnitSizeController.cs" />
     <Compile Include="Enum\MessageType.cs" />
@@ -240,6 +241,10 @@
     <Compile Include="Migrations\201807010359505_AddedTransactionNumberInCollections.Designer.cs">
       <DependentUpon>201807010359505_AddedTransactionNumberInCollections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807010559406_AddedPrice-1.cs" />
+    <Compile Include="Migrations\201807010559406_AddedPrice-1.Designer.cs">
+      <DependentUpon>201807010559406_AddedPrice-1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\BrandViewModel.cs" />
@@ -248,6 +253,7 @@
     <Compile Include="Models\DTO\DisplayOrderDetailsViewModel.cs" />
     <Compile Include="Models\DTO\DisplayOrderViewModel.cs" />
     <Compile Include="Models\DTO\GenericViewModel.cs" />
+    <Compile Include="Models\DTO\PriceViewModel.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\Context\IdentityModels.cs" />
     <Compile Include="Models\ListBrandsViewModel.cs" />
@@ -255,6 +261,7 @@
     <Compile Include="Models\ListCollectionsViewModel.cs" />
     <Compile Include="Models\ListGenericsViewModel.cs" />
     <Compile Include="Models\ListOrdersViewModel.cs" />
+    <Compile Include="Models\ListPricesViewModel.cs" />
     <Compile Include="Models\ListStocksViewModel.cs" />
     <Compile Include="Models\ListUnitSizeViewModel.cs" />
     <Compile Include="Models\ListUsersViewModel.cs" />
@@ -422,6 +429,9 @@
     <Content Include="Views\Brand\Index.cshtml" />
     <Content Include="Views\Brand\_ListBrands.cshtml" />
     <Content Include="Views\Brand\_AddOrEditBrandModal.cshtml" />
+    <Content Include="Views\Price\Index.cshtml" />
+    <Content Include="Views\Price\_ListPrices.cshtml" />
+    <Content Include="Views\Price\_AddOrEditPriceModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -457,6 +467,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807010359505_AddedTransactionNumberInCollections.resx">
       <DependentUpon>201807010359505_AddedTransactionNumberInCollections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807010559406_AddedPrice-1.resx">
+      <DependentUpon>201807010559406_AddedPrice-1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

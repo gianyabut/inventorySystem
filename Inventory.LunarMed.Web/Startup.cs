@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Inventory.LunarMed.Data.Entities;
 using Inventory.LunarMed.Web.Models;
+using Inventory.LunarMed.Web.Models.DTO;
 using Microsoft.Owin;
 using Owin;
 using System;
@@ -30,6 +31,11 @@ namespace Inventory.LunarMed.Web
                     .ForMember(dest => dest.ExpirationDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.ExpirationDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)))
                     .ForMember(dest => dest.PurchaseDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.PurchaseDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)));
 
+                cfg.CreateMap<Price, PriceViewModel>()
+                   .ForMember(dest => dest.UnitSizeName, opt => opt.MapFrom(src => src.UnitSize.Name))
+                   .ForMember(dest => dest.ClientName, opt => opt.MapFrom(src => src.Client.Name))
+                   .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name));
+                cfg.CreateMap<PriceViewModel, Price>();
 
                 cfg.CreateMap<OrderViewModel, Order>()
                     .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => DateTime.ParseExact(src.DueDate, "MM/dd/yyyy", CultureInfo.InvariantCulture)));
