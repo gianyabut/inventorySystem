@@ -138,6 +138,7 @@ namespace Inventory.LunarMed.Web.Controllers
 
                     collection.OrderId = order.OrderId;
                     collection.CheckNumber = model.CheckNumber;
+                    collection.TransactionNumber = model.TransactionNumber;
                     collection.Amount = model.Amount;
                     collection.Balance = model.Balance;
                     collection.IsGovTax = model.IsGovTax;

@@ -8,10 +8,13 @@
                 Collection Id
             </th>
             <th>
-                Customer PO Number
+                Sales Invoice
             </th>
             <th>
                 Check Number
+            </th>
+            <th>
+                Transaction Number
             </th>
             <th>
                 Amount
@@ -31,6 +34,7 @@
             <td>@Html.DisplayFor(modelItem => collection.CollectionId)</td>
             <td>@Html.DisplayFor(modelItem => collection.SalesInvoice)</td>
             <td>@Html.DisplayFor(modelItem => collection.CheckNumber)</td>
+            <td>@Html.DisplayFor(modelItem => collection.TransactionNumber)</td>
             <td>@Html.DisplayFor(modelItem => collection.Amount)</td>
             <td>@Html.DisplayFor(modelItem => collection.Balance)</td>
             <td><a href="#" class="dt-link edit-collection" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-collection-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
@@ -43,10 +47,13 @@
                 Collection Id
             </th>
             <th>
-                Customer PO Number
+                Sales Invoice
             </th>
             <th>
                 Check Number
+            </th>
+            <th>
+                Transaction Number
             </th>
             <th>
                 Amount

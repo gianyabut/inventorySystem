@@ -262,3 +262,4 @@ C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.csproj.GenerateResource.cache
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.Migrations.AddedPOType.resources
 C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.Migrations.AddedPrice.resources
+C:\Users\PREDATOR\source\repos\inventorySystem\Inventory.LunarMed.Web\obj\Debug\Inventory.LunarMed.Web.Migrations.AddedTransactionNumberInCollections.resources

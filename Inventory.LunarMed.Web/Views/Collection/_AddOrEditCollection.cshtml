@@ -21,7 +21,14 @@ else
     <div class="control-group">
         <label class="control-label" for="basicinput">Check Number</label>
         <div class="controls">
-            @Html.TextBoxFor(model => model.CheckNumber, new { @class = "span8", required = "required" })
+            @Html.TextBoxFor(model => model.CheckNumber, new { @class = "span8" })
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="basicinput">Transaction Number</label>
+        <div class="controls">
+            @Html.TextBoxFor(model => model.TransactionNumber, new { @class = "span8" })
         </div>
     </div>
 
@@ -81,6 +88,7 @@ else
         var obj = {
             CollectionId: $('#CollectionId').val(),
             CheckNumber: $('#CheckNumber').val(),
+            TransactionNumber: $('#TransactionNumber').val(),
             Amount: $('#Amount').val(),
             Balance: $('#Balance').val(),
             SalesInvoice: $('#SalesInvoice').val(),

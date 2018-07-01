@@ -12,6 +12,7 @@ namespace Inventory.LunarMed.Web.Models
         public int CollectionId { get; set; }
 
         public string CheckNumber { get; set; }
+        public string TransactionNumber { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal Amount { get; set; }
