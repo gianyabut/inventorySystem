@@ -161,6 +161,13 @@
 
     <script type="text/javascript">
 
+        var type = "@Request.Params["type"]";
+        if (type == "supplier") {
+            $('#po-supplier').addClass('active');
+        } else {
+            $('#po-client').addClass('active');
+        }
+
         $("#txtDueDate").datepicker();
         $('#tbl-product-list').hide();
 

@@ -222,6 +222,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CustomHelper.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="Migrations\201806201209082_Initial.cs" />
     <Compile Include="Migrations\201806201209082_Initial.Designer.cs">
@@ -420,7 +421,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Scripts\pages\" />
   </ItemGroup>
   <ItemGroup>

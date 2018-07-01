@@ -1,35 +1,36 @@
-﻿
+﻿@using Inventory.LunarMed.Web.Helpers;
+
 <div class="row">
     <div class="span3">
         <div class="sidebar">
             <ul class="widget widget-menu unstyled">
-                <li class="active">
+                <li class="@Html.IsSelected(actions: "Index", controllers: "Home")">
                     <a href="@Url.Action("Index", "Home")">
                         <i class="menu-icon icon-dashboard"></i>Dashboard
                     </a>
                 </li>
                 @if (Request.IsAuthenticated)
                 {
-                    <li>
+                    <li class="@Html.IsSelected(actions: "Index", controllers: "Stock")">
                         <a href="@Url.Action("Index", "Stock")"><i class="menu-icon icon-table"></i>Inventory </a>
                     </li>
-                    <li>
+                    <li id="po-client">
                         <a href="@Url.Action("Index", "Order", new { type = "client" })">
                             <i class="menu-icon icon-money"></i>PO - Client
                         </a>
                     </li>
                     
-                    <li>
+                    <li id="po-supplier">
                         <a href="@Url.Action("Index", "Order", new { type = "supplier" })">
                             <i class="menu-icon icon-money"></i>PO - Supplier
                         </a>
                     </li>
-                    <li>
+                    <li class="@Html.IsSelected(actions: "List", controllers: "Order")">
                         <a href="@Url.Action("List", "Order")">
                             <i class="menu-icon icon-reorder"></i>Orders
                         </a>
                     </li>
-                    <li>
+                    <li class="@Html.IsSelected(actions: "Index", controllers: "Collection")">
                         <a href="@Url.Action("Index", "Collection")">
                             <i class="menu-icon icon-credit-card"></i>Collections
                         </a>
@@ -42,17 +43,17 @@
                 <!--/.widget-nav-->
                 <ul class="widget widget-menu unstyled">
                     <li>
-                        <a class="collapsed" data-toggle="collapse" href="#togglePages">
+                        <a class="collapsed" data-toggle="collapse" href="#togglePages" id="nav-manage">
                             <i class="menu-icon icon-cog">
                             </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
                             </i>Manage
                         </a>
                         <ul id="togglePages" class="collapse unstyled">
-                            <li><a href="@Url.Action("Index", "Client")"><i class="icon-group"></i> Clients </a></li>
-                            <li><a href="@Url.Action("Index", "UnitSize")"><i class="icon-adjust"></i> Unit Size </a></li>
-                            <li><a href="@Url.Action("Index", "Brand")"><i class="icon-medkit"></i> Brands </a></li>
-                            <li><a href="@Url.Action("Index", "Generic")"><i class="icon-certificate"></i> Generics </a></li>
-                            <li><a href="@Url.Action("Users", "Account")"><i class="icon-user"></i> All Users </a></li>
+                            <li class="@Html.IsSelected(actions: "Index", controllers: "Client", cssClass: "selected")"><a href="@Url.Action("Index", "Client")"><i class="icon-group"></i> Clients </a></li>
+                            <li class="@Html.IsSelected(actions: "Index", controllers: "UnitSize", cssClass: "selected")"><a href="@Url.Action("Index", "UnitSize")"><i class="icon-adjust"></i> Unit Size </a></li>
+                            <li class="@Html.IsSelected(actions: "Index", controllers: "Brand", cssClass: "selected")"><a href="@Url.Action("Index", "Brand")"><i class="icon-medkit"></i> Brands </a></li>
+                            <li class="@Html.IsSelected(actions: "Index", controllers: "Generic", cssClass: "selected")"><a href="@Url.Action("Index", "Generic")"><i class="icon-certificate"></i> Generics </a></li>
+                            <li class="@Html.IsSelected(actions: "Users", controllers: "Account", cssClass: "selected")"><a href="@Url.Action("Users", "Account")"><i class="icon-user"></i> All Users </a></li>
                         </ul>
                     </li>
                     <li><a href="@Url.Action("LogOff", "Account")"><i class="menu-icon icon-signout"></i>Logoff </a></li>

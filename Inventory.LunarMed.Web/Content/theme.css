@@ -293,8 +293,19 @@ body [class^="icon-"], body [class*=" icon-"] {
 
             .navbar .nav > li > .dropdown-menu li > a:hover {
                 background: #f9f9f9;
-                color: #555
+                color: #555;
             }
+
+    .sidebar ul.widget-menu li.active a, .sidebar ul.widget-menu li.active a i {
+        color: #fafafa;
+        font-weight: 700;
+        background-color: #040404;
+    }
+
+    ul#togglePages li.selected {
+        background-color: #c7c1c1;
+        font-weight: 700;
+    }
 
     .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
         -webkit-box-shadow: none;
@@ -1037,7 +1048,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap
-    }
+    } 
 
 .widget .progress {
     margin-bottom: 0
@@ -1092,8 +1103,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     }
 
     .widget-menu > li > a {
-        background-color: #2d2b32;
-        color: #767676;
+        background-color: #3F3F3F; /*#2d2b32*/
+        color: #969696; /*#767676*/
         -webkit-transition: all .2s ease-in-out;
         -moz-transition: all .2s ease-in-out;
         transition: all .2s ease-in-out;
@@ -1116,8 +1127,9 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
         }
 
         .widget-menu > li > a:hover {
-            background-color: #28262c;
+            background-color: #040404;
             color: #fafafa;
+            font-weight: 700;
         }
 
             .widget-menu > li > a:hover .menu-icon {
