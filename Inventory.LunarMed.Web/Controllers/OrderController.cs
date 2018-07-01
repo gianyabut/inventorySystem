@@ -20,10 +20,11 @@ namespace Inventory.LunarMed.Web.Controllers
         private readonly IGenericRepository<OrderDetails> _orderDetailsRepository;
         private readonly IGenericRepository<Brand> _brandRepository;
         private readonly IGenericRepository<Generic> _genericRepository;
+        private readonly IGenericRepository<Price> _priceRepository;
 
         public OrderController(IGenericRepository<Order> orderRepository, IGenericRepository<Client> clientRepository, 
             IGenericRepository<Stock> stockRepository, IGenericRepository<OrderDetails> orderDetailsRepository, IGenericRepository<Brand> brandRepository,
-            IGenericRepository<Generic> genericRepository)
+            IGenericRepository<Generic> genericRepository, IGenericRepository<Price> priceRepository)
         {
             _orderRepository = orderRepository;
             _clientRepository = clientRepository;
@@ -31,18 +32,29 @@ namespace Inventory.LunarMed.Web.Controllers
             _orderDetailsRepository = orderDetailsRepository;
             _brandRepository = brandRepository;
             _genericRepository = genericRepository;
+            _priceRepository = priceRepository;
         }
 
         // GET: Order
         public ActionResult Index(string type)
         {
-            bool isSupplier = (type == "client" ? false : true);
             var model = new OrderViewModel()
             {
-                ClientsList = GetClients(isSupplier)
+                ClientsList = GetClients(false)
             };
 
             model.Type = type;
+
+            return View(model);
+        }
+
+        // GET: Order/Supplier
+        public ActionResult Supplier()
+        {
+            var model = new OrderViewModel()
+            {
+                ClientsList = GetClients(true)
+            };
 
             return View(model);
         }
@@ -99,6 +111,15 @@ namespace Inventory.LunarMed.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        // GET: Order/GetProductDetails/id
+        public JsonResult GetPriceList(int id)
+        {
+            var product = _priceRepository.List(i => i.Brand.GenericId == id);
+            var model = Mapper.Map<List<Price>, List<StockViewModel>>(product);
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Order/GetDetails/id
         public ActionResult GetDetails(int id)
         {
@@ -141,6 +162,7 @@ namespace Inventory.LunarMed.Web.Controllers
             try
             {
                 var order = Mapper.Map<OrderViewModel, Order>(model);
+                order.Type = "C";
 
                 // Subtract current order to quantity
                 foreach(var orderDetails in order.OrderDetails)
@@ -166,6 +188,86 @@ namespace Inventory.LunarMed.Web.Controllers
                         }
                     }
                     _stockRepository.Update(product);
+                }
+
+                _orderRepository.Add(order);
+
+                messages = new List<ViewMessage>
+                {
+                    new ViewMessage()
+                    {
+                        Type = MessageType.Success,
+                        Message = "Order successfully saved."
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                messages = new List<ViewMessage>
+                {
+                    new ViewMessage()
+                    {
+                        Type = MessageType.Error,
+                        Message = ex.Message.ToString()
+                    }
+                };
+            }
+
+            return this.PartialView("_ViewMessageList", messages);
+        }
+
+        // POST: Order/CreateSupplier
+        /// <summary>
+        /// This saves a new order 
+        /// </summary>
+        /// <param name="model">The ProductViewModel object.</param>
+        /// <returns>A partial view containing the result of the process.</returns>
+        [HttpPost]
+        public ActionResult CreateSupplier(OrderViewModel model)
+        {
+            var messages = new List<ViewMessage>();
+            try
+            {
+                var order = Mapper.Map<OrderViewModel, Order>(model);
+                order.Type = "S";
+                order.OrderDetails.Clear();
+
+                foreach (var orderDetails in model.OrderDetails)
+                {
+                    var product = _stockRepository.List(i => i.BrandId == orderDetails.BrandId && i.UnitSizeId == orderDetails.UnitSizeId).FirstOrDefault();
+                    if(product == null && product.StockId == 0)
+                    {
+                        var stock = new Stock()
+                        {
+                            BrandId = orderDetails.BrandId,
+                            UnitSizeId = orderDetails.UnitSizeId,
+                            ClientId = model.ClientId,
+                            Cost = orderDetails.Price,
+                            SRP = orderDetails.SRP,
+                            SRPDC = orderDetails.SRPDC,
+                            MarkUp = 0,
+                            ExpirationDate = DateTime.Now.AddDays(90),
+                            StockQuantity = product.StockQuantity + orderDetails.Quantity
+                        };
+
+                        _stockRepository.Add(stock);
+                    }
+                    else
+                    {
+                        product.StockQuantity = product.StockQuantity + orderDetails.Quantity;
+                        product.Cost = orderDetails.Price;
+                        product.SRP = orderDetails.SRP;
+                        product.SRPDC = orderDetails.SRPDC;
+
+                        _stockRepository.Update(product);
+                    }
+
+                    order.OrderDetails.Add(new OrderDetails()
+                    {
+                        StockId = product.StockId,
+                        Quantity = orderDetails.Quantity
+                    });
+                    
                 }
 
                 _orderRepository.Add(order);

@@ -17,13 +17,13 @@
                     <li class="@Html.IsSelected(actions: "Index", controllers: "Price")">
                         <a href="@Url.Action("Index", "Price")"><i class="menu-icon icon-table"></i>Supplier's Price List </a>
                     </li>
-                    <li id="po-client">
-                        <a href="@Url.Action("Index", "Order", new { type = "client" })">
+                    <li class="@Html.IsSelected(actions: "Index", controllers: "Order")">
+                        <a href="@Url.Action("Index", "Order")">
                             <i class="menu-icon icon-money"></i>PO - Client
                         </a>
                     </li>
-                    <li id="po-supplier">
-                        <a href="@Url.Action("Index", "Order", new { type = "supplier" })">
+                    <li class="@Html.IsSelected(actions: "Supplier", controllers: "Order")">
+                        <a href="@Url.Action("Supplier", "Order")">
                             <i class="menu-icon icon-money"></i>PO - Supplier
                         </a>
                     </li>

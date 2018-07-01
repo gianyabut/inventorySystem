@@ -1,0 +1,307 @@
+﻿@using Inventory.LunarMed.Web.Models;
+@model OrderViewModel
+@{
+
+    ViewBag.Title = "Place Order - Supplier";
+}
+
+<div class="span9">
+    <div class="content">
+        @Html.Partial("_ViewMessageList", Model.Messages)
+        <div class="module message">
+            <div class="module-head">
+                <h3>Order Information - Supplier</h3>
+            </div>
+            <div class="module-option clearfix">
+                <div class="form-row">
+                    <div class="col-half">
+                        <select tabindex="1" data-placeholder="Select.." class="span4" id="ddlClientId">
+                            <option value="">Select..</option>
+                            @foreach (var client in Model.ClientsList)
+                            {
+                                <option value="@client.Value">@client.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-half">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-half">
+                        <label for="basicinput">Sales Invoice</label>
+                        <div class="controls">
+                            <input type="text" id="txtSalesInvoice" class="span4" value="@Model.SalesInvoice">
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <label for="basicinput">Due Date</label>
+                        <div class="controls">
+                            <input type="text" id="txtDueDate" class="span3" value="@Model.DueDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-half">
+                        <label for="basicinput">Remarks</label>
+                        <div class="controls">
+                            <textarea id="txtRemarks" class="span4" rows="5">@Model.Remarks</textarea>
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <label for="basicinput">Terms (Days)</label>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on">#</span><input id="txtTerms" class="span1" type="text" value="@Model.Terms">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="module-foot overflow-hidden padding-10">
+                <div class="pull-right">
+                    <a href="#" class="btn btn-primary btn-submit-order">Purchase</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="module message">
+            <div class="module-head">
+                <h3>
+                    Order Details
+                </h3>
+            </div>
+            <div class="module-option clearfix">
+                <div class="pull-left">
+                    <input type="text" id="txtSearchProduct" class="span4" placeholder="Search Product.." />
+                    <input type="hidden" id="hfStockId" />
+                    <input type="hidden" id="hfStockLeft" />
+                    <input type="hidden" id="hfUnitSize" />
+                    <input type="hidden" id="hfSellingPrice" />
+                </div>
+                <table class="table table-striped table-bordered table-condensed" id="tbl-product-list">
+                    <thead>
+                        <tr>
+                            <th width="20">&nbsp;</th>
+                            <th width="25">#</th>
+                            <th>Brand</th>
+                            <th>Supplier</th>
+                            <th>Cost</th>
+                            <th width="50">SRP</th>
+                            <th width="50">Discounted</th>
+                            <th>Unit Size</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="module-body table">
+                <table class="table table-message">
+                    <tbody>
+                        <tr class="heading">
+                            <td class="cell-check"></td>
+                            <td class="cell-title">
+                                Brand
+                            </td>
+                            <td class="cell-title">
+                                Unit Size
+                            </td>
+                            <td class="cell-title">
+                                Supplier
+                            </td>
+                            <td class="cell-time align-right">
+                                Quantity
+                            </td>
+                            <td class="cell-time align-right">
+                                Price
+                            </td>
+                            <td class="cell-time align-right">
+                                SRP
+                            </td>
+                            <td class="cell-time align-right">
+                                DC
+                            </td>
+                            <td class="cell-time align-right">
+                                Total
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="module-foot">
+                <div class="pull-right table-summary">
+                    <span class="total">0.00</span>
+                </div>
+            </div>
+        </div>
+    </div><!--/.content-->
+</div><!--/.span9-->
+
+<div id="modalContainer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <div class="control-group">
+                    <div class="controls">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        var type = "@Request.Params["type"]";
+
+        $("#txtDueDate").datepicker();
+        $('#tbl-product-list').hide();
+
+        // Initialize Auto-Complete
+        $("#txtSearchProduct").autocomplete({
+            source: function (request, response) {
+                var products = new Array();
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    url: "@(Url.Action("GetProducts", "Order"))",
+                    type: 'GET',
+                    data: { "wildcard": $("#txtSearchProduct").val() },
+                    dataType: 'json',
+                    success: function (data) {
+                        for (var i = 0; i < data.length ; i++) {
+                            products[i] = { label: data[i].Value, Id: data[i].Key };
+                        }
+                     }
+                });
+                response(products);
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                $.ajax({
+                    cache: false,
+                    async: false,
+                    type: 'GET',
+                    dataType: 'json',
+                    url: "@(Url.Action("GetPriceList", "Order"))",
+                    data: { "id": ui.item.Id },
+                    success: function (data) {
+
+                        $('#tbl-product-list').show();
+                        $('#tbl-product-list tbody').html('');
+
+                        $.each(data, function (propName, propVal) {
+                            var SRP = propVal.Cost * 1.1;
+                            var SRPDC = propVal.Cost * 1.08;
+                            $('#tbl-product-list tbody').append(
+                                '<tr">'
+                                + '<td><a href="#" style="text-decoration:none;" class="chk-product"><i class="icon-check"></i></a><input type="hidden" value="' + propVal.BrandId + '" /></td>'
+                                + '<td><input type="text" class="txt-quantity" value="1" /></td>'
+                                + '<td>' + propVal.BrandName + '</td>'
+                                + '<td>' + propVal.ClientName + '</td>'
+                                + '<td>' + Number(propVal.Cost).toFixed(2) + '</td>'
+                                + '<td><input type="text" class="txt-SRP" value="' + Number(SRP).toFixed(2) + '" width="20" /></td>'
+                                + '<td><input type="text" class="txt-SRPDC" value="' + Number(SRPDC).toFixed(2) + '" width="20" /></td>'
+                                + '<td><input type="hidden" value="' + propVal.UnitSizeId + '" />' + propVal.UnitSizeName + '</td>'
+                                + '</tr>'
+                            );
+
+                        });
+                    }
+                });
+            }
+        }).autocomplete('enable');
+
+        // Add Product Link click event
+        $('body').on('click', 'a.chk-product', function (e) {
+            e.preventDefault();
+
+            var stockId = $(this).parent().find('input[type=hidden]').val();
+            var price = $(this).parent().parent().children('td:nth-child(5)').text();
+            var srp = $(this).parent().parent().children('td:nth-child(6)').find('input.txt-SRP').val();
+            var srpdc = $(this).parent().parent().children('td:nth-child(7)').find('input.txt-SRPDC').val();
+            var unitSize = $(this).parent().parent().children('td:nth-child(8)').text();
+            var unitSizeId = $(this).parent().parent().children('td:nth-child(8)').find('input[type=hidden]').val();
+            var brand = $(this).parent().parent().children('td:nth-child(3)').text();
+            var supplier = $(this).parent().parent().children('td:nth-child(4)').text();
+            var quantity = $(this).parent().parent().children('td:nth-child(2)').find('input[type=text]').val();
+            var totalCost = Number((parseFloat(price) * parseFloat(quantity))).toFixed(2);
+
+            $('table.table-message tbody').append(
+                '<tr class="unread">'
+                + '<td class="cell-icon"><a href="#" class="remove-product"><i class="icon-remove"></i></a><input type="hidden" value="' + stockId + '" /></td>'
+                + '<td class="cell-title">' + brand + '</td>'
+                + '<td class="cell-title"><input type="hidden" value="' + unitSizeId + '" />' + unitSize + '</td>'
+                + '<td class="cell-title">' + supplier + '</td>'
+                + '<td class="cell-time align-right">' + quantity + '</td>'
+                + '<td class="cell-time align-right">' + price + '</td>'
+                + '<td class="cell-time align-right">' + srp + '</td>'
+                + '<td class="cell-time align-right">' + srpdc + '</td>'
+                + '<td class="cell-time align-right">' + totalCost + '</td>'
+                + '</tr>'
+            );
+
+            computeTotal(parseFloat(totalCost));
+
+            $('#tbl-product-list tbody').html('');
+            $('#tbl-product-list').hide();
+            $('#txtSearchProduct').val('');
+        });
+
+        $('.btn-submit-order').on('click', function () {
+
+            orderDetailsObj = [];
+            $('.table-message tbody tr:not(:first)').each(function () {
+                orderDetails = {};
+                orderDetails['BrandId'] = $(this).children('td:first').find('input').val();
+                orderDetails['UnitSizeId'] = $(this).children('td:nth-child(3)').find('input').val();
+                orderDetails['Quantity'] = $(this).children('td:nth-child(5)').text();
+                orderDetails['Price'] = $(this).children('td:nth-child(6)').text();
+                orderDetails['SRP'] = $(this).children('td:nth-child(7)').text();
+                orderDetails['SRPDC'] = $(this).children('td:nth-child(8)').text();
+                orderDetailsObj.push(orderDetails);
+            });
+            var data = JSON.stringify({
+                ClientId: $('#ddlClientId').val(),
+                Terms: $('#txtTerms').val(),
+                DueDate: $('#txtDueDate').val(),
+                Remarks: $('#txtRemarks').val(),
+                SalesInvoice: $('#txtSalesInvoice').val(),
+                Type: $('#hfType').val(),
+                Total: $('.total').text(),
+                OrderDetails: orderDetailsObj
+            });
+
+            $.ajax({
+                url: "@(Url.Action("CreateSupplier", "Order"))",
+                data: data,
+                contentType: "application/json;charset=utf-8",
+                type: "POST",
+                success: function (result) {
+                    $('#divMessages').html(result);
+                }
+            });
+        });
+
+        $('body').on('click', '.remove-product', function (e) {
+            var cost = $(this).parent().parent().children('td:last').text();
+            $(this).parent().parent().remove();
+
+            computeTotal(parseFloat(-cost));
+        });
+
+        function computeTotal(cost) {
+            var sum = Number(parseFloat($('.total').text()) + cost).toFixed(2);
+            $('.total').text(sum);
+        }
+
+    </script>
+
+}

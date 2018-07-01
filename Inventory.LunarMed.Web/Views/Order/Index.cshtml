@@ -2,7 +2,7 @@
 @model OrderViewModel
 @{
 
-    ViewBag.Title = "Place Order - " + (Model.Type == "client" ? "Client" : "Supplier");
+    ViewBag.Title = "Place Order - Client";
 }
 
 <div class="span9">
@@ -10,7 +10,7 @@
          @Html.Partial("_ViewMessageList", Model.Messages)
         <div class="module message">
             <div class="module-head">
-                <h3>Order Information - @(Model.Type == "client" ? "Client" : "Supplier")</h3>
+                <h3>Order Information - Client</h3>
             </div>
             <div class="module-option clearfix">
                 <div class="form-row">
@@ -162,11 +162,6 @@
     <script type="text/javascript">
 
         var type = "@Request.Params["type"]";
-        if (type == "supplier") {
-            $('#po-supplier').addClass('active');
-        } else {
-            $('#po-client').addClass('active');
-        }
 
         $("#txtDueDate").datepicker();
         $('#tbl-product-list').hide();
@@ -219,10 +214,6 @@
                             );
 
                         });
-
-                        //if (data.StockQuantity == "0") {
-                        //    displayModalMessage("Selected product is currently out of stock.");
-                        //}
                     }
                 });
             }

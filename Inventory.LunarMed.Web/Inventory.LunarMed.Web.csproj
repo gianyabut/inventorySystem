@@ -432,6 +432,7 @@
     <Content Include="Views\Price\Index.cshtml" />
     <Content Include="Views\Price\_ListPrices.cshtml" />
     <Content Include="Views\Price\_AddOrEditPriceModal.cshtml" />
+    <Content Include="Views\Order\Supplier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
