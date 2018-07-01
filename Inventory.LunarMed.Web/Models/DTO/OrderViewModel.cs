@@ -24,6 +24,7 @@ namespace Inventory.LunarMed.Web.Models
         public string SalesInvoice { get; set; }
         public decimal Total { get; set; }
         public string Type { get; set; }
+        public bool IsDeleted { get; set; }
 
         public List<OrderDetailViewModel> OrderDetails { get; set; }
         

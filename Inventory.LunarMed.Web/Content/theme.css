@@ -1103,7 +1103,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
     }
 
     .widget-menu > li > a {
-        background-color: #3F3F3F; /*#2d2b32*/
+        background-color: #515050; /*#2d2b32*/
         color: #969696; /*#767676*/
         -webkit-transition: all .2s ease-in-out;
         -moz-transition: all .2s ease-in-out;

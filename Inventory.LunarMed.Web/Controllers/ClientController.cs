@@ -26,9 +26,10 @@ namespace Inventory.LunarMed.Web.Controllers
         /// Gets all the clients and pass it on the view
         /// </summary>
         /// <returns>Returns a view containing all the clients</returns>
-        public ActionResult Index()
+        public ActionResult Index(string type)
         {
-            return View(GetListClientsModel());
+            var isSupplier = (type == "client") ? false : true;
+            return View(GetListClientsModel(isSupplier));
         }
         
         // GET: Client/List
@@ -37,9 +38,10 @@ namespace Inventory.LunarMed.Web.Controllers
         /// </summary>
         /// <returns>Returns a partial view that contains the list of all clients</returns>
         [HttpGet]
-        public ActionResult List()
+        public ActionResult List(string type)
         {
-            return this.PartialView("_ListClients", GetListClientsModel().Clients);
+            var isSupplier = (type == "client") ? false : true;
+            return this.PartialView("_ListClients", GetListClientsModel(isSupplier).Clients);
         }
 
         // GET: Client/Create
@@ -48,10 +50,12 @@ namespace Inventory.LunarMed.Web.Controllers
         /// </summary>
         /// <returns>Returns a partial view used for creating a client</returns>
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(string type)
         {
+            var isSupplier = (type == "client") ? false : true;
             var model = new ClientViewModel();
             model.ClientId = 0;
+            model.IsSupplier = isSupplier;
 
             return this.PartialView("_AddOrEditClientModal", model);
         }
@@ -216,9 +220,9 @@ namespace Inventory.LunarMed.Web.Controllers
         /// This gets all the clients and assign maps it to ListClientsViewModel
         /// </summary>
         /// <returns>Returns a ListClientsViewModel object</returns>
-        private ListClientsViewModel GetListClientsModel()
+        private ListClientsViewModel GetListClientsModel(bool isSupplier)
         {
-            var clients = _clientRepository.GetAll();
+            var clients = _clientRepository.List(i => i.IsSupplier == isSupplier);
             var model = new ListClientsViewModel();
 
             var clientList = Mapper.Map<List<Client>, List<ClientViewModel>>(clients.ToList());

@@ -58,7 +58,17 @@
             $('#order-client').addClass('active');
         }
 
-        initDataTable();
+        loadList();
+
+        function loadList() {
+            $('.datatable-1').dataTable({
+                aaSorting: [[0, 'desc']]
+            });
+            $('.dataTables_paginate').addClass('btn-group datatable-pagination');
+            $('.dataTables_paginate > a').wrapInner('<span />');
+            $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+            $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+        }
 
         // More details click event
         $('.module-body').on('click', '.more-details', function (e) {
@@ -98,6 +108,50 @@
             });
 
             e.preventDefault();
+        });
+
+
+
+        // This event acts like the Confirmation message for the Delete Operation
+        $('body').on('click', '.delete-order-conf', function (e) {
+            // Cleanup
+            cleanModal();
+
+            $('.modal-dialog').css('height', '');
+            $('.modal-body').css('height', '');
+
+            // Display the Confirmation Message with its contents
+            $('.modal-title').html('Delete Order Confirmation');
+
+            var id = $(this).parent().parent().children('td:first').text();
+            var name = $(this).parent().parent().children('td:nth-child(3)').text();
+            $('.modal-body').append('<h5>Are you sure you want to delete this order?</h5><br /><b>Sales Invoice</b>: ' + name);
+            $('.modal-body').append('<input type="hidden" id="hfOrderId" value="' + id + '" />');
+            $('.modal-footer').append('<button type="button" class="btn btn-info delete-order">Delete</button>');
+            $('#modalContainer').modal();
+        });
+
+        // This is the delete client click event and calls the ajax service to delete the product
+        $('body').on('click', '.delete-order', function (e) {
+            var url = "/Order/Delete"; // Full URL
+            var data = JSON.stringify({ id: $('#hfOrderId').val() });
+
+            $.ajax({
+                url: url,
+                data: data,
+                contentType: "application/json;charset=utf-8",
+                type: "POST",
+                success: function (result) {
+                    $('#divMessages').html(result);
+                    $('#modalContainer').modal('hide');
+
+                    if (type == "client") {
+                        window.location.replace("@(Url.Action("List", "Order", new { type = "client" }))");
+                    } else {
+                        window.location.replace("@(Url.Action("List", "Order", new { type = "supplier" }))");
+                    }
+                }
+            });
         });
 
     </script>

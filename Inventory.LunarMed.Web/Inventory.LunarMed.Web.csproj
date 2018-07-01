@@ -245,6 +245,10 @@
     <Compile Include="Migrations\201807010559406_AddedPrice-1.Designer.cs">
       <DependentUpon>201807010559406_AddedPrice-1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807010837166_AddedIsDeleted.cs" />
+    <Compile Include="Migrations\201807010837166_AddedIsDeleted.Designer.cs">
+      <DependentUpon>201807010837166_AddedIsDeleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DTO\BrandViewModel.cs" />
@@ -471,6 +475,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807010559406_AddedPrice-1.resx">
       <DependentUpon>201807010559406_AddedPrice-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807010837166_AddedIsDeleted.resx">
+      <DependentUpon>201807010837166_AddedIsDeleted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -285,7 +285,10 @@
                 contentType: "application/json;charset=utf-8",
                 type: "POST",
                 success: function (result) {
-                    $('#divMessages').html(result);
+                    if (result.indexOf("Cool") == -1)
+                        $('#divMessages').html(result);
+                    else
+                        window.location.replace("@(Url.Action("List", "Order", new { type = "supplier" }))");
                 }
             });
         });

@@ -1,12 +1,16 @@
 ﻿@model Inventory.LunarMed.Web.Models.ClientViewModel
 
+@{
+    var type = (Request.Params["type"] == "client") ? "Client" : "Supplier";
+}
+
 @if (Model.ClientId == 0)
 {
-    <h2>Add New Client</h2>
+    <h2>Add New @type</h2>
 }
 else
 {
-    <h2>Edit Client</h2>
+    <h2>Edit @type</h2>
 }
 
 @using (Html.BeginForm("Create", "Client", FormMethod.Post, new { @class = "form-horizontal row-fluid" }))
@@ -33,11 +37,11 @@ else
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="control-group hide">
         <label class="control-label" for="basicinput">Supplier?</label>
         <div class="controls">
             <label class="checkbox">
-                <input type="checkbox" value="" id="IsSupplier">
+                <input type="checkbox" checked="@Model.IsSupplier" id="IsSupplier">
             </label>
         </div>
     </div>

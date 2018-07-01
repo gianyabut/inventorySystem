@@ -1,7 +1,9 @@
 ﻿@using Inventory.LunarMed.Web.Models;
 @model ListClientsViewModel
 @{
-    ViewBag.Title = "Clients";
+    var type = (Request.Params["type"] == "client") ? "Clients" : "Suppliers";
+
+    ViewBag.Title = type;
 }
 
 
@@ -11,7 +13,7 @@
         <div class="module">
             <div class="module-head overflow-hidden">
                 <h3 class="pull-left">
-                    Clients
+                    @type
                 </h3>
                 <div class="pull-right">
                     <a class="btn btn-small btn-info" id="addNewClient">Add New</a>
@@ -52,10 +54,17 @@
 
         initDataTable();
 
+        var type = "@Request.Params["type"]";
+        if (type == "supplier") {
+            $('#list-suppliers').addClass('selected');
+        } else {
+            $('#list-clients').addClass('selected');
+        }
+
         // Add new Client click event
         $('body').on('click', 'a#addNewClient', function (e) {
 
-            var url = "Client/Create"; // Full URL
+            var url = "Client/Create?type=" + type; // Full URL
 
             /* Cleanup */
             cleanModal();

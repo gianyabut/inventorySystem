@@ -25,7 +25,7 @@ namespace Inventory.LunarMed.Data.Entities
         [Column(TypeName = "char")]
         [StringLength(1)]
         public string Type { get; set; }
-
+        public bool IsDeleted { get; set; }
 
         [ForeignKey("ClientId")]
         public virtual Client Client { get; set; }

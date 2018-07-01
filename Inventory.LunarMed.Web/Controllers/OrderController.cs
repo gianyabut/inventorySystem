@@ -64,11 +64,11 @@ namespace Inventory.LunarMed.Web.Controllers
         {
             string orderType = (type == "client" ? "C" : "S");
 
-            var orders = _orderRepository.List(i => i.Type == orderType);
+            var orders = _orderRepository.List(i => i.Type == orderType && !i.IsDeleted);
 
             var model = new ListOrdersViewModel
             {
-                Orders = Mapper.Map<List<Order>, List<OrderViewModel>>(orders.ToList())
+                Orders = Mapper.Map<List<Order>, List<OrderViewModel>>(orders.OrderByDescending(i => i.OrderId).ToList())
             };
 
             foreach (var order in model.Orders)
@@ -200,6 +200,7 @@ namespace Inventory.LunarMed.Web.Controllers
                         Message = "Order successfully saved."
                     }
                 };
+
             }
             catch (Exception ex)
             {
@@ -235,7 +236,7 @@ namespace Inventory.LunarMed.Web.Controllers
                 foreach (var orderDetails in model.OrderDetails)
                 {
                     var product = _stockRepository.List(i => i.BrandId == orderDetails.BrandId && i.UnitSizeId == orderDetails.UnitSizeId).FirstOrDefault();
-                    if(product == null && product.StockId == 0)
+                    if(product == null)
                     {
                         var stock = new Stock()
                         {
@@ -247,7 +248,8 @@ namespace Inventory.LunarMed.Web.Controllers
                             SRPDC = orderDetails.SRPDC,
                             MarkUp = 0,
                             ExpirationDate = DateTime.Now.AddDays(90),
-                            StockQuantity = product.StockQuantity + orderDetails.Quantity
+                            PurchaseDate = DateTime.Now,
+                            StockQuantity = orderDetails.Quantity
                         };
 
                         _stockRepository.Add(stock);
@@ -280,6 +282,7 @@ namespace Inventory.LunarMed.Web.Controllers
                         Message = "Order successfully saved."
                     }
                 };
+
             }
             catch (Exception ex)
             {
@@ -291,6 +294,50 @@ namespace Inventory.LunarMed.Web.Controllers
                         Message = ex.Message.ToString()
                     }
                 };
+            }
+
+            return this.PartialView("_ViewMessageList", messages);
+        }
+
+        // POST: Order/Delete
+        /// <summary>
+        /// This deletes passed Stock id
+        /// </summary>
+        /// <param name="id">The ID of the product.</param>
+        /// <returns>A partial view containing the result of the process.</returns>
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var messages = new List<ViewMessage>();
+            try
+            {
+                var order = _orderRepository.Get(id);
+                if (order == null)
+                {
+                    messages.Add(new ViewMessage()
+                    {
+                        Type = MessageType.Error,
+                        Message = "Order cannot be found."
+                    });
+                    return this.PartialView("_ViewMessageList", messages);
+                }
+
+                order.IsDeleted = true;
+                _orderRepository.Update(order);
+
+                messages.Add(new ViewMessage()
+                {
+                    Type = MessageType.Success,
+                    Message = "Order successfully deleted."
+                });
+            }
+            catch (Exception ex)
+            {
+                messages.Add(new ViewMessage()
+                {
+                    Type = MessageType.Error,
+                    Message = ex.Message.ToString()
+                });
             }
 
             return this.PartialView("_ViewMessageList", messages);

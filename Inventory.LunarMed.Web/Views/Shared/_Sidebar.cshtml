@@ -56,7 +56,8 @@
                             </i>Manage
                         </a>
                         <ul id="togglePages" class="collapse unstyled">
-                            <li class="@Html.IsSelected(actions: "Index", controllers: "Client", cssClass: "selected")"><a href="@Url.Action("Index", "Client")"><i class="icon-group"></i> Clients </a></li>
+                            <li id="list-clients"><a href="@Url.Action("Index", "Client", new { type = "client" })"><i class="icon-group"></i> Clients </a></li>
+                            <li id="list-suppliers"><a href="@Url.Action("Index", "Client", new { type = "supplier" })"><i class="icon-group"></i> Suppliers </a></li>
                             <li class="@Html.IsSelected(actions: "Index", controllers: "UnitSize", cssClass: "selected")"><a href="@Url.Action("Index", "UnitSize")"><i class="icon-adjust"></i> Unit Size </a></li>
                             <li class="@Html.IsSelected(actions: "Index", controllers: "Brand", cssClass: "selected")"><a href="@Url.Action("Index", "Brand")"><i class="icon-medkit"></i> Brands </a></li>
                             <li class="@Html.IsSelected(actions: "Index", controllers: "Generic", cssClass: "selected")"><a href="@Url.Action("Index", "Generic")"><i class="icon-certificate"></i> Generics </a></li>
