@@ -82,7 +82,7 @@ else
             data: JSON.stringify(clientObj),
             success: function (result) {
                 $('#divMessages').html(result);
-                loadData();
+                window.location.replace("@(Url.Action("Index", "Client", new { type = type.ToLower() }))");
                 $('#modalContainer').modal('hide');
             }
         });

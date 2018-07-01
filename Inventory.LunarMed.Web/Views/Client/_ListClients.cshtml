@@ -17,9 +17,6 @@
                 Contact Number
             </th>
             <th>
-                Supplier
-            </th>
-            <th>
                 Action
             </th>
         </tr>
@@ -32,7 +29,6 @@
                 <td>@Html.DisplayFor(modelItem => client.Name)</td>
                 <td>@Html.DisplayFor(modelItem => client.Address)</td>
                 <td>@Html.DisplayFor(modelItem => client.ContactNumber)</td>
-                <td>@(client.IsSupplier == true ? "Yes" : "No")</td>
                 <td><a href="#" class="dt-link edit-client" style="text-decoration: none;"><i class="icon-edit dt-icon"></i> Edit</a> | <a href="#" class="dt-link delete-client-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a></td>
             </tr>
         }
@@ -50,9 +46,6 @@
             </th>
             <th>
                 Contact Number
-            </th>
-            <th>
-                Supplier
             </th>
             <th>
                 Action

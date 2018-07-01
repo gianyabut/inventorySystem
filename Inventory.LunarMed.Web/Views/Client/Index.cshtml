@@ -63,6 +63,7 @@
 
         // Add new Client click event
         $('body').on('click', 'a#addNewClient', function (e) {
+            e.preventDefault();
 
             var url = "Client/Create?type=" + type; // Full URL
 
@@ -100,6 +101,8 @@
 
         // Edit Client Link Click Event
         $('.module-body').on('click', '.edit-client', function (e) {
+            e.preventDefault();
+
             var clientId = $(this).parent().parent().children('td:first').text();
 
             var url = "Client/Edit/" + clientId; // Full URL
@@ -137,6 +140,8 @@
 
         // This event acts like the Confirmation message for the Delete Operation
         $('body').on('click', '.delete-client-conf', function (e) {
+            e.preventDefault();
+
             // Cleanup
             cleanModal();
 
@@ -153,6 +158,8 @@
 
         // This is the delete client click event and calls the ajax service to delete the client
         $('body').on('click', '.delete-client', function (e) {
+            e.preventDefault();
+
             var url = "Client/Delete"; // Full URL
             var data = JSON.stringify({ id: $('#hfClientId').val() });
 
