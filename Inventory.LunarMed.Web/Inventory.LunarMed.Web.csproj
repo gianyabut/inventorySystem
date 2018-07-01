@@ -349,6 +349,7 @@
     <Content Include="Content\font-awesome\font\fontawesome-webfontd41d.eot" />
     <Content Include="Content\bootstrap-dialog.less" />
     <Content Include="Scripts\common.js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
