@@ -19,15 +19,19 @@
                             <i class="menu-icon icon-money"></i>PO - Client
                         </a>
                     </li>
-                    
                     <li id="po-supplier">
                         <a href="@Url.Action("Index", "Order", new { type = "supplier" })">
                             <i class="menu-icon icon-money"></i>PO - Supplier
                         </a>
                     </li>
-                    <li class="@Html.IsSelected(actions: "List", controllers: "Order")">
-                        <a href="@Url.Action("List", "Order")">
-                            <i class="menu-icon icon-reorder"></i>Orders
+                    <li id="order-client">
+                        <a href="@Url.Action("List", "Order", new { type = "client" })">
+                            <i class="menu-icon icon-reorder"></i>Client Transactions
+                        </a>
+                    </li>
+                    <li id="order-supplier">
+                        <a href="@Url.Action("List", "Order", new { type = "supplier" })">
+                            <i class="menu-icon icon-reorder"></i>Supplier Transactions
                         </a>
                     </li>
                     <li class="@Html.IsSelected(actions: "Index", controllers: "Collection")">

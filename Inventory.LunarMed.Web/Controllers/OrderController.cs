@@ -48,9 +48,11 @@ namespace Inventory.LunarMed.Web.Controllers
         }
 
         // GET: Order/List
-        public ActionResult List()
+        public ActionResult List(string type)
         {
-            var orders = _orderRepository.GetAll();
+            string orderType = (type == "client" ? "C" : "S");
+
+            var orders = _orderRepository.List(i => i.Type == orderType);
 
             var model = new ListOrdersViewModel
             {

@@ -14,7 +14,7 @@
                     Orders
                 </h3>
                 <div class="pull-right">
-                    <a class="btn btn-small btn-info" href="@Url.Action("Index", "Order")">Place Order</a>
+                    <a class="btn btn-small btn-info" href="@Url.Action("Index", "Order", new { type = Request.Params["type"]})">Place Order</a>
                 </div>
             </div>
             <div class="module-body table">
@@ -51,6 +51,12 @@
     
     <script type="text/javascript">
 
+        var type = "@Request.Params["type"]";
+        if (type == "supplier") {
+            $('#order-supplier').addClass('active');
+        } else {
+            $('#order-client').addClass('active');
+        }
 
         initDataTable();
 

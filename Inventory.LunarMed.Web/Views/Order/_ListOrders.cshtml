@@ -17,9 +17,6 @@
                 Total
             </th>
             <th>
-                Type
-            </th>
-            <th>
                 Due Date
             </th>
             <th>
@@ -35,7 +32,6 @@
             <td>@Html.DisplayFor(modelItem => item.ClientName)</td>
             <td>@Html.DisplayFor(modelItem => item.SalesInvoice)</td>
             <td>@Html.DisplayFor(modelItem => item.Total)</td>
-            <td>@(item.Type == "C" ? "Client" : "Supplier")</td>
             <td>@Html.DisplayFor(modelItem => item.DueDate)</td>
             <td><a href="#" class="dt-link more-details" style="text-decoration: none;"><i class="icon-folder-open dt-icon"></i> More Details</a> </td>
            @* | <a href="#" class="dt-link delete-product-conf" style="text-decoration: none;"><i class="icon-remove dt-icon"></i> Delete</a>*@
@@ -55,9 +51,6 @@
             </th>
             <th>
                 Total
-            </th>
-            <th>
-                Type
             </th>
             <th>
                 Due Date
